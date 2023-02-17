@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('order_bahan_bakus', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_order')->unique();
+            $table->string('kode_order');
             $table->string('sku_bahan_baku');
             $table->string('jumlah');
             $table->string('status');
             $table->string('kode_vendor');
-            $table->text('catatan');
+            $table->text('catatan')->nullable();
             $table->timestamps();
         });
     }

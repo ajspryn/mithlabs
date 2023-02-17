@@ -7,7 +7,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <!-- Statistics -->
         <div class="row">
-            <div class="col-lg-3 col-sm-6 mb-4">
+            <div class="col-lg-3 col-sm-3 mb-4">
                 <div class="card">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div class="card-title mb-0">
@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6 mb-4">
+            <div class="col-lg-3 col-sm-3 mb-4">
                 <div class="card">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div class="card-title mb-0">
@@ -37,7 +37,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6 mb-4">
+            <div class="col-lg-3 col-sm-3 mb-4">
                 <div class="card">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div class="card-title mb-0">
@@ -52,7 +52,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6 mb-4">
+            <div class="col-lg-3 col-sm-3 mb-4">
                 <div class="card">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div class="card-title mb-0">
@@ -131,122 +131,156 @@
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body flex-grow-1">
-                @if (Auth::user()->role_id == 5)
-                    <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record" method="post" action="/warehouse/product"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <div class="col-sm-12">
-                            <label class="form-label" for="formInput">Nama Produk</label>
-                            <input type="text" id="formInput" class="form-control @error('nama') is-invalid @enderror" name="nama"
-                                placeholder="Masukan Nama Produk" required autofocus />
-                            <div class="valid-feedback">Ok!</div>
-                            <div class="invalid-feedback">Harus Diisi.</div>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="form-label" for="namasingkatproduk">Nama Singkat Produk</label>
-                            <input type="text" id="namasingkatproduk" class="form-control @error('nama_singkat') is-invalid @enderror"
-                                name="nama_singkat" placeholder="Masukan Inisial Produk" required />
-                            <div class="valid-feedback">Ok!</div>
-                            <div class="invalid-feedback">Harus Diisi.</div>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="form-label" for="brand">Brand</label>
-                            <select class="form-select @error('brand') is-invalid @enderror" name="brand" id="brand" required>
-                                <option value="">Pilih Brand</option>
-                                @foreach ($brands as $brand)
-                                    <option value="{{ $brand->kode }}">{{ $brand->nama }}</option>
-                                @endforeach
-                            </select>
-                            <div class="valid-feedback">Ok!</div>
-                            <div class="invalid-feedback">Harus Diisi.</div>
-                        </div>
-                        <div class="col-sm-12">
-                            <label class="form-label" for="warna">Warna</label>
-                            <select class="form-select @error('warna') is-invalid @enderror" name="warna" id="warna" required>
-                                <option value="">Pilih Warna</option>
-                                @foreach ($warnas as $warna)
-                                    <option value="{{ $warna->nama }}">{{ $warna->nama }}</option>
-                                @endforeach
-                            </select>
-                            <div class="valid-feedback">Ok!</div>
-                            <div class="invalid-feedback">Harus Diisi.</div>
-                        </div>
-                        <div class="col-sm-12">
-                            <label class="form-label" for="kategori">Kategori</label>
-                            <select class="form-select @error('kategori') is-invalid @enderror" name="kategori" id="kategori" required>
-                                <option value="">Pilih Kategori</option>
-                                @foreach ($kategoris as $kategori)
-                                    <option value="{{ $kategori->nama }}">{{ $kategori->nama }}</option>
-                                @endforeach
-                            </select>
-                            <div class="valid-feedback">Ok!</div>
-                            <div class="invalid-feedback">Harus Diisi.</div>
-                        </div>
-                        <div class="col-sm-12">
-                            <label class="form-label" for="sku_config">SKU Config</label>
-                            <input type="text" id="sku_config" class="form-control @error('sku_config') is-invalid @enderror" name="sku_config"
-                                placeholder="Masukan SKU Config" required />
-                            <div class="valid-feedback">Ok!</div>
-                            <div class="invalid-feedback">Harus Diisi.</div>
-                        </div>
-                        <div class="col-sm-12">
-                            <label class="form-label" for="active_at">Active At</label>
-                            <input type="text" id="active_at" class="form-control @error('active_at') is-invalid @enderror flatpickr-validation"
-                                name="active_at" placeholder="Active At" required />
-                            <div class="valid-feedback">Ok!</div>
-                            <div class="invalid-feedback">Harus Diisi.</div>
-                        </div>
-                        <div class="col-sm-12">
-                            <label class="form-label" for="cogm">COGM</label>
-                            <input type="number" id="cogm" class="form-control @error('cogm') is-invalid @enderror" name="cogm"
-                                placeholder="Masukan COGM" required />
-                            <div class="valid-feedback">Ok!</div>
-                            <div class="invalid-feedback">Harus Diisi.</div>
-                        </div>
-                        <div class="col-sm-12">
-                            <label class="form-label" for="cogs">COGS</label>
-                            <input type="number" id="cogs" class="form-control @error('cogs') is-invalid @enderror" name="cogs"
-                                placeholder="Masukan COGS" required />
-                            <div class="valid-feedback">Ok!</div>
-                            <div class="invalid-feedback">Harus Diisi.</div>
-                        </div>
-                        <div class="col-sm-12">
-                            <label class="form-label" for="harga_zalora">Harga Zalora</label>
-                            <input type="number" id="harga_zalora" class="form-control @error('harga_zalora') is-invalid @enderror"
-                                name="harga_marketplace" placeholder="Masukan Harga Zalora" required />
-                            <div class="valid-feedback">Ok!</div>
-                            <div class="invalid-feedback">Harus Diisi.</div>
-                        </div>
-                        <div class="col-sm-12">
-                            <label class="form-label" for="harga_jual">Harga Jual</label>
-                            <input type="number" id="harga_jual" class="form-control @error('harga_jual') is-invalid @enderror" name="harga_jual"
-                                placeholder="Masukan Harga Jual" required />
-                            <div class="valid-feedback">Ok!</div>
-                            <div class="invalid-feedback">Harus Diisi.</div>
-                        </div>
-                        <div class="col-sm-12">
-                            <label class="form-label" for="desain_product">Desain Produk</label>
-                            <input type="file" class="form-control @error('desain_product') is-invalid @enderror" id="desain_product"
-                                name="desain_product" />
-                        </div>
-                        <div class="col-sm-12">
-                            <label class="form-label" for="upload-file">Foto Produk</label>
-                            <input type="file" class="form-control @error('foto_product') is-invalid @enderror" id="upload-file"
-                                name="foto_product" required />
-                        </div>
-                        <div class="col-sm-12">
-                            <button type="submit" class="btn btn-primary data-submit me-sm-3 me-1">Submit</button>
-                            <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">Cancel</button>
-                        </div>
-                    </form>
-                @else
-                    <div class="alert alert-danger d-flex align-items-center" role="alert">
-                        <span class="alert-icon text-danger me-2">
-                            <i class="ti ti-ban ti-xs"></i>
-                        </span>
-                        Anda Tidak Bisa Menambahkan Data, Karena Role Anda Bukan Warehouse
+                <ul class="nav nav-tabs nav-fill" role="tablist">
+                    <li class="nav-item">
+                        <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#forminput"
+                            aria-controls="forminput" aria-selected="true">
+                            <i class="tf-icons ti ti-clipboard-text ti-xs me-1"></i> Form
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#formexel" aria-controls="formexel"
+                            aria-selected="false">
+                            <i class="tf-icons ti ti-file-import ti-xs me-1"></i> Import Exel
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="forminput" role="tabpanel">
+                        @if (Auth::user()->role_id == 5)
+                            <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record" method="post" action="/warehouse/product"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="col-sm-12">
+                                    <label class="form-label" for="formInput">Nama Produk</label>
+                                    <input type="text" id="formInput" class="form-control @error('nama') is-invalid @enderror" name="nama"
+                                        placeholder="Masukan Nama Produk" required autofocus />
+                                    <div class="valid-feedback">Ok!</div>
+                                    <div class="invalid-feedback">Harus Diisi.</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="namasingkatproduk">Nama Singkat Produk</label>
+                                    <input type="text" id="namasingkatproduk" class="form-control @error('nama_singkat') is-invalid @enderror"
+                                        name="nama_singkat" placeholder="Masukan Inisial Produk" required />
+                                    <div class="valid-feedback">Ok!</div>
+                                    <div class="invalid-feedback">Harus Diisi.</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="brand">Brand</label>
+                                    <select class="form-select @error('brand') is-invalid @enderror" name="brand" id="brand" required>
+                                        <option value="">Pilih Brand</option>
+                                        @foreach ($brands as $brand)
+                                            <option value="{{ $brand->kode }}">{{ $brand->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="valid-feedback">Ok!</div>
+                                    <div class="invalid-feedback">Harus Diisi.</div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <label class="form-label" for="warna">Warna</label>
+                                    <select class="form-select @error('warna') is-invalid @enderror" name="warna" id="warna" required>
+                                        <option value="">Pilih Warna</option>
+                                        @foreach ($warnas as $warna)
+                                            <option value="{{ $warna->nama }}">{{ $warna->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="valid-feedback">Ok!</div>
+                                    <div class="invalid-feedback">Harus Diisi.</div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <label class="form-label" for="kategori">Kategori</label>
+                                    <select class="form-select @error('kategori') is-invalid @enderror" name="kategori" id="kategori" required>
+                                        <option value="">Pilih Kategori</option>
+                                        @foreach ($kategoris as $kategori)
+                                            <option value="{{ $kategori->nama }}">{{ $kategori->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="valid-feedback">Ok!</div>
+                                    <div class="invalid-feedback">Harus Diisi.</div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <label class="form-label" for="sku_config">SKU Config</label>
+                                    <input type="text" id="sku_config" class="form-control @error('sku_config') is-invalid @enderror"
+                                        name="sku_config" placeholder="Masukan SKU Config" required />
+                                    <div class="valid-feedback">Ok!</div>
+                                    <div class="invalid-feedback">Harus Diisi.</div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <label class="form-label" for="active_at">Active At</label>
+                                    <input type="text" id="active_at"
+                                        class="form-control @error('active_at') is-invalid @enderror flatpickr-validation" name="active_at"
+                                        placeholder="Active At" required />
+                                    <div class="valid-feedback">Ok!</div>
+                                    <div class="invalid-feedback">Harus Diisi.</div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <label class="form-label" for="cogm">COGM</label>
+                                    <input type="number" id="cogm" class="form-control @error('cogm') is-invalid @enderror" name="cogm"
+                                        placeholder="Masukan COGM" required />
+                                    <div class="valid-feedback">Ok!</div>
+                                    <div class="invalid-feedback">Harus Diisi.</div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <label class="form-label" for="cogs">COGS</label>
+                                    <input type="number" id="cogs" class="form-control @error('cogs') is-invalid @enderror" name="cogs"
+                                        placeholder="Masukan COGS" required />
+                                    <div class="valid-feedback">Ok!</div>
+                                    <div class="invalid-feedback">Harus Diisi.</div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <label class="form-label" for="harga_zalora">Harga Zalora</label>
+                                    <input type="number" id="harga_zalora" class="form-control @error('harga_zalora') is-invalid @enderror"
+                                        name="harga_marketplace" placeholder="Masukan Harga Zalora" required />
+                                    <div class="valid-feedback">Ok!</div>
+                                    <div class="invalid-feedback">Harus Diisi.</div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <label class="form-label" for="harga_jual">Harga Jual</label>
+                                    <input type="number" id="harga_jual" class="form-control @error('harga_jual') is-invalid @enderror"
+                                        name="harga_jual" placeholder="Masukan Harga Jual" required />
+                                    <div class="valid-feedback">Ok!</div>
+                                    <div class="invalid-feedback">Harus Diisi.</div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <label class="form-label" for="desain_product">Desain Produk</label>
+                                    <input type="file" class="form-control @error('desain_product') is-invalid @enderror" id="desain_product"
+                                        name="desain_product" accept="image/*" />
+                                </div>
+                                <div class="col-sm-12">
+                                    <label class="form-label" for="upload-file">Foto Produk</label>
+                                    <input type="file" class="form-control @error('foto_product') is-invalid @enderror" id="upload-file"
+                                        name="foto_product" accept="image/*" required />
+                                </div>
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-primary data-submit me-sm-3 me-1">Submit</button>
+                                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                                </div>
+                            </form>
+                        @else
+                            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                <span class="alert-icon text-danger me-2">
+                                    <i class="ti ti-ban ti-xs"></i>
+                                </span>
+                                Anda Tidak Bisa Menambahkan Data, Karena Role Anda Bukan Warehouse
+                            </div>
+                        @endif
                     </div>
-                @endif
+                    <div class="tab-pane fade" id="formexel" role="tabpanel">
+                        <form class="needs-validation pt-0 row g-2" novalidate id="form-upload-new-record" method="post" action="/warehouse/product"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="col-sm-12">
+                                <label class="form-label" for="upload_file">Upload File Exel</label>
+                                <input type="file" class="form-control @error('upload_file') is-invalid @enderror" id="upload_file"
+                                    name="upload_file" accept=".xlsx,.csv" required />
+                            </div>
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary data-submit me-sm-3 me-1">Submit</button>
+                                <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         <!--/ DataTable with Buttons -->

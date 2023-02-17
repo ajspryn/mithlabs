@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Settings\Warna;
 use App\Models\Settings\Satuan;
 use App\Models\Settings\Vendor;
+use App\Imports\BahanBakuImport;
 use App\Models\Warehouse\BahanBaku;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BahanBakuController extends Controller
 {
@@ -46,21 +48,26 @@ class BahanBakuController extends Controller
     public function store(Request $request)
     {
         // return $request;
-        $request->validate([
-            'sku' => 'required',
-            'nama' => 'required',
-            'warna' => 'required',
-            'satuan' => 'required',
-            'harga' => 'required',
-            'kode_vendor' => 'required',
-        ]);
+        if ($request->file('upload_file')) {
+            Excel::import(new BahanBakuImport, request()->file('upload_file'));
+            return redirect()->back()->with('success', 'Data Berhasil Di Simpan');
+        } else {
+            $request->validate([
+                'sku' => 'required',
+                'nama' => 'required',
+                'warna' => 'required',
+                'satuan' => 'required',
+                'harga' => 'required',
+                'kode_vendor' => 'required',
+            ]);
 
-        $input = $request->all();
-        $input['uuid'] = Uuid::uuid4();
+            $input = $request->all();
+            $input['uuid'] = Uuid::uuid4();
 
 
-        BahanBaku::create($input);
-        return redirect()->back()->with('success', 'Data Berhasil Di Simpan');
+            BahanBaku::create($input);
+            return redirect()->back()->with('success', 'Data Berhasil Di Simpan');
+        }
     }
 
     /**

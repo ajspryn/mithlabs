@@ -89,48 +89,6 @@
                         </table>
                     </div>
                 </div>
-                {{-- <div class="card">
-                    <h5 class="card-header">Table Transaksi Bahan Baku</h5>
-                    <div class="card-datatable table-responsive">
-                        <table class="datatables-projects table border-top">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th style="text-align: center">No</th>
-                                    <th style="text-align: center">SKU</th>
-                                    <th style="text-align: center">Bahan Baku</th>
-                                    <th style="text-align: center">Kode Transaksi</th>
-                                    <th style="text-align: center">Jenis Transaksi</th>
-                                    <th style="text-align: center">Tanggal</th>
-                                    <th style="text-align: center">Jumlah</th>
-                                    <th style="text-align: center">Catatan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($transaksis as $transaksi)
-                                    <tr>
-                                        <td></td>
-                                        <td style="text-align: center">{{ $loop->iteration }}</td>
-                                        <td style="text-align: center">{{ $transaksi->bahanbaku->sku }}</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <div class="flex-grow-1">
-                                                    <span class="fw-semibold d-block">{{ $transaksi->bahanbaku->nama }}</span>
-                                                    <small class="text-muted">{{ $transaksi->bahanbaku->warna }}</small>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td style="text-align: center">{{ $transaksi->kode_transaksi }}</td>
-                                        <td style="text-align: center">{{ $transaksi->jenis_transaksi }}</td>
-                                        <td style="text-align: center">{{ $transaksi->created_at->format('d-m-Y') }}</td>
-                                        <td style="text-align: center">{{ $transaksi->jumlah }}</td>
-                                        <td style="text-align: center">{{ $transaksi->catatan }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div> --}}
             </div>
             <!--/ table stok bahan baku -->
         </div>

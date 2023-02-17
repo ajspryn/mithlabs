@@ -9,6 +9,10 @@ class TransaksiBahanBaku extends Model
 {
     use HasFactory;
 
+    protected $guarded = [
+        'id'
+    ];
+
     public function bahanbaku()
     {
         return $this->belongsTo(BahanBaku::class, 'sku_bahan_baku', 'sku');

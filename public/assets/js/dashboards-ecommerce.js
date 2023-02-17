@@ -927,7 +927,7 @@
             language: {
                 sLengthMenu: "_MENU_",
                 search: "",
-                searchPlaceholder: "Search Invoice",
+                searchPlaceholder: "Search",
             },
             // Buttons
             buttons: [

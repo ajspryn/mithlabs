@@ -271,7 +271,7 @@
 
                 <!-- Layouts -->
                 <li
-                    class="menu-item {{ Request::is('warehouse/inventory*', 'warehouse/asembly*', 'warehouse/product*', 'warehouse/product-stock*', 'warehouse/setting*', 'warehouse/transaksi-bahan-baku*') ? 'active' : '' }}">
+                    class="menu-item {{ Request::is('warehouse/inventory*', 'warehouse/asembly*', 'warehouse/product*', 'warehouse/product-stock*', 'warehouse/setting*', 'warehouse/transaksi-bahan-baku*', 'warehouse/order-bahan-baku', 'warehouse/bahan-baku*') ? 'active' : '' }}">
                     <a href="javascript:void(0)" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons ti ti-building-warehouse"></i>
                         <div data-i18n="Warehouse">Warehouse</div>
@@ -296,7 +296,7 @@
                             </ul>
                         </li>
                         <li
-                            class="menu-item {{ Request::is('warehouse/bahan-baku*', 'warehouse/stok-bahan-baku*', 'warehouse/transaksi-bahan-baku*') ? 'active' : '' }}">
+                            class="menu-item {{ Request::is('warehouse/bahan-baku*', 'warehouse/stok-bahan-baku*', 'warehouse/transaksi-bahan-baku*', 'warehouse/order-bahan-baku*') ? 'active' : '' }}">
                             <a href="javascript:void(0);" class="menu-link menu-toggle">
                                 <i class="menu-icon tf-icons ti ti-building-warehouse"></i>
                                 <div data-i18n="Bahan Baku">Bahan Baku</div>

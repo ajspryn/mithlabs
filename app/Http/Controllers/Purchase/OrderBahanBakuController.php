@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Purchase;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Warehouse\BahanBaku;
+use App\Http\Controllers\Controller;
+use App\Models\Purchase\OrderBahanBaku;
 
 class OrderBahanBakuController extends Controller
 {
@@ -14,7 +16,10 @@ class OrderBahanBakuController extends Controller
      */
     public function index()
     {
-        //
+        return view('bahan-baku.order', [
+            'orders' => OrderBahanBaku::select('kode_order')->groupBy('kode_order')->get(),
+            // 'bahan_bakus' => BahanBaku::select()->get(),
+        ]);
     }
 
     /**

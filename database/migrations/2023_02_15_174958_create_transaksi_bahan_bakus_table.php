@@ -15,11 +15,10 @@ return new class extends Migration
     {
         Schema::create('transaksi_bahan_bakus', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_order');
             $table->string('sku_bahan_baku');
             $table->string('jenis_transaksi');
             $table->string('jumlah');
-            $table->text('catatan');
+            $table->text('catatan')->nullable();
             $table->timestamps();
         });
     }
