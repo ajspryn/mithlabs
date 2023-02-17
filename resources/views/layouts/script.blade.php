@@ -48,3 +48,4 @@
     <script src="{{ url('/') }}/assets/js/form-wizard-icons.js"></script>
     <script src="{{ url('/') }}/assets/js/forms-extras.js"></script>
     <script src="{{ url('/') }}/assets/js/pages-profile.js"></script>
+    <script src="{{ url('/') }}/assets/js/dashboards-ecommerce.js"></script>

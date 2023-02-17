@@ -308,17 +308,17 @@
                                     </a>
                                 </li>
                                 <li class="menu-item {{ Request::is('warehouse/stok-bahan-baku') ? 'active' : '' }}">
-                                    <a href="warehouse/stok-bahan-baku" class="menu-link">
+                                    <a href="/warehouse/stok-bahan-baku" class="menu-link">
                                         <div data-i18n="Stok Bahan Baku">Stok Bahan Baku</div>
                                     </a>
                                 </li>
                                 <li class="menu-item {{ Request::is('warehouse/transaksi-bahan-baku') ? 'active' : '' }}">
-                                    <a href="warehouse/transaksi-bahan-baku" class="menu-link">
+                                    <a href="/warehouse/transaksi-bahan-baku" class="menu-link">
                                         <div data-i18n="Transaksi Bahan Baku">Transaksi Bahan Baku</div>
                                     </a>
                                 </li>
                                 <li class="menu-item {{ Request::is('warehouse/order-bahan-baku') ? 'active' : '' }}">
-                                    <a href="warehouse/order-bahan-baku" class="menu-link">
+                                    <a href="/warehouse/order-bahan-baku" class="menu-link">
                                         <div data-i18n="Order Bahan Baku">Order Bahan Baku</div>
                                     </a>
                                 </li>
