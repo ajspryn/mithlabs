@@ -111,7 +111,7 @@
 
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -194,9 +194,9 @@
                         @csrf
                         <div class="mb-3">
                             <label for="username" class="form-label">Username / Email</label>
-                            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username"
+                            <input id="username" type="text" class="form-control @error('email') is-invalid @enderror" name="username"
                                 value="{{ old('username') }}" required autocomplete="username" autofocus>
-                            @error('username')
+                            @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -227,11 +227,11 @@
                         </div>
                         <div class="mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                    {{ old('remember') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="remember">
+                                <input class="form-check-input" type="checkbox" hidden name="remember" id="remember"
+                                    {{ old('remember') ? 'checked' : '' }} checked>
+                                {{-- <label class="form-check-label" for="remember">
                                     {{ __('Remember Me') }}
-                                </label>
+                                </label> --}}
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary d-grid w-100">

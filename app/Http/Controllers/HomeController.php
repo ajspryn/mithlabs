@@ -36,18 +36,21 @@ class HomeController extends Controller
 
         if (isset($role)) {
             if ($role == 0) {
-                $url = '/admin';
-            } elseif ($role == 1) {
-                $url = '/owner';
-            } elseif ($role == 2) {
-                $url = '/production';
-            } elseif ($role == 3) {
-                $url = '/purchasing';
-            } elseif ($role == 4) {
-                $url = '/warehouse';
-            } else {
-                $url = '/';
+                $nama_role = 'Admin';
+            } else if ($role == 1) {
+                $nama_role = 'Owner';
+            } else if ($role == 2) {
+                $nama_role = 'Purchase';
+            } else if ($role == 3) {
+                $nama_role = 'Production';
+            } else if ($role == 4) {
+                $nama_role = 'QC';
+            } else if ($role == 5) {
+                $nama_role = 'Warehouse';
             }
+            return view('index', [
+                'role' => $nama_role,
+            ]);
         } else {
             return view('kamusiapa');
         }

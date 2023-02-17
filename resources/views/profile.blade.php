@@ -11,7 +11,8 @@
             <div class="col-md-6">
                 <!-- Account -->
                 <div class="card mb-4">
-                    <form id="formAccountSettings1" method="POST" action="/profile" enctype="multipart/form-data">
+                    <form id="formAccountSettings1" method="POST" action="/profile/{{ Auth::user()->id }}" enctype="multipart/form-data">
+                        @method('put')
                         @csrf
                         <h5 class="card-header">Profile Details</h5>
                         <div class="card-body">
@@ -24,6 +25,7 @@
                                         <i class="ti ti-upload d-block d-sm-none"></i>
                                         <input type="file" id="upload" class="account-file-input" name="avatar" hidden
                                             accept="image/png, image/jpeg" />
+                                        <input type="hidden" name="avatarlama" value="{{ Auth::user()->avatar }}" hidden />
                                     </label>
                                     <button type="button" class="btn btn-label-secondary account-image-reset mb-3">
                                         <i class="ti ti-refresh-dot d-block d-sm-none"></i>
@@ -51,6 +53,7 @@
                                     <input class="form-control" type="email" id="email" name="email" value="{{ Auth::user()->email }}"
                                         placeholder="john.doe@example.com" required />
                                 </div>
+                                <input type="hidden" name="code" value="1">
                             </div>
                             <div class="mt-2">
                                 <button type="submit" class="btn btn-primary me-2">Save changes</button>
@@ -66,7 +69,9 @@
                 <div class="card mb-4">
                     <h5 class="card-header">Change Password</h5>
                     <div class="card-body">
-                        <form id="formAccountSettings" method="POST" onsubmit="return false">
+                        <form id="formAccountSettings" method="POST" action="/profile/{{ Auth::user()->id }}">
+                            @method('put')
+                            @csrf
                             <div class="row">
                                 <div class="mb-3 col-md-6 form-password-toggle">
                                     <label class="form-label" for="currentPassword">Current Password</label>
@@ -90,7 +95,7 @@
                                 <div class="mb-3 col-md-6 form-password-toggle">
                                     <label class="form-label" for="confirmPassword">Confirm New Password</label>
                                     <div class="input-group input-group-merge">
-                                        <input class="form-control" type="password" name="confirmPassword" id="confirmPassword"
+                                        <input class="form-control" type="password" name="Password" id="confirmPassword"
                                             placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
                                         <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
                                     </div>
@@ -99,10 +104,9 @@
                                     <h6>Password Requirements:</h6>
                                     <ul class="ps-3 mb-0">
                                         <li class="mb-1">Minimum 8 characters long - the more, the better</li>
-                                        <li class="mb-1">At least one lowercase character</li>
-                                        <li>At least one number, symbol, or whitespace character</li>
                                     </ul>
                                 </div>
+                                <input type="hidden" name="code" value="2">
                                 <div>
                                     <button type="submit" class="btn btn-primary me-2">Save changes</button>
                                     <button type="reset" class="btn btn-label-secondary">Cancel</button>

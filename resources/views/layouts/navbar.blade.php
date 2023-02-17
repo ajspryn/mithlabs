@@ -4,7 +4,7 @@
          <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
              <a href="/" class="app-brand-link gap-2">
                  <span>
-                     <img src="favicon.png" width="50" alt="">
+                     <img src="{{ url('/') }}/favicon.png" width="50" alt="">
                  </span>
                  <span class="app-brand-text demo menu-text fw-bold">Mithlabs</span>
              </a>

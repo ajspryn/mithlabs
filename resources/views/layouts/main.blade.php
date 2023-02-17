@@ -6,18 +6,22 @@
 @include('layouts.header')
 
 <body>
+
     <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu">
+    <div class="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu block-overlay">
         <div class="layout-container">
 
             @include('layouts.navbar')
 
             <!-- Layout container -->
             <div class="layout-page">
+
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
 
-                    @yield('menu')
+                    @include('sweetalert::alert')
+
+                    @include('layouts.menu')
 
                     @yield('content')
 
