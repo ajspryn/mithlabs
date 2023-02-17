@@ -24,6 +24,7 @@ class TransaksiBahanBakuController extends Controller
         return view('bahan-baku.transaksi', [
             'transaksis' => $transaksi,
             'bahan_bakus' => BahanBaku::all(),
+
         ]);
     }
 

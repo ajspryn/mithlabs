@@ -18,6 +18,7 @@ class StokBahanBakuController extends Controller
     {
         return view('bahan-baku.stok', [
             'stoks' => StokBahanBaku::all(),
+
         ]);
     }
 
