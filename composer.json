@@ -16,6 +16,7 @@
         "laravel/ui": "^4.2",
         "laravolt/avatar": "^4.1",
         "maatwebsite/excel": "^3.1",
+        "milon/barcode": "^10.0",
         "realrashid/sweet-alert": "^5.1",
         "silviolleite/laravelpwa": "^2.0"
     },
