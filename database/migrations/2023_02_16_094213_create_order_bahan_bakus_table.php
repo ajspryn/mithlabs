@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('order_bahan_bakus', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_order');
+            $table->string('kode')->unique();
             $table->string('sku_bahan_baku');
             $table->string('jumlah');
             $table->string('status');

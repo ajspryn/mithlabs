@@ -19,12 +19,12 @@ class BahanBakuImport implements ToModel, WithHeadingRow
     {
         return new BahanBaku([
             'uuid' => Uuid::uuid4(),
-            'sku' => $row['sku'],
+            'sku' => str_replace(" ", "", $row['sku']),
             'nama' => $row['nama'],
             'warna' => $row['warna'],
             'satuan' => $row['satuan'],
             'harga' => $row['harga'],
-            'kode_vendor' => $row['kode_vendor'],
+            'kode_vendor' => str_replace(" ", "", $row['kode_vendor']),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

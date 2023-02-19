@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('product_stocks', function (Blueprint $table) {
             $table->id();
-            $table->string('sku');
-            $table->string('gudang_id');
+            $table->string('sku_product');
+            $table->string('kode_gudang');
             $table->string('stok');
             $table->timestamps();
         });

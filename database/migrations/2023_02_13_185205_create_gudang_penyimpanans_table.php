@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('gudang_penyimpanans', function (Blueprint $table) {
             $table->id();
+            $table->string('kode');
             $table->string('nama');
             $table->string('alamat');
             $table->timestamps();

@@ -5,15 +5,13 @@
 @section('content')
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
-
-
+        {{-- <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">UI Elements /</span> Cards Basic</h4> --}}
         <div class="row">
             <!-- table order bahan baku -->
             <div class="col-lg-12 mb-4 order-1 order-lg-2 mb-4 mb-lg-0">
                 <div class="card h-100">
-                    <h5 class="card-header">Table Order Bahan Baku</h5>
                     <div class="table-responsive card-datatable">
-                        <table class="table datatable-invoice border-top">
+                        <table class="datatables-basic table">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -31,7 +29,7 @@
                                     @php
                                         $query = App\Models\Purchase\OrderBahanBaku::with('bahanbaku')
                                             ->select()
-                                            ->where('kode_order', $order->kode_order)
+                                            ->where('kode', $order->kode)
                                             ->get();
                                         $bahan_bakus = App\Models\Warehouse\BahanBaku::all();
                                         $jumlah = $query->sum('jumlah');
@@ -46,7 +44,7 @@
                                     <tr>
                                         <td></td>
                                         <td style="text-align: center">{{ $loop->iteration }}</td>
-                                        <td style="text-align: center">{{ $order->kode_order }}</td>
+                                        <td style="text-align: center">{{ $order->kode }}</td>
                                         <td style="text-align: center">{{ $query->first()->created_at->format('d-m-Y') }}</td>
                                         <td style="text-align: center">{{ $query->count() }}</td>
                                         <td style="text-align: center">{{ $jumlah }}</td>
@@ -69,32 +67,55 @@
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body flex-grow-1">
-                <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record" action="/warehouse/bahan-baku" method="post">
+                <form id="form" class="form-repeater" action="/warehouse/order-bahan-baku" method="POST">
                     @csrf
-                    <div class="col-sm-12">
-                        <label class="form-label" for="sku">SKU</label>
-                        <input type="text" id="sku" class="form-control @error('sku') is-invalid @enderror" name="sku"
-                            placeholder="Masukan SKU Bahan Baku" required autofocus />
-                        <div class="valid-feedback">Ok!</div>
-                        <div class="invalid-feedback">Harus Diisi.</div>
+                    <div data-repeater-list="order_bahan_baku">
+                        <div data-repeater-item>
+                            <div class="row">
+                                <div class="mb-3 col-lg-12 col-xl-6 col-12 mb-0">
+                                    <label class="form-label" for="form-repeater-1-1">Bahan Baku</label>
+                                    <select id="form-repeater-1-1" class="form-select @error('sku_bahan_baku') is-invalid @enderror"
+                                        name="sku_bahan_baku">
+                                        <option value="">Pilih Bahan Baku</option>
+                                        @foreach ($bahan_bakus as $bahan_baku)
+                                            <option value="{{ $bahan_baku->sku }}">{{ $bahan_baku->nama }} -
+                                                ({{ $bahan_baku->warna }})
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-lg-12 col-xl-6 col-12 mb-0">
+                                    <label class="form-label" for="form-repeater-1-2">Vendor</label>
+                                    <select id="form-repeater-1-2" class="form-select @error('kode_vendor') is-invalid @enderror" name="kode_vendor">
+                                        <option value="">Pilih Vendor</option>
+                                        @foreach ($vendors as $vendor)
+                                            <option value="{{ $vendor->kode }}">{{ $vendor->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-lg-12 col-xl-4 col-12 mb-0">
+                                    <label class="form-label" for="form-repeater-1-3">Jumlah</label>
+                                    <input type="number" id="form-repeater-1-3" name="jumlah" class="form-control @error('jumlah') is-invalid @enderror"
+                                        placeholder="Masukan Jumlah" />
+                                </div>
+                                <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                                    <button class="btn btn-label-danger mt-4" data-repeater-delete>
+                                        <i class="ti ti-x ti-xs me-1"></i>
+                                        {{-- <span class="align-middle">Delete</span> --}}
+                                    </button>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
                     </div>
-                    <div class="col-sm-12">
-                        <label class="form-label" for="nama">Nama Bahan Baku</label>
-                        <input type="text" id="nama" class="form-control @error('nama') is-invalid @enderror" name="nama"
-                            placeholder="Masukan Nama Bahan Baku" required />
-                        <div class="valid-feedback">Ok!</div>
-                        <div class="invalid-feedback">Harus Diisi.</div>
-                    </div>
-                    <div class="col-sm-12">
-                        <label class="form-label" for="harga">Harga/Satuan</label>
-                        <input type="number" id="harga" class="form-control @error('harga') is-invalid @enderror" name="harga"
-                            placeholder="Masukan Harga/Satuan" required />
-                        <div class="valid-feedback">Ok!</div>
-                        <div class="invalid-feedback">Harus Diisi.</div>
-                    </div>
-                    <div class="col-sm-12">
-                        <button type="submit" class="btn btn-primary data-submit me-sm-3 me-1">Submit</button>
-                        <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                    <div class="mb-3 col-lg-6 col-xl-12 col-12 mb-0">
+                        <button class="btn btn-outline-primary" data-repeater-create>
+                            <i class="ti ti-plus me-1"></i>
+                            <span class="align-middle">Add</span>
+                        </button>
+                        <button class="btn btn-primary" onclick="event.preventDefault(); document.getElementById('form').submit();">
+                            Submit
+                        </button>
                     </div>
                 </form>
             </div>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Purchase;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\Settings\Vendor;
 use App\Models\Warehouse\BahanBaku;
 use App\Http\Controllers\Controller;
 use App\Models\Purchase\OrderBahanBaku;
@@ -17,8 +19,9 @@ class OrderBahanBakuController extends Controller
     public function index()
     {
         return view('bahan-baku.order', [
-            'orders' => OrderBahanBaku::select('kode_order')->groupBy('kode_order')->get(),
-            // 'bahan_bakus' => BahanBaku::select()->get(),
+            'orders' => OrderBahanBaku::select('kode')->groupBy('kode')->get(),
+            'bahan_bakus' => BahanBaku::select()->get(),
+            'vendors' => Vendor::all(),
         ]);
     }
 
@@ -40,7 +43,24 @@ class OrderBahanBakuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cek_kode = OrderBahanBaku::select()->latest()->first();
+        $kode = 1;
+        if (isset($cek_kode)) {
+            $kode = $cek_kode->id + 1;
+        }
+        $tgl = Carbon::now();
+        $kode_order = $tgl->format('y') . '.' . sprintf('%03d', $kode);
+
+        foreach ($request->order_bahan_baku as $data) {
+
+            $input = $data;
+            $input['kode'] = $kode_order;
+            $input['status'] = 'Diajukan';
+            // return $input;
+
+            OrderBahanBaku::create($input);
+        }
+        return redirect()->back()->with('success', 'Data Berhasil Dihapus');
     }
 
     /**

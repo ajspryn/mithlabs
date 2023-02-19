@@ -19,13 +19,13 @@ class ProductImport implements ToModel, WithHeadingRow
     {
         return new Product([
             'uuid' => Uuid::uuid4(),
-            'sku' => $row['sku'],
+            'sku' => str_replace(" ", "", $row['sku']),
             'nama' => $row['nama'],
             'nama_singkat' => $row['nama_singkat'],
-            'brand' => $row['brand'],
+            'kode_brand' => str_replace(" ", "", $row['kode_brand']),
             'warna' => $row['warna'],
             'kategori' => $row['kategori'],
-            'sku_config' => $row['sku_config'],
+            'sku_config' => str_replace(" ", "", $row['sku_config']),
             'active_at' => $row['active_at'],
             'cogm' => $row['cogm'],
             'cogs' => $row['cogs'],

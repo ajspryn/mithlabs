@@ -14,8 +14,8 @@ class Product extends Model
         'id'
     ];
 
-    public function namabrand()
+    public function brand()
     {
-        return $this->hasMany(Brand::class, 'kode', 'brand');
+        return $this->belongsTo(Brand::class, 'kode_brand', 'kode');
     }
 }

@@ -47,9 +47,9 @@
                                                 <div class="col-md-4">
                                                     <img class="card-img card-img-left" src="{{ asset('storage/' . $product->foto_product) }}"
                                                         alt="Card image" />
-                                                    {!! DNS2D::getBarcodeHTML($product->sku, 'QRCODE') !!}
+                                                    {{-- {!! DNS2D::getBarcodeHTML($product->sku, 'QRCODE') !!} --}}
                                                 </div>
-                                                <div class="col-md-8">
+                                                <div class="col-md-5">
                                                     <div class="card-body">
                                                         <h5 class="card-title">{{ $product->nama }}</h5>
                                                         <p class="card-text">
@@ -76,7 +76,7 @@
                                                                 <tr>
                                                                     <td class="pe-4">Brand</td>
                                                                     <td>:
-                                                                        <strong>{{ $product->namabrand[0]->nama }}</strong>
+                                                                        <strong>{{ $product->brand->nama }}</strong>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -97,6 +97,13 @@
                                                             data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">
                                                             <span class="ti ti ti-plus me-1"></span>Buat Plan
                                                         </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="card-body">
+                                                        <img class="card-img"
+                                                            src="data:image/png;base64,{{ DNS2D::getBarcodePNG($product->sku, 'QRCODE') }}"
+                                                            alt="Card image" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -378,208 +385,204 @@
 
                                     <!-- Project Cards -->
                                     {{-- <div class="row g-4">
-                                <div class="col-xl-6 col-lg-6 col-md-6">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="d-flex align-items-start">
-                                                <div class="d-flex align-items-start">
-                                                    <div class="me-2 ms-1">
-                                                        <h5 class="mb-0">
-                                                            <a href="javascript:;" class="stretched-link text-body">Admin Template</a>
-                                                        </h5>
-                                                        <div class="client-info">
-                                                            <strong>Client: </strong><span class="text-muted">Jeffrey Phillips</span>
+                                        <div class="col-xl-6 col-lg-6 col-md-6">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <div class="d-flex align-items-start">
+                                                        <div class="d-flex align-items-start">
+                                                            <div class="me-2 ms-1">
+                                                                <h5 class="mb-0">
+                                                                    <a href="javascript:;" class="stretched-link text-body">Admin Template</a>
+                                                                </h5>
+                                                                <div class="client-info">
+                                                                    <strong>Client: </strong><span class="text-muted">Jeffrey Phillips</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ms-auto">
+                                                            <div class="dropdown zindex-2">
+                                                                <button type="button" class="btn dropdown-toggle hide-arrow p-0"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <i class="ti ti-dots-vertical text-muted"></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                                    <li><a class="dropdown-item" href="javascript:void(0);">Rename project</a></li>
+                                                                    <li><a class="dropdown-item" href="javascript:void(0);">View details</a></li>
+                                                                    <li><a class="dropdown-item" href="javascript:void(0);">Add to favorites</a></li>
+                                                                    <li>
+                                                                        <hr class="dropdown-divider" />
+                                                                    </li>
+                                                                    <li><a class="dropdown-item text-danger" href="javascript:void(0);">Leave
+                                                                            Project</a></li>
+                                                                </ul>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="ms-auto">
-                                                    <div class="dropdown zindex-2">
-                                                        <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                            <i class="ti ti-dots-vertical text-muted"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu dropdown-menu-end">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);">Rename project</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);">View details</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);">Add to favorites</a></li>
-                                                            <li>
-                                                                <hr class="dropdown-divider" />
-                                                            </li>
-                                                            <li><a class="dropdown-item text-danger" href="javascript:void(0);">Leave Project</a></li>
-                                                        </ul>
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center flex-wrap">
+                                                        <div class="bg-lighter px-3 py-2 rounded me-auto mb-3">
+                                                            <h6 class="mb-0">$2.4k <span class="text-body fw-normal">/ 1.8k</span></h6>
+                                                            <span>Total Budget</span>
+                                                        </div>
+                                                        <div class="text-end mb-3">
+                                                            <h6 class="mb-0">Start Date: <span class="text-body fw-normal">18/8/21</span></h6>
+                                                            <h6 class="mb-1">Deadline: <span class="text-body fw-normal">21/6/22</span></h6>
+                                                        </div>
+                                                    </div>
+                                                    <p class="mb-0">
+                                                        Time is our most valuable asset, that's why we want to help you save it by creating…
+                                                    </p>
+                                                </div>
+                                                <div class="card-body border-top">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <h6 class="mb-1">All Hours: <span class="text-body fw-normal">98/135</span></h6>
+                                                        <span class="badge bg-label-warning ms-auto">15 Days left</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between align-items-center mb-2 pb-1">
+                                                        <small>Task: 12/90</small>
+                                                        <small>42% Completed</small>
+                                                    </div>
+                                                    <div class="progress mb-2" style="height: 8px">
+                                                        <div class="progress-bar" role="progressbar" style="width: 42%" aria-valuenow="42"
+                                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <div class="d-flex align-items-center pt-1">
+                                                        <div class="d-flex align-items-center">
+                                                            <ul class="list-unstyled d-flex align-items-center avatar-group mb-0 zindex-2">
+                                                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
+                                                                    title="Kaith D'souza" class="avatar avatar-sm pull-up">
+                                                                    <img class="rounded-circle" src="../../assets/img/avatars/5.png" alt="Avatar" />
+                                                                </li>
+                                                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
+                                                                    title="John Doe" class="avatar avatar-sm pull-up">
+                                                                    <img class="rounded-circle" src="../../assets/img/avatars/1.png" alt="Avatar" />
+                                                                </li>
+                                                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
+                                                                    title="Alan Walker" class="avatar avatar-sm pull-up me-2">
+                                                                    <img class="rounded-circle" src="../../assets/img/avatars/6.png" alt="Avatar" />
+                                                                </li>
+                                                                <li><small class="text-muted">1.1k Members</small></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="ms-auto">
+                                                            <a href="javascript:void(0);" class="text-body"><i class="ti ti-message-dots ti-sm"></i>
+                                                                236</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-center flex-wrap">
-                                                <div class="bg-lighter px-3 py-2 rounded me-auto mb-3">
-                                                    <h6 class="mb-0">$2.4k <span class="text-body fw-normal">/ 1.8k</span></h6>
-                                                    <span>Total Budget</span>
-                                                </div>
-                                                <div class="text-end mb-3">
-                                                    <h6 class="mb-0">Start Date: <span class="text-body fw-normal">18/8/21</span></h6>
-                                                    <h6 class="mb-1">Deadline: <span class="text-body fw-normal">21/6/22</span></h6>
-                                                </div>
-                                            </div>
-                                            <p class="mb-0">
-                                                Time is our most valuable asset, that's why we want to help you save it by creating…
-                                            </p>
-                                        </div>
-                                        <div class="card-body border-top">
-                                            <div class="d-flex align-items-center mb-3">
-                                                <h6 class="mb-1">All Hours: <span class="text-body fw-normal">98/135</span></h6>
-                                                <span class="badge bg-label-warning ms-auto">15 Days left</span>
-                                            </div>
-                                            <div class="d-flex justify-content-between align-items-center mb-2 pb-1">
-                                                <small>Task: 12/90</small>
-                                                <small>42% Completed</small>
-                                            </div>
-                                            <div class="progress mb-2" style="height: 8px">
-                                                <div class="progress-bar" role="progressbar" style="width: 42%" aria-valuenow="42" aria-valuemin="0"
-                                                    aria-valuemax="100"></div>
-                                            </div>
-                                            <div class="d-flex align-items-center pt-1">
-                                                <div class="d-flex align-items-center">
-                                                    <ul class="list-unstyled d-flex align-items-center avatar-group mb-0 zindex-2">
-                                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                                                            title="Kaith D'souza" class="avatar avatar-sm pull-up">
-                                                            <img class="rounded-circle" src="../../assets/img/avatars/5.png" alt="Avatar" />
-                                                        </li>
-                                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                                                            title="John Doe" class="avatar avatar-sm pull-up">
-                                                            <img class="rounded-circle" src="../../assets/img/avatars/1.png" alt="Avatar" />
-                                                        </li>
-                                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                                                            title="Alan Walker" class="avatar avatar-sm pull-up me-2">
-                                                            <img class="rounded-circle" src="../../assets/img/avatars/6.png" alt="Avatar" />
-                                                        </li>
-                                                        <li><small class="text-muted">1.1k Members</small></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="ms-auto">
-                                                    <a href="javascript:void(0);" class="text-body"><i class="ti ti-message-dots ti-sm"></i> 236</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
+                                    </div> --}}
                                     <!--/ Project Cards -->
                                 </div>
                                 <!-- assembly -->
-                                <div id="assembly" class="content">
-                                    <div class="content-header mb-3">
-                                        <h6 class="mb-0">Assembly</h6>
-                                        <small>Form Assembly.</small>
-                                    </div>
-                                    <div class="row g-3">
-                                        @if ($assemblies->count() > 0)
-                                            <form id="form" class="form-repeater" action="/warehouse/assembly" method="POST">
-                                                @csrf
-                                                <div data-repeater-list="assembly">
-                                                    @foreach ($assemblies as $assembly)
-                                                        <div data-repeater-item>
-                                                            <div class="row">
-                                                                <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
-                                                                    <label class="form-label" for="form-repeater-{{ $loop->iteration }}-1">Bahan
-                                                                        Baku</label>
-                                                                    <select id="form-repeater-{{ $loop->iteration }}-1"
-                                                                        class="form-select @error('sku_bahan_baku') is-invalid @enderror"
-                                                                        name="sku_bahan_baku">
-                                                                        <option value="">Pilih Bahan Baku</option>
-                                                                        @foreach ($bahan_bakus as $bahan_baku)
-                                                                            <option value="{{ $bahan_baku->sku }}"
-                                                                                {{ $assembly->sku_bahan_baku == $bahan_baku->sku ? 'selected' : '' }}>
-                                                                                {{ $bahan_baku->nama }} -
-                                                                                ({{ $bahan_baku->warna }})
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                                <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
-                                                                    <label class="form-label"
-                                                                        for="form-repeater-{{ $loop->iteration }}-2">Jumlah</label>
-                                                                    <input type="number" id="form-repeater-{{ $loop->iteration }}-2" name="jumlah"
-                                                                        value="{{ $assembly->jumlah }}"
-                                                                        class="form-control @error('jumlah') is-invalid @enderror"
-                                                                        placeholder="Masukan Jumlah" />
-                                                                </div>
-                                                                <input type="hidden" name="sku_product" id="form-repeater-{{ $loop->iteration }}-3"
-                                                                    value="{{ $product->sku }}">
-                                                                <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
-                                                                    <button class="btn btn-label-danger mt-4" data-repeater-delete>
-                                                                        <i class="ti ti-x ti-xs me-1"></i>
-                                                                        <span class="align-middle">Delete</span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <hr />
+                            </div>
+                        </div>
+                        <div id="assembly" class="content">
+                            <div class="content-header mb-3">
+                                <h6 class="mb-0">Assembly</h6>
+                                <small>Form Assembly.</small>
+                            </div>
+                            <div class="row g-3">
+                                @if ($assemblies->count() > 0)
+                                    <form id="form" class="form-repeater" action="/warehouse/assembly" method="POST">
+                                        @csrf
+                                        <div data-repeater-list="assembly">
+                                            @foreach ($assemblies as $assembly)
+                                                <div data-repeater-item>
+                                                    <div class="row">
+                                                        <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
+                                                            <label class="form-label" for="form-repeater-{{ $loop->iteration }}-1">Bahan
+                                                                Baku</label>
+                                                            <select id="form-repeater-{{ $loop->iteration }}-1"
+                                                                class="form-select @error('sku_bahan_baku') is-invalid @enderror"
+                                                                name="sku_bahan_baku">
+                                                                <option value="">Pilih Bahan Baku</option>
+                                                                @foreach ($bahan_bakus as $bahan_baku)
+                                                                    <option value="{{ $bahan_baku->sku }}"
+                                                                        {{ $assembly->sku_bahan_baku == $bahan_baku->sku ? 'selected' : '' }}>
+                                                                        {{ $bahan_baku->nama }} -
+                                                                        ({{ $bahan_baku->warna }})
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
-                                                    @endforeach
-                                                </div>
-                                                <div class="mb-3 col-lg-6 col-xl-12 col-12 mb-0">
-                                                    <button class="btn btn-outline-primary" data-repeater-create>
-                                                        <i class="ti ti-plus me-1"></i>
-                                                        <span class="align-middle">Add</span>
-                                                    </button>
-                                                    <button class="btn btn-primary"
-                                                        onclick="event.preventDefault(); document.getElementById('form').submit();">
-                                                        Submit
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        @else
-                                            <form id="form" class="form-repeater" action="/warehouse/assembly" method="POST">
-                                                @csrf
-                                                <div data-repeater-list="assembly">
-                                                    <div data-repeater-item>
-                                                        <div class="row">
-                                                            <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
-                                                                <label class="form-label" for="form-repeater-1-1">Bahan Baku</label>
-                                                                <select id="form-repeater-1-1"
-                                                                    class="form-select @error('sku_bahan_baku') is-invalid @enderror"
-                                                                    name="sku_bahan_baku">
-                                                                    <option value="">Pilih Bahan Baku</option>
-                                                                    @foreach ($bahan_bakus as $bahan_baku)
-                                                                        <option value="{{ $bahan_baku->sku }}">{{ $bahan_baku->nama }} -
-                                                                            ({{ $bahan_baku->warna }})
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                            <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
-                                                                <label class="form-label" for="form-repeater-1-2">Jumlah</label>
-                                                                <input type="number" id="form-repeater-1-2" name="jumlah"
-                                                                    class="form-control @error('jumlah') is-invalid @enderror"
-                                                                    placeholder="Masukan Jumlah" />
-                                                            </div>
-                                                            <input type="hidden" name="sku_product" id="form-repeater-1-3"
-                                                                value="{{ $product->sku }}">
-                                                            <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
-                                                                <button class="btn btn-label-danger mt-4" data-repeater-delete>
-                                                                    <i class="ti ti-x ti-xs me-1"></i>
-                                                                    <span class="align-middle">Delete</span>
-                                                                </button>
-                                                            </div>
+                                                        <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                            <label class="form-label" for="form-repeater-{{ $loop->iteration }}-2">Jumlah</label>
+                                                            <input type="number" id="form-repeater-{{ $loop->iteration }}-2" name="jumlah"
+                                                                value="{{ $assembly->jumlah }}"
+                                                                class="form-control @error('jumlah') is-invalid @enderror"
+                                                                placeholder="Masukan Jumlah" />
                                                         </div>
-                                                        <hr />
+                                                        <input type="hidden" name="sku_product" id="form-repeater-{{ $loop->iteration }}-3"
+                                                            value="{{ $product->sku }}">
+                                                        <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                                                            <button class="btn btn-label-danger mt-4" data-repeater-delete>
+                                                                <i class="ti ti-x ti-xs me-1"></i>
+                                                                <span class="align-middle">Delete</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="mb-3 col-lg-6 col-xl-12 col-12 mb-0">
+                                            <button class="btn btn-outline-primary" data-repeater-create>
+                                                <i class="ti ti-plus me-1"></i>
+                                                <span class="align-middle">Add</span>
+                                            </button>
+                                            <button class="btn btn-primary" onclick="event.preventDefault(); document.getElementById('form').submit();">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </form>
+                                @else
+                                    <form id="form" class="form-repeater" action="/warehouse/assembly" method="POST">
+                                        @csrf
+                                        <div data-repeater-list="assembly">
+                                            <div data-repeater-item>
+                                                <div class="row">
+                                                    <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
+                                                        <label class="form-label" for="form-repeater-1-1">Bahan Baku</label>
+                                                        <select id="form-repeater-1-1"
+                                                            class="form-select @error('sku_bahan_baku') is-invalid @enderror" name="sku_bahan_baku">
+                                                            <option value="">Pilih Bahan Baku</option>
+                                                            @foreach ($bahan_bakus as $bahan_baku)
+                                                                <option value="{{ $bahan_baku->sku }}">{{ $bahan_baku->nama }} -
+                                                                    ({{ $bahan_baku->warna }})
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                        <label class="form-label" for="form-repeater-1-2">Jumlah</label>
+                                                        <input type="number" id="form-repeater-1-2" name="jumlah"
+                                                            class="form-control @error('jumlah') is-invalid @enderror" placeholder="Masukan Jumlah" />
+                                                    </div>
+                                                    <input type="hidden" name="sku_product" id="form-repeater-1-3" value="{{ $product->sku }}">
+                                                    <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                                                        <button class="btn btn-label-danger mt-4" data-repeater-delete>
+                                                            <i class="ti ti-x ti-xs me-1"></i>
+                                                            <span class="align-middle">Delete</span>
+                                                        </button>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3 col-lg-6 col-xl-12 col-12 mb-0">
-                                                    <button class="btn btn-outline-primary" data-repeater-create>
-                                                        <i class="ti ti-plus me-1"></i>
-                                                        <span class="align-middle">Add</span>
-                                                    </button>
-                                                    <button class="btn btn-primary"
-                                                        onclick="event.preventDefault(); document.getElementById('form').submit();">
-                                                        Submit
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        @endif
-                                    </div>
-                                </div>
+                                                <hr />
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 col-lg-6 col-xl-12 col-12 mb-0">
+                                            <button class="btn btn-outline-primary" data-repeater-create>
+                                                <i class="ti ti-plus me-1"></i>
+                                                <span class="align-middle">Add</span>
+                                            </button>
+                                            <button class="btn btn-primary" onclick="event.preventDefault(); document.getElementById('form').submit();">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </form>
+                                @endif
                             </div>
                         </div>
                     </div>

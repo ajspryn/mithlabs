@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('desain_product')->nullable();
             $table->text('nama');
             $table->text('nama_singkat');
-            $table->string('brand');
+            $table->string('kode_brand');
             $table->string('warna');
             $table->text('kategori');
             $table->text('sku_config')->nullable();

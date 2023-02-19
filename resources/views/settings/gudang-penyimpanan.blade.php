@@ -14,6 +14,7 @@
                         <tr>
                             <th></th>
                             <th style="text-align: center">No</th>
+                            <th>Kode</th>
                             <th>Gudang</th>
                             <th>alamat</th>
                             <th style="text-align: center">Action</th>
@@ -24,6 +25,7 @@
                             <tr>
                                 <td></td>
                                 <td style="text-align: center">{{ $loop->iteration }}</td>
+                                <td>{{ $gudang->kode }}</td>
                                 <td>{{ $gudang->nama }}</td>
                                 <td>{{ $gudang->alamat }}</td>
                                 <td style="text-align: center">
@@ -60,6 +62,13 @@
                 <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record" action="/warehouse/setting/gudang-penyimpanan"
                     method="post">
                     @csrf
+                    <div class="col-sm-12">
+                        <label class="form-label" for="kode">Kode Gudang</label>
+                        <input type="text" id="kode" class="form-control @error('kode') is-invalid @enderror" name="kode"
+                            placeholder="Masukan Kode Gudang" required autofocus />
+                        <div class="valid-feedback">Ok!</div>
+                        <div class="invalid-feedback">Harus Diisi.</div>
+                    </div>
                     <div class="col-sm-12">
                         <label class="form-label" for="gudang">Nama Gudang</label>
                         <input type="text" id="gudang" class="form-control @error('nama') is-invalid @enderror" name="nama"

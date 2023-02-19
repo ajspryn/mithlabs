@@ -40,6 +40,7 @@ class KategoriProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'kode' => 'required',
             'nama' => 'required',
         ]);
 

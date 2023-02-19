@@ -324,12 +324,6 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="menu-item {{ Request::is('warehouse/asembly*') ? 'active' : '' }}">
-                            <a href="/warehouse/asembly" class="menu-link">
-                                <i class="menu-icon tf-icons ti ti-assembly"></i>
-                                <div data-i18n="Assembly">Assembly</div>
-                            </a>
-                        </li>
                         <li class="menu-item {{ Request::is('warehouse/setting*') ? 'active' : '' }}">
                             <a href="javascript:void(0);" class="menu-link menu-toggle">
                                 <i class="menu-icon tf-icons ti ti-settings"></i>

@@ -14,6 +14,7 @@
                         <tr>
                             <th></th>
                             <th style="text-align: center">No</th>
+                            <th>Kode</th>
                             <th>Kategori</th>
                             <th style="text-align: center">Action</th>
                         </tr>
@@ -23,6 +24,7 @@
                             <tr>
                                 <td></td>
                                 <td style="text-align: center">{{ $loop->iteration }}</td>
+                                <td>{{ $kategori->kode }}</td>
                                 <td>{{ $kategori->nama }}</td>
                                 <td style="text-align: center">
                                     <div class="dropdown">
@@ -58,6 +60,13 @@
                 <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record" action="/warehouse/setting/kategori-produk"
                     method="post">
                     @csrf
+                    <div class="col-sm-12">
+                        <label class="form-label" for="kode">Kode Kategori</label>
+                        <input type="text" id="kode" class="form-control @error('kode') is-invalid @enderror" name="kode"
+                            placeholder="Masukan Kode Kategori" required autofocus />
+                        <p class="valid-feedback">Ok!</p>
+                        <p class="invalid-feedback">Harus Diisi.</p>
+                    </div>
                     <div class="col-sm-12">
                         <label class="form-label" for="nama">Nama Kategori</label>
                         <input type="text" id="nama" class="form-control @error('nama') is-invalid @enderror" name="nama"

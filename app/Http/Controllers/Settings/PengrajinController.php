@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Warehouse;
+namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class InventoryController extends Controller
+class PengrajinController extends Controller
 {
     /**
      * Display a listing of the resource.

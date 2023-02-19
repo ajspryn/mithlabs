@@ -10,6 +10,7 @@ use App\Models\Settings\Vendor;
 use App\Imports\BahanBakuImport;
 use App\Models\Warehouse\BahanBaku;
 use App\Http\Controllers\Controller;
+use App\Models\Warehouse\Product;
 use Maatwebsite\Excel\Facades\Excel;
 
 class BahanBakuController extends Controller
@@ -21,8 +22,9 @@ class BahanBakuController extends Controller
      */
     public function index()
     {
+        // return Product::select('warna')->groupBy('warna')->get();
         return view('bahan-baku.index', [
-            'bahan_bakus' => BahanBaku::all(),
+            'bahan_bakus' => BahanBaku::with('vendor')->get(),
             'warnas' => Warna::all(),
             'satuans' => Satuan::all(),
             'vendors' => Vendor::all(),

@@ -103,7 +103,7 @@
                                             </div>
                                             <div class="flex-grow-1">
                                                 <span class="fw-semibold d-block">{{ $product->nama }}</span>
-                                                <small class="text-muted">{{ $product->namabrand[0]->nama }}</small>
+                                                <small class="text-muted">{{ $product->brand->nama }}</small>
                                             </div>
                                         </div>
                                     </a>
@@ -167,7 +167,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label class="form-label" for="brand">Brand</label>
-                                    <select class="form-select @error('brand') is-invalid @enderror" name="brand" id="brand" required>
+                                    <select class="form-select @error('kode_brand') is-invalid @enderror" name="kode_brand" id="brand" required>
                                         <option value="">Pilih Brand</option>
                                         @foreach ($brands as $brand)
                                             <option value="{{ $brand->kode }}">{{ $brand->nama }}</option>

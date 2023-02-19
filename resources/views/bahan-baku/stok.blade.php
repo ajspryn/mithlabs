@@ -18,8 +18,7 @@
                                 <i class="ti ti-dots-vertical ti-sm text-muted"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="teamMemberList">
-                                <a class="dropdown-item" href="javascript:void(0);">Lihat Semua Transaksi</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Buat Transaksi Baru</a>
+                                <a class="dropdown-item" href="/warehouse/transaksi-bahan-baku">Lihat Semua Transaksi</a>
                             </div>
                         </div>
                     </div>
@@ -62,7 +61,7 @@
                 <div class="card">
                     <h5 class="card-header">Table Stok Bahan Baku</h5>
                     <div class="card-datatable table-responsive">
-                        <table class="datatables-projects table border-top">
+                        <table class="table datatable-invoice border-top">
                             <thead>
                                 <tr>
                                     <th></th>

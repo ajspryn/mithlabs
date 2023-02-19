@@ -39,10 +39,10 @@ class AssemblyController extends Controller
     {
         // return $request->assembly[0]['sku_product'];
 
-        $request->validate([
-            'sku_bahan_baku' => 'required',
-            'jumlah' => 'required',
-        ]);
+        // $request->validate([
+        //     'sku_bahan_baku' => 'required',
+        //     'jumlah' => 'required',
+        // ]);
 
         Assembly::where('sku_product', $request->assembly[0]['sku_product'])->delete();
         foreach ($request->assembly as $data) {
@@ -52,12 +52,7 @@ class AssemblyController extends Controller
             $input['satuan'] = $satuan->satuan;
             $input['sku_product'] = $request->assembly[0]['sku_product'];
 
-            Assembly::create([
-                'sku_product' => $input['sku_product'],
-                'sku_bahan_baku' => $input['sku_bahan_baku'],
-                'jumlah' => $input['jumlah'],
-                'satuan' => $input['satuan'],
-            ]);
+            Assembly::create($input);
         }
 
         return redirect()->back()->with('success', 'Data Berhasil Di Simpan');

@@ -17,7 +17,7 @@ class BahanBaku extends Model
 
     public function vendor()
     {
-        return $this->belongsTo(Vendor::class, 'kode_vendor', 'kode_vendor');
+        return $this->belongsTo(Vendor::class, 'kode_vendor', 'kode');
     }
 
     public function bahanbaku()

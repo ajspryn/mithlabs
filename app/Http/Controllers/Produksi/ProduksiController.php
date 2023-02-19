@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Produksi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class RencanaProduksiController extends Controller
+class ProduksiController extends Controller
 {
     /**
      * Display a listing of the resource.

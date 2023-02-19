@@ -25,8 +25,9 @@ class ProductController extends Controller
      */
     public function index()
     {
+        // return Product::with('brand')->select()->get();
         return view('product.index', [
-            'products' => Product::all(),
+            'products' => Product::with('brand')->select()->get(),
             'warnas' => Warna::all(),
             'kategoris' => KategoriProduct::all(),
             'brands' => Brand::all(),
@@ -59,7 +60,7 @@ class ProductController extends Controller
             $request->validate([
                 'nama' => 'required',
                 'nama_singkat' => 'required',
-                'brand' => 'required',
+                'kode_brand' => 'required',
                 'warna' => 'required',
                 'kategori' => 'required',
                 'sku_config' => 'required',
@@ -101,10 +102,10 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::select()->where('uuid', $id)->get()->first();
+        $product = Product::with('brand')->select()->where('uuid', $id)->get()->first();
         return view('product.detail', [
             'product' => $product,
-            'stoks' => ProductStock::select()->where('sku', $product->sku)->get(),
+            'stoks' => ProductStock::select()->where('sku_product', $product->sku)->get(),
             'bahan_bakus' => BahanBaku::all(),
             'assemblies' => Assembly::select()->where('sku_product', $product->sku)->get(),
             'warnas' => Warna::all(),
