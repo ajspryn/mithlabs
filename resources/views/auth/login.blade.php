@@ -194,9 +194,9 @@
                         @csrf
                         <div class="mb-3">
                             <label for="username" class="form-label">Username / Email</label>
-                            <input id="username" type="text" class="form-control @error('email') is-invalid @enderror" name="username"
+                            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username"
                                 value="{{ old('username') }}" required autocomplete="username" autofocus>
-                            @error('email')
+                            @error('username')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
