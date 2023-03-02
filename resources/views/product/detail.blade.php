@@ -45,7 +45,8 @@
                                         <div class="card mb-3">
                                             <div class="row g-0">
                                                 <div class="col-md-4">
-                                                    <img class="card-img card-img-left" src="{{ asset('storage/' . $product->foto_product) }}"
+                                                    <img class="card-img card-img-left"
+                                                        src="{{ asset('storage/' . $product->foto_product) }}"
                                                         alt="Card image" />
                                                     {{-- {!! DNS2D::getBarcodeHTML($product->sku, 'QRCODE') !!} --}}
                                                 </div>
@@ -88,21 +89,26 @@
                                                             </tbody>
                                                         </table>
                                                         </p>
-                                                        <p class="card-text"><small class="text-muted">Active At {{ $product->active_at }}</small></p>
-                                                        <button type="button" class="btn btn-secondary" data-bs-toggle="offcanvas"
-                                                            data-bs-target="#edit-product" aria-controls="offcanvasEnd">
-                                                            <i class="ti ti-edit me-1"></i> <span class="d-none d-sm-inline-block">Edit</span>
+                                                        <p class="card-text"><small class="text-muted">Active At
+                                                                {{ $product->active_at }}</small></p>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-toggle="offcanvas" data-bs-target="#edit-product"
+                                                            aria-controls="offcanvasEnd">
+                                                            <i class="ti ti-edit me-1"></i> <span
+                                                                class="d-none d-sm-inline-block">Edit</span>
                                                         </button>
-                                                        <button type="button" class="btn btn-primary" data-bs-toggle="offcanvas"
-                                                            data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">
-                                                            <span class="ti ti ti-plus me-1"></span>Buat Plan
-                                                        </button>
+                                                        @if (Auth::user()->role->role)
+                                                            <a href="/owner/produksi" class="btn btn-primary"
+                                                                aria-controls="offcanvasEnd">
+                                                                <span class="ti ti ti-plus me-1"></span>Buat Plan
+                                                            </a>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="card-body">
                                                         <img class="card-img"
-                                                            src="data:image/png;base64,{{ DNS2D::getBarcodePNG($product->sku, 'QRCODE') }}"
+                                                            src="data:image/png;base64,{{ DNS2D::getBarcodePNG($product->sku, 'QRCODE', 15, 15) }}"
                                                             alt="Card image" />
                                                     </div>
                                                 </div>
@@ -113,26 +119,30 @@
                                     <div class="offcanvas offcanvas-end" id="edit-product">
                                         <div class="offcanvas-header border-bottom">
                                             <h5 class="offcanvas-title" id="exampleModalLabel">Form Edit Produk</h5>
-                                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                                aria-label="Close"></button>
                                         </div>
                                         <div class="offcanvas-body flex-grow-1">
-                                            @if (Auth::user()->role_id == 5)
-                                                <form class="needs-validation pt-0 row g-2" novalidate id="form-edit-product" method="post"
-                                                    action="/warehouse/product/{{ $product->uuid }}" enctype="multipart/form-data">
+                                            <form class="needs-validation pt-0 row g-2" novalidate id="form-edit-product"
+                                                method="post" action="/@role/product/{{ $product->uuid }}"
+                                                    enctype="multipart/form-data">
                                                     @method('put')
                                                     @csrf
                                                     <div class="col-sm-12">
                                                         <label class="form-label" for="formInput">Nama Produk</label>
-                                                        <input type="text" id="formInput" class="form-control @error('nama') is-invalid @enderror"
-                                                            name="nama" value="{{ old('nama', $product->nama) }}" placeholder="Masukan Nama Produk"
-                                                            required autofocus />
+                                                        <input type="text" id="formInput"
+                                                            class="form-control @error('nama') is-invalid @enderror"
+                                                            name="nama" value="{{ old('nama', $product->nama) }}"
+                                                            placeholder="Masukan Nama Produk" required autofocus />
                                                         <div class="valid-feedback">Ok!</div>
                                                         <div class="invalid-feedback">Harus Diisi.</div>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <label class="form-label" for="namasingkatproduk">Nama Singkat Produk</label>
+                                                        <label class="form-label" for="namasingkatproduk">Nama Singkat
+                                                            Produk</label>
                                                         <input type="text" id="namasingkatproduk"
-                                                            class="form-control @error('nama_singkat') is-invalid @enderror" name="nama_singkat"
+                                                            class="form-control @error('nama_singkat') is-invalid @enderror"
+                                                            name="nama_singkat"
                                                             value="{{ old('nama_singkat', $product->nama_singkat) }}"
                                                             placeholder="Masukan Inisial Produk" required />
                                                         <div class="valid-feedback">Ok!</div>
@@ -140,12 +150,12 @@
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <label class="form-label" for="brand">Brand</label>
-                                                        <select class="form-select @error('brand') is-invalid @enderror" name="brand" id="brand"
-                                                            required>
+                                                        <select class="form-select @error('kode_brand') is-invalid @enderror"
+                                                            name="kode_brand" id="brand" required>
                                                             <option value="">Pilih Brand</option>
                                                             @foreach ($brands as $brand)
                                                                 <option value="{{ $brand->kode }}"
-                                                                    {{ old('nama', $product->brand) == $brand->kode ? 'selected' : '' }}>
+                                                                    {{ old('kode_brand', $product->kode_brand) == $brand->kode ? 'selected' : '' }}>
                                                                     {{ $brand->nama }}</option>
                                                             @endforeach
                                                         </select>
@@ -154,8 +164,8 @@
                                                     </div>
                                                     <div class="col-sm-12">
                                                         <label class="form-label" for="warna">Warna</label>
-                                                        <select class="form-select @error('warna') is-invalid @enderror" name="warna" id="warna"
-                                                            required>
+                                                        <select class="form-select @error('warna') is-invalid @enderror"
+                                                            name="warna" id="warna" required>
                                                             <option value="">Pilih Warna</option>
                                                             @foreach ($warnas as $warna)
                                                                 <option value="{{ $warna->nama }}"
@@ -169,8 +179,8 @@
                                                     </div>
                                                     <div class="col-sm-12">
                                                         <label class="form-label" for="kategori">Kategori</label>
-                                                        <select class="form-select @error('kategori') is-invalid @enderror" name="kategori"
-                                                            id="kategori" required>
+                                                        <select class="form-select @error('kategori') is-invalid @enderror"
+                                                            name="kategori" id="kategori" required>
                                                             <option value="">Pilih Kategori</option>
                                                             @foreach ($kategoris as $kategori)
                                                                 <option value="{{ $kategori->nama }}"
@@ -184,9 +194,10 @@
                                                     <div class="col-sm-12">
                                                         <label class="form-label" for="sku_config">SKU Config</label>
                                                         <input type="text" id="sku_config"
-                                                            class="form-control @error('sku_config') is-invalid @enderror" name="sku_config"
-                                                            value="{{ old('sku_config', $product->sku_config) }}" placeholder="Masukan SKU Config"
-                                                            required />
+                                                            class="form-control @error('sku_config') is-invalid @enderror"
+                                                            name="sku_config"
+                                                            value="{{ old('sku_config', $product->sku_config) }}"
+                                                            placeholder="Masukan SKU Config" required />
                                                         <div class="valid-feedback">Ok!</div>
                                                         <div class="invalid-feedback">Harus Diisi.</div>
                                                     </div>
@@ -194,24 +205,27 @@
                                                         <label class="form-label" for="active_at">Active At</label>
                                                         <input type="text" id="active_at"
                                                             class="form-control @error('active_at') is-invalid @enderror flatpickr-validation"
-                                                            name="active_at" value="{{ old('active_at', $product->active_at) }}"
+                                                            name="active_at"
+                                                            value="{{ old('active_at', $product->active_at) }}"
                                                             placeholder="Active At" required />
                                                         <div class="valid-feedback">Ok!</div>
                                                         <div class="invalid-feedback">Harus Diisi.</div>
                                                     </div>
                                                     <div class="col-sm-12">
                                                         <label class="form-label" for="cogm">COGM</label>
-                                                        <input type="number" id="cogm" class="form-control @error('cogm') is-invalid @enderror"
-                                                            name="cogm" value="{{ old('cogm', $product->cogm) }}" placeholder="Masukan COGM"
-                                                            required />
+                                                        <input type="number" id="cogm"
+                                                            class="form-control @error('cogm') is-invalid @enderror"
+                                                            name="cogm" value="{{ old('cogm', $product->cogm) }}"
+                                                            placeholder="Masukan COGM" required />
                                                         <div class="valid-feedback">Ok!</div>
                                                         <div class="invalid-feedback">Harus Diisi.</div>
                                                     </div>
                                                     <div class="col-sm-12">
                                                         <label class="form-label" for="cogs">COGS</label>
-                                                        <input type="number" id="cogs" class="form-control @error('cogs') is-invalid @enderror"
-                                                            name="cogs" value="{{ old('cogs', $product->cogs) }}" placeholder="Masukan COGS"
-                                                            required />
+                                                        <input type="number" id="cogs"
+                                                            class="form-control @error('cogs') is-invalid @enderror"
+                                                            name="cogs" value="{{ old('cogs', $product->cogs) }}"
+                                                            placeholder="Masukan COGS" required />
                                                         <div class="valid-feedback">Ok!</div>
                                                         <div class="invalid-feedback">Harus Diisi.</div>
                                                     </div>
@@ -228,38 +242,36 @@
                                                     <div class="col-sm-12">
                                                         <label class="form-label" for="harga_jual">Harga Jual</label>
                                                         <input type="number" id="harga_jual"
-                                                            class="form-control @error('harga_jual') is-invalid @enderror" name="harga_jual"
-                                                            value="{{ old('harga_jual', $product->harga_jual) }}" placeholder="Masukan Harga Jual"
-                                                            required />
+                                                            class="form-control @error('harga_jual') is-invalid @enderror"
+                                                            name="harga_jual"
+                                                            value="{{ old('harga_jual', $product->harga_jual) }}"
+                                                            placeholder="Masukan Harga Jual" required />
                                                         <div class="valid-feedback">Ok!</div>
                                                         <div class="invalid-feedback">Harus Diisi.</div>
                                                     </div>
                                                     <div class="col-sm-12">
                                                         <label class="form-label" for="desain_product">Desain Produk</label>
-                                                        <input type="file" class="form-control @error('desain_product') is-invalid @enderror"
+                                                        <input type="file"
+                                                            class="form-control @error('desain_product') is-invalid @enderror"
                                                             id="desain_product" name="desain_product" />
-                                                        <input type="hidden" name="desain_product_lama" value="{{ $product->desain_product }}" />
+                                                        <input type="hidden" name="desain_product_lama"
+                                                            value="{{ $product->desain_product }}" />
                                                     </div>
                                                     <div class="col-sm-12">
                                                         <label class="form-label" for="upload-file">Foto Produk</label>
-                                                        <input type="file" class="form-control @error('foto_product') is-invalid @enderror"
+                                                        <input type="file"
+                                                            class="form-control @error('foto_product') is-invalid @enderror"
                                                             id="upload-file" name="foto_product" />
-                                                        <input type="hidden" name="foto_product_lama" value="{{ $product->foto_product }}" />
+                                                        <input type="hidden" name="foto_product_lama"
+                                                            value="{{ $product->foto_product }}" />
                                                     </div>
                                                     <div class="col-sm-12">
-                                                        <button type="submit" class="btn btn-primary data-submit me-sm-3 me-1">Submit</button>
+                                                        <button type="submit"
+                                                            class="btn btn-primary data-submit me-sm-3 me-1">Submit</button>
                                                         <button type="reset" class="btn btn-outline-secondary"
                                                             data-bs-dismiss="offcanvas">Cancel</button>
                                                     </div>
-                                                </form>
-                                            @else
-                                                <div class="alert alert-danger d-flex align-items-center" role="alert">
-                                                    <span class="alert-icon text-danger me-2">
-                                                        <i class="ti ti-ban ti-xs"></i>
-                                                    </span>
-                                                    Anda Tidak Bisa Menambahkan Data, Karena Role Anda Bukan Warehouse
-                                                </div>
-                                            @endif
+                                            </form>
                                         </div>
                                     </div>
                                     <!-- /Modal Edit -->
@@ -270,7 +282,8 @@
                                             <div class="card">
                                                 <div class="card-header d-flex justify-content-between">
                                                     <h5 class="card-title mb-0">Cost</h5>
-                                                    <small class="text-muted">Updated {{ $product->updated_at->diffForHumans() }}</small>
+                                                    <small class="text-muted">Updated
+                                                        {{ $product->updated_at->diffForHumans() }}</small>
                                                 </div>
                                                 <div class="card-body pt-2">
                                                     <div class="row gy-3">
@@ -345,18 +358,22 @@
                                                                     <td>
                                                                         <strong>{{ $stok->gudang->nama }}</strong>
                                                                     </td>
-                                                                    <td style="text-align: center">{{ $stok->stok }}</td>
+                                                                    <td style="text-align: center">{{ $stok->stok }}
+                                                                    </td>
                                                                     <td style="text-align: center">
                                                                         <div class="dropdown">
-                                                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                                            <button type="button"
+                                                                                class="btn p-0 dropdown-toggle hide-arrow"
                                                                                 data-bs-toggle="dropdown">
                                                                                 <i class="ti ti-dots-vertical"></i>
                                                                             </button>
                                                                             <div class="dropdown-menu">
-                                                                                <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                                <a class="dropdown-item"
+                                                                                    href="javascript:void(0);"><i
                                                                                         class="ti ti-pencil me-1"></i>
                                                                                     Edit</a>
-                                                                                <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                                <a class="dropdown-item"
+                                                                                    href="javascript:void(0);"><i
                                                                                         class="ti ti-trash me-1"></i>
                                                                                     Delete</a>
                                                                             </div>
@@ -366,7 +383,8 @@
                                                             @endforeach
                                                         @else
                                                             <tr>
-                                                                <td colspan="3" style="text-align: center">Tidak Ada Data Stok</td>
+                                                                <td colspan="3" style="text-align: center">Tidak Ada
+                                                                    Data Stok</td>
                                                             </tr>
                                                         @endif
                                                     </tbody>
@@ -486,14 +504,15 @@
                             </div>
                             <div class="row g-3">
                                 @if ($assemblies->count() > 0)
-                                    <form id="form" class="form-repeater" action="/warehouse/assembly" method="POST">
+                                    <form id="form" class="form-repeater" action="/@role/assembly" method="POST">
                                         @csrf
                                         <div data-repeater-list="assembly">
                                             @foreach ($assemblies as $assembly)
                                                 <div data-repeater-item>
                                                     <div class="row">
                                                         <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
-                                                            <label class="form-label" for="form-repeater-{{ $loop->iteration }}-1">Bahan
+                                                            <label class="form-label"
+                                                                for="form-repeater-{{ $loop->iteration }}-1">Bahan
                                                                 Baku</label>
                                                             <select id="form-repeater-{{ $loop->iteration }}-1"
                                                                 class="form-select @error('sku_bahan_baku') is-invalid @enderror"
@@ -509,15 +528,19 @@
                                                             </select>
                                                         </div>
                                                         <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
-                                                            <label class="form-label" for="form-repeater-{{ $loop->iteration }}-2">Jumlah</label>
-                                                            <input type="number" id="form-repeater-{{ $loop->iteration }}-2" name="jumlah"
-                                                                value="{{ $assembly->jumlah }}"
+                                                            <label class="form-label"
+                                                                for="form-repeater-{{ $loop->iteration }}-2">Jumlah</label>
+                                                            <input type="number"
+                                                                id="form-repeater-{{ $loop->iteration }}-2"
+                                                                name="jumlah" value="{{ $assembly->jumlah }}"
                                                                 class="form-control @error('jumlah') is-invalid @enderror"
                                                                 placeholder="Masukan Jumlah" />
                                                         </div>
-                                                        <input type="hidden" name="sku_product" id="form-repeater-{{ $loop->iteration }}-3"
+                                                        <input type="hidden" name="sku_product"
+                                                            id="form-repeater-{{ $loop->iteration }}-3"
                                                             value="{{ $product->sku }}">
-                                                        <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                                                        <div
+                                                            class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
                                                             <button class="btn btn-label-danger mt-4" data-repeater-delete>
                                                                 <i class="ti ti-x ti-xs me-1"></i>
                                                                 <span class="align-middle">Delete</span>
@@ -533,24 +556,28 @@
                                                 <i class="ti ti-plus me-1"></i>
                                                 <span class="align-middle">Add</span>
                                             </button>
-                                            <button class="btn btn-primary" onclick="event.preventDefault(); document.getElementById('form').submit();">
+                                            <button class="btn btn-primary"
+                                                onclick="event.preventDefault(); document.getElementById('form').submit();">
                                                 Submit
                                             </button>
                                         </div>
                                     </form>
                                 @else
-                                    <form id="form" class="form-repeater" action="/warehouse/assembly" method="POST">
+                                    <form id="form" class="form-repeater" action="/@role/assembly" method="POST">
                                         @csrf
                                         <div data-repeater-list="assembly">
                                             <div data-repeater-item>
                                                 <div class="row">
                                                     <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
-                                                        <label class="form-label" for="form-repeater-1-1">Bahan Baku</label>
+                                                        <label class="form-label" for="form-repeater-1-1">Bahan
+                                                            Baku</label>
                                                         <select id="form-repeater-1-1"
-                                                            class="form-select @error('sku_bahan_baku') is-invalid @enderror" name="sku_bahan_baku">
+                                                            class="form-select @error('sku_bahan_baku') is-invalid @enderror"
+                                                            name="sku_bahan_baku">
                                                             <option value="">Pilih Bahan Baku</option>
                                                             @foreach ($bahan_bakus as $bahan_baku)
-                                                                <option value="{{ $bahan_baku->sku }}">{{ $bahan_baku->nama }} -
+                                                                <option value="{{ $bahan_baku->sku }}">
+                                                                    {{ $bahan_baku->nama }} -
                                                                     ({{ $bahan_baku->warna }})
                                                                 </option>
                                                             @endforeach
@@ -559,10 +586,13 @@
                                                     <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
                                                         <label class="form-label" for="form-repeater-1-2">Jumlah</label>
                                                         <input type="number" id="form-repeater-1-2" name="jumlah"
-                                                            class="form-control @error('jumlah') is-invalid @enderror" placeholder="Masukan Jumlah" />
+                                                            class="form-control @error('jumlah') is-invalid @enderror"
+                                                            placeholder="Masukan Jumlah" />
                                                     </div>
-                                                    <input type="hidden" name="sku_product" id="form-repeater-1-3" value="{{ $product->sku }}">
-                                                    <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                                                    <input type="hidden" name="sku_product" id="form-repeater-1-3"
+                                                        value="{{ $product->sku }}">
+                                                    <div
+                                                        class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
                                                         <button class="btn btn-label-danger mt-4" data-repeater-delete>
                                                             <i class="ti ti-x ti-xs me-1"></i>
                                                             <span class="align-middle">Delete</span>
@@ -577,17 +607,17 @@
                                                 <i class="ti ti-plus me-1"></i>
                                                 <span class="align-middle">Add</span>
                                             </button>
-                                            <button class="btn btn-primary" onclick="event.preventDefault(); document.getElementById('form').submit();">
+                                            <button class="btn btn-primary"
+                                                onclick="event.preventDefault(); document.getElementById('form').submit();">
                                                 Submit
                                             </button>
                                         </div>
-                                    </form>
-                                @endif
+                                    </form> @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Vertical Icons Wizard -->
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <!-- /Vertical Icons Wizard -->
-                </div>
-            </div>
-            <!--/ Content -->
+                            <!--/ Content -->
         @endsection

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('sku_product');
             $table->string('kode_gudang');
-            $table->string('stok');
+            $table->string('stok')->default(0)->nullable();
             $table->timestamps();
         });
     }

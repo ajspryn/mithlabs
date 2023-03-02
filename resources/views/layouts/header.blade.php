@@ -52,6 +52,8 @@
     <link rel="stylesheet" href="{{ url('/') }}/assets/vendor/css/pages/cards-advance.css" />
     <link rel="stylesheet" href="{{ url('/') }}/assets/vendor/css/pages/page-account-settings.css" />
     <link rel="stylesheet" href="{{ url('/') }}/assets/vendor/css/pages/page-profile.css" />
+    <link rel="stylesheet" href="{{ url('/') }}/assets/vendor/css/pages/page-faq.css" />
+    <link rel="stylesheet" href="{{ url('/') }}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <!-- Page -->
     <link rel="stylesheet" href="{{ url('/') }}/assets/vendor/css/pages/page-auth.css" />
     <!-- Helpers -->
@@ -63,4 +65,5 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ url('/') }}/assets/js/config.js"></script>
     @laravelPWA
+    
 </head>

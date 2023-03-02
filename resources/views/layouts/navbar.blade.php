@@ -1,12 +1,13 @@
- <!-- Navbar -->
- <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
-     <div class="container-xxl">
-         <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
-             <a href="/" class="app-brand-link gap-2">
-                 <span>
-                     <img src="{{ url('/') }}/favicon.png" width="50" alt="">
-                 </span>
-                 <span class="app-brand-text demo menu-text fw-bold">Mithlabs</span>
+
+<!-- Navbar -->
+<nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
+    <div class="container-xxl">
+        <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
+            <a href="/" class="app-brand-link gap-2">
+                <span>
+                    <img src="{{ url('/') }}/favicon.png" width="50" alt="">
+                </span>
+                <span class="app-brand-text demo menu-text fw-bold">Mithlabs</span>
              </a>
 
              <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none">
@@ -373,3 +374,4 @@
      </div>
  </nav>
  <!-- / Navbar -->
+

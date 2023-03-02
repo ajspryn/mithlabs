@@ -14,11 +14,12 @@
                     <div class="card-header d-flex justify-content-between">
                         <h5 class="card-title m-0 me-2">Transaksi Bahan Baku</h5>
                         <div class="dropdown">
-                            <button class="btn p-0" type="button" id="teamMemberList" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn p-0" type="button" id="teamMemberList" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
                                 <i class="ti ti-dots-vertical ti-sm text-muted"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="teamMemberList">
-                                <a class="dropdown-item" href="/warehouse/transaksi-bahan-baku">Lihat Semua Transaksi</a>
+                                <a class="dropdown-item" href="/@role/transaksi-bahan-baku">Lihat Semua Transaksi</a>
                             </div>
                         </div>
                     </div>
@@ -29,26 +30,37 @@
                                     <th>Bahan Baku</th>
                                     <th>Transaksi</th>
                                     <th>Jumlah</th>
+                                    <th>Kode Order</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex justify-content-start align-items-center">
-                                            <div class="d-flex flex-column">
-                                                <p class="mb-0 fw-semibold">*4230</p>
-                                                <small class="text-muted">Credit</small>
+                                @foreach ($transaksis as $transaksi)
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex justify-content-start align-items-center">
+                                                <div class="d-flex flex-column">
+                                                    <p class="mb-0 fw-semibold">{{ $transaksi->bahanbaku->nama }}</p>
+                                                    <small class="text-muted">{{ $transaksi->bahanbaku->sku }}</small>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex flex-column">
-                                            <p class="mb-0 fw-semibold">Sent</p>
-                                            <small class="text-muted text-nowrap">17 Mar 2022</small>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge bg-label-success">Verified</span></td>
-                                </tr>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex flex-column">
+                                                <p class="mb-0 fw-semibold">
+                                                    @if ($transaksi->jenis_transaksi == 'Barang Masuk')
+                                                        <span class="badge bg-label-success">Barang Masuk</span>
+                                                    @elseif ($transaksi->jenis_transaksi == 'Barang Keluar')
+                                                        <span class="badge bg-label-danger">Barang Keluar</span>
+                                                    @endif
+                                                </p>
+                                                <small
+                                                    class="text-muted text-nowrap">{{ $transaksi->created_at->format('d-m-Y') }}</small>
+                                            </div>
+                                        </td>
+                                        <td>{{ $transaksi->jumlah }}</td>
+                                        <td>{{ $transaksi->kode_order }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -70,6 +82,7 @@
                                     <th style="text-align: center">Bahan Baku</th>
                                     <th style="text-align: center">Stok</th>
                                     <th style="text-align: center">Asset</th>
+                                    <th style="text-align: center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -88,6 +101,12 @@
                                         </td>
                                         <td style="text-align: center">{{ $stok->stok }}</td>
                                         <td style="text-align: center">@rupiah($stok->bahanbaku->harga * $stok->stok)</td>
+                                        <td style="text-align: center">
+                                            <a class="btn-btn-primary"
+                                                href="/@role/stok-bahan-baku/{{ Illuminate\Support\Facades\Crypt::encryptString($stok->bahanbaku->sku) }}">
+                                                <i class="ti ti-eye me-1"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -105,32 +124,34 @@
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body flex-grow-1">
-                <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record" action="/warehouse/bahan-baku" method="post">
+                <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record"
+                    action="/bahan-baku" method="post">
                     @csrf
                     <div class="col-sm-12">
                         <label class="form-label" for="sku">SKU</label>
-                        <input type="text" id="sku" class="form-control @error('sku') is-invalid @enderror" name="sku"
-                            placeholder="Masukan SKU Bahan Baku" required autofocus />
+                        <input type="text" id="sku" class="form-control @error('sku') is-invalid @enderror"
+                            name="sku" placeholder="Masukan SKU Bahan Baku" required autofocus />
                         <div class="valid-feedback">Ok!</div>
                         <div class="invalid-feedback">Harus Diisi.</div>
                     </div>
                     <div class="col-sm-12">
                         <label class="form-label" for="nama">Nama Bahan Baku</label>
-                        <input type="text" id="nama" class="form-control @error('nama') is-invalid @enderror" name="nama"
-                            placeholder="Masukan Nama Bahan Baku" required />
+                        <input type="text" id="nama" class="form-control @error('nama') is-invalid @enderror"
+                            name="nama" placeholder="Masukan Nama Bahan Baku" required />
                         <div class="valid-feedback">Ok!</div>
                         <div class="invalid-feedback">Harus Diisi.</div>
                     </div>
                     <div class="col-sm-12">
                         <label class="form-label" for="harga">Harga/Satuan</label>
-                        <input type="number" id="harga" class="form-control @error('harga') is-invalid @enderror" name="harga"
-                            placeholder="Masukan Harga/Satuan" required />
+                        <input type="number" id="harga" class="form-control @error('harga') is-invalid @enderror"
+                            name="harga" placeholder="Masukan Harga/Satuan" required />
                         <div class="valid-feedback">Ok!</div>
                         <div class="invalid-feedback">Harus Diisi.</div>
                     </div>
                     <div class="col-sm-12">
                         <button type="submit" class="btn btn-primary data-submit me-sm-3 me-1">Submit</button>
-                        <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                        <button type="reset" class="btn btn-outline-secondary"
+                            data-bs-dismiss="offcanvas">Cancel</button>
                     </div>
                 </form>
             </div>

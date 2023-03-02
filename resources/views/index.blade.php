@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 {{-- admin --}}
-@if (Auth::user()->role_id == 0)
+@if (Auth::user()->role_id == 1)
     @section('title', 'Dashboard Admin')
 
     @section('content')
@@ -44,8 +44,8 @@
     @endsection
 
     {{-- owner --}}
-@elseif (Auth::user()->role_id == 1)
-    @section('title', 'Dashboard Owner')
+@elseif (Auth::user()->role_id == 2)
+    @section('title', 'Dashboard Owner /@role')
 
     @section('content')
         <!-- Content -->
@@ -87,7 +87,7 @@
     @endsection
 
     {{-- purchase --}}
-@elseif (Auth::user()->role_id == 2)
+@elseif (Auth::user()->role_id == 3)
     @section('title', 'Dashboard Purchase')
 
     @section('content')
@@ -130,7 +130,7 @@
     @endsection
 
     {{-- Production --}}
-@elseif (Auth::user()->role_id == 3)
+@elseif (Auth::user()->role_id == 4)
     @section('title', 'Dashboard Production')
 
     @section('content')
@@ -173,7 +173,7 @@
     @endsection
 
     {{-- QC --}}
-@elseif (Auth::user()->role_id == 4)
+@elseif (Auth::user()->role_id == 5)
     @section('title', 'Dashboard QC')
 
     @section('content')
@@ -217,8 +217,8 @@
 
 
     {{-- WareHouse --}}
-@elseif (Auth::user()->role_id == 5)
-    @section('title', 'Dashboard WareHouse')
+@elseif (Auth::user()->role_id == 6)
+    @section('title', 'Dashboard WareHouse /@role')
 
     @section('content')
         <!-- Content -->

@@ -26,20 +26,35 @@
                                 <td></td>
                                 <td style="text-align: center">{{ $loop->iteration }}</td>
                                 <td>{{ $gudang->kode }}</td>
-                                <td>{{ $gudang->nama }}</td>
+                                <td>{{ $gudang->nama }}
+                                    @if ($gudang->status == 'Utama')
+                                        <span class="badge bg-label-success ms-auto">{{ $gudang->status }}</span>
+                                    @endif
+                                </td>
                                 <td>{{ $gudang->alamat }}</td>
                                 <td style="text-align: center">
                                     <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
                                             <i class="ti ti-dots-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="javascript:void(0);"><i class="ti ti-pencil me-1"></i> Edit</a>
-                                            <form action="/warehouse/setting/gudang-penyimpanan/{{ $gudang->id }}" method="POST" class="d-inline">
+                                            <form action="/@role/setting/gudang-penyimpanan/{{ $gudang->id }}"
+                                                method="POST" class="d-inline">
+                                                @method('put')
+                                                @csrf
+                                                <a class="dropdown-item" href="#"
+                                                    onclick="event.preventDefault(); this.closest('form').submit();"><i
+                                                        class="ti ti-pencil me-1"></i> Gudang Utama</a>
+                                            </form>
+                                            {{-- <a class="dropdown-item" href="javascript:void(0);"><i class="ti ti-pencil me-1"></i> Edit</a> --}}
+                                            <form action="/@role/setting/gudang-penyimpanan/{{ $gudang->id }}"
+                                                method="POST" class="d-inline">
                                                 @method('delete')
                                                 @csrf
                                                 <a class="dropdown-item" href="#"
-                                                    onclick="event.preventDefault(); this.closest('form').submit();"><i class="ti ti-trash me-1"></i>
+                                                    onclick="event.preventDefault(); this.closest('form').submit();"><i
+                                                        class="ti ti-trash me-1"></i>
                                                     Delete</a>
                                             </form>
                                         </div>
@@ -59,27 +74,27 @@
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body flex-grow-1">
-                <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record" action="/warehouse/setting/gudang-penyimpanan"
-                    method="post">
+                <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record"
+                    action="/@role/setting/gudang-penyimpanan" method="post">
                     @csrf
                     <div class="col-sm-12">
                         <label class="form-label" for="kode">Kode Gudang</label>
-                        <input type="text" id="kode" class="form-control @error('kode') is-invalid @enderror" name="kode"
-                            placeholder="Masukan Kode Gudang" required autofocus />
+                        <input type="text" id="kode" class="form-control @error('kode') is-invalid @enderror"
+                            name="kode" placeholder="Masukan Kode Gudang" required autofocus />
                         <div class="valid-feedback">Ok!</div>
                         <div class="invalid-feedback">Harus Diisi.</div>
                     </div>
                     <div class="col-sm-12">
                         <label class="form-label" for="gudang">Nama Gudang</label>
-                        <input type="text" id="gudang" class="form-control @error('nama') is-invalid @enderror" name="nama"
-                            placeholder="Masukan Nama Gudang" required autofocus />
+                        <input type="text" id="gudang" class="form-control @error('nama') is-invalid @enderror"
+                            name="nama" placeholder="Masukan Nama Gudang" required autofocus />
                         <div class="valid-feedback">Ok!</div>
                         <div class="invalid-feedback">Harus Diisi.</div>
                     </div>
                     <div class="col-sm-12">
                         <label class="form-label" for="alamat">Alamat Gudang</label>
-                        <textarea type="text" id="alamat" class="form-control @error('alamat') is-invalid @enderror" name="alamat" placeholder="Masukan Alamat Gudang"
-                            required></textarea>
+                        <textarea type="text" id="alamat" class="form-control @error('alamat') is-invalid @enderror" name="alamat"
+                            placeholder="Masukan Alamat Gudang" required></textarea>
                         <div class="valid-feedback">Ok!</div>
                         <div class="invalid-feedback">Harus Diisi.</div>
                     </div>

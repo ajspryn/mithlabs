@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('sku_bahan_baku');
             $table->string('jenis_transaksi');
             $table->string('jumlah');
-            $table->text('catatan')->nullable();
+            $table->text('kode_order')->nullable();
             $table->timestamps();
         });
     }

@@ -82,7 +82,14 @@ class GudangPenyimpananController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // return $id;
+        $cek=GudangPenyimpanan::select()->where('status','Utama')->get();
+        $gudang=GudangPenyimpanan::select()->where('id',$id)->get()->first();
+        if ($cek->count()) {
+            GudangPenyimpanan::where('id',$cek->first()->id)->update(['status'=>null]);
+        }
+        GudangPenyimpanan::where('id',$id)->update(['status'=>'Utama']);
+        return redirect()->back()->with('success', 'Gudang '.$gudang->nama.' Berhasil Di Jadikan Gudang Utama');
     }
 
     /**

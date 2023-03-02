@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('produksis', function (Blueprint $table) {
             $table->id();
             $table->string('kode')->unique();
+            $table->string('batch');
             $table->string('kode_pengrajin');
             $table->string('sku_product');
             $table->string('jumlah');
-            $table->text('catatan');
+            $table->text('catatan')->nullable();
             $table->timestamps();
         });
     }

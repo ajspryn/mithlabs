@@ -11,12 +11,12 @@
                 <div class="card">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div class="card-title mb-0">
-                            <h5 class="mb-0 me-2">86%</h5>
-                            <small>CPU Usage</small>
+                            <h5 class="mb-0 me-2">{{ $products->count() }}</h5>
+                            <small>Total Product</small>
                         </div>
                         <div class="card-icon">
                             <span class="badge bg-label-primary rounded-pill p-2">
-                                <i class="ti ti-cpu ti-sm"></i>
+                                <i class="ti ti-shopping-cart ti-sm"></i>
                             </span>
                         </div>
                     </div>
@@ -26,27 +26,12 @@
                 <div class="card">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div class="card-title mb-0">
-                            <h5 class="mb-0 me-2">1.24gb</h5>
-                            <small>Memory Usage</small>
-                        </div>
-                        <div class="card-icon">
-                            <span class="badge bg-label-success rounded-pill p-2">
-                                <i class="ti ti-server ti-sm"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-3 mb-4">
-                <div class="card">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div class="card-title mb-0">
-                            <h5 class="mb-0 me-2">0.2%</h5>
-                            <small>Downtime Ratio</small>
+                            <h5 class="mb-0 me-2">@rupiah($avg_cogm)</h5>
+                            <small>Avg COGM</small>
                         </div>
                         <div class="card-icon">
                             <span class="badge bg-label-danger rounded-pill p-2">
-                                <i class="ti ti-chart-pie-2 ti-sm"></i>
+                                <i class="ti ti-cash ti-sm"></i>
                             </span>
                         </div>
                     </div>
@@ -56,12 +41,27 @@
                 <div class="card">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div class="card-title mb-0">
-                            <h5 class="mb-0 me-2">128</h5>
-                            <small>Issues Found</small>
+                            <h5 class="mb-0 me-2">@rupiah($avg_cogs)</h5>
+                            <small>Avg COGS</small>
                         </div>
                         <div class="card-icon">
                             <span class="badge bg-label-warning rounded-pill p-2">
-                                <i class="ti ti-alert-octagon ti-sm"></i>
+                                <i class="ti ti-cash ti-sm"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-3 mb-4">
+                <div class="card">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div class="card-title mb-0">
+                            <h5 class="mb-0 me-2">@rupiah($avg_harga_jual)</h5>
+                            <small>Avg Harga Jual</small>
+                        </div>
+                        <div class="card-icon">
+                            <span class="badge bg-label-success rounded-pill p-2">
+                                <i class="ti ti-cash ti-sm"></i>
                             </span>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                                 <td></td>
                                 <td style="text-align: center">{{ $product->sku }}</td>
                                 <td>
-                                    <a href="/warehouse/product/{{ $product->uuid }}">
+                                    <a href="/@role/product/{{ $product->uuid }}">
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar">
@@ -147,8 +147,8 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="forminput" role="tabpanel">
-                        @if (Auth::user()->role_id == 5)
-                            <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record" method="post" action="/warehouse/product"
+                        @if (Auth::user()->role_id == 6)
+                            <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record" method="post" action="/@role/product"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="col-sm-12">
@@ -266,7 +266,7 @@
                         @endif
                     </div>
                     <div class="tab-pane fade" id="formexel" role="tabpanel">
-                        <form class="needs-validation pt-0 row g-2" novalidate id="form-upload-new-record" method="post" action="/warehouse/product"
+                        <form class="needs-validation pt-0 row g-2" novalidate id="form-upload-new-record" method="post" action="/@role/product"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="col-sm-12">

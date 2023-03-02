@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,6 +28,12 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('rupiah', function ($expression) {
             return "Rp. <?php echo number_format($expression,0,',','.'); ?>";
         });
+
+        Blade::directive('role', function ($expression) {
+            $role=Auth::user()->role->role;
+            return "{{ Auth::user()->role->role }}";
+        });
+
         Blade::directive('romawi', function ($expression) {
             switch ($expression) {
                 case 1:

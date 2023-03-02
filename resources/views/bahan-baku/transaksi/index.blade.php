@@ -13,13 +13,14 @@
                 <div class="card">
                     <h5 class="card-header">Filter</h5>
                     <div class="card-body">
-                        <form class="needs-validation" action="/warehouse/transaksi-bahan-baku" novalidate>
+                        <form class="needs-validation" action="/@role/transaksi-bahan-baku" novalidate>
                             <div class="mb-3">
                                 <label class="form-label" for="bahan_baku">Bahan Baku</label>
                                 <select class="form-select" id="bahan_baku" name="bahan_baku" required>
                                     <option value="">Pilih Bahan Baku</option>
                                     @foreach ($bahan_bakus as $bahan_baku)
-                                        <option value="{{ $bahan_baku->sku }}" {{ Request('bahan_baku') == $bahan_baku->sku ? 'selected' : '' }}>
+                                        <option value="{{ $bahan_baku->sku }}"
+                                            {{ Request('bahan_baku') == $bahan_baku->sku ? 'selected' : '' }}>
                                             {{ $bahan_baku->nama }}</option>
                                     @endforeach
                                 </select>
@@ -30,8 +31,10 @@
                                 <label class="form-label" for="jenis_transaksi">Jenis Transaksi</label>
                                 <select class="form-select" id="jenis_transaksi" name="jenis_transaksi" required>
                                     <option value="">Pilih Jenis Transaksi</option>
-                                    <option value="Keluar" {{ Request('jenis_transaksi') == 'Keluar' ? 'selected' : '' }}>Keluar</option>
-                                    <option value="Masuk" {{ Request('jenis_transaksi') == 'Masuk' ? 'selected' : '' }}>Masuk</option>
+                                    <option value="Barang Keluar" {{ Request('jenis_transaksi') == 'Barang Keluar' ? 'selected' : '' }}>
+                                        Keluar</option>
+                                    <option value="Barang Masuk" {{ Request('jenis_transaksi') == 'Barang Masuk' ? 'selected' : '' }}>
+                                        Masuk</option>
                                 </select>
                                 <div class="valid-feedback">Ok !</div>
                                 <div class="invalid-feedback">Harus Diisi.</div>
@@ -61,7 +64,6 @@
                                     <th style="text-align: center">Jenis Transaksi</th>
                                     <th style="text-align: center">Tanggal</th>
                                     <th style="text-align: center">Jumlah</th>
-                                    <th style="text-align: center">Catatan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,16 +75,22 @@
                                         <td>
                                             <div class="d-flex">
                                                 <div class="flex-grow-1">
-                                                    <span class="fw-semibold d-block">{{ $transaksi->bahanbaku->nama }}</span>
+                                                    <span
+                                                        class="fw-semibold d-block">{{ $transaksi->bahanbaku->nama }}</span>
                                                     <small class="text-muted">{{ $transaksi->bahanbaku->warna }}</small>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="text-align: center">{{ $transaksi->kode_transaksi }}</td>
-                                        <td style="text-align: center">{{ $transaksi->jenis_transaksi }}</td>
+                                        <td style="text-align: center">{{ $transaksi->kode_order }}</td>
+                                        <td style="text-align: center">
+                                            @if ($transaksi->jenis_transaksi == 'Barang Masuk')
+                                                <span class="badge bg-label-success">Barang Masuk</span>
+                                            @elseif ($transaksi->jenis_transaksi == 'Barang Keluar')
+                                                <span class="badge bg-label-danger">Barang Keluar</span>
+                                            @endif
+                                        </td>
                                         <td style="text-align: center">{{ $transaksi->created_at->format('d-m-Y') }}</td>
                                         <td style="text-align: center">{{ $transaksi->jumlah }}</td>
-                                        <td style="text-align: center">{{ $transaksi->catatan }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -100,32 +108,34 @@
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body flex-grow-1">
-                <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record" action="/warehouse/bahan-baku" method="post">
+                <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record"
+                    action="/bahan-baku" method="post">
                     @csrf
                     <div class="col-sm-12">
                         <label class="form-label" for="sku">SKU</label>
-                        <input type="text" id="sku" class="form-control @error('sku') is-invalid @enderror" name="sku"
-                            placeholder="Masukan SKU Bahan Baku" required autofocus />
+                        <input type="text" id="sku" class="form-control @error('sku') is-invalid @enderror"
+                            name="sku" placeholder="Masukan SKU Bahan Baku" required autofocus />
                         <div class="valid-feedback">Ok!</div>
                         <div class="invalid-feedback">Harus Diisi.</div>
                     </div>
                     <div class="col-sm-12">
                         <label class="form-label" for="nama">Nama Bahan Baku</label>
-                        <input type="text" id="nama" class="form-control @error('nama') is-invalid @enderror" name="nama"
-                            placeholder="Masukan Nama Bahan Baku" required />
+                        <input type="text" id="nama" class="form-control @error('nama') is-invalid @enderror"
+                            name="nama" placeholder="Masukan Nama Bahan Baku" required />
                         <div class="valid-feedback">Ok!</div>
                         <div class="invalid-feedback">Harus Diisi.</div>
                     </div>
                     <div class="col-sm-12">
                         <label class="form-label" for="harga">Harga/Satuan</label>
-                        <input type="number" id="harga" class="form-control @error('harga') is-invalid @enderror" name="harga"
-                            placeholder="Masukan Harga/Satuan" required />
+                        <input type="number" id="harga" class="form-control @error('harga') is-invalid @enderror"
+                            name="harga" placeholder="Masukan Harga/Satuan" required />
                         <div class="valid-feedback">Ok!</div>
                         <div class="invalid-feedback">Harus Diisi.</div>
                     </div>
                     <div class="col-sm-12">
                         <button type="submit" class="btn btn-primary data-submit me-sm-3 me-1">Submit</button>
-                        <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                        <button type="reset" class="btn btn-outline-secondary"
+                            data-bs-dismiss="offcanvas">Cancel</button>
                     </div>
                 </form>
             </div>

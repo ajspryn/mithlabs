@@ -18,4 +18,8 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class, 'kode_brand', 'kode');
     }
+    public function bahan_baku()
+    {
+        return $this->hasMany(BahanBaku::class, 'sku', 'sku_bahan_baku');
+    }
 }

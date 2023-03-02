@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Settings\Vendor;
 use App\Models\Warehouse\BahanBaku;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 use App\Models\Purchase\OrderBahanBaku;
 
 class OrderBahanBakuController extends Controller
@@ -18,7 +19,7 @@ class OrderBahanBakuController extends Controller
      */
     public function index()
     {
-        return view('bahan-baku.order', [
+        return view('bahan-baku.order.index', [
             'orders' => OrderBahanBaku::select('kode')->groupBy('kode')->get(),
             'bahan_bakus' => BahanBaku::select()->get(),
             'vendors' => Vendor::all(),
@@ -43,6 +44,7 @@ class OrderBahanBakuController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         $cek_kode = OrderBahanBaku::select()->latest()->first();
         $kode = 1;
         if (isset($cek_kode)) {
@@ -53,14 +55,22 @@ class OrderBahanBakuController extends Controller
 
         foreach ($request->order_bahan_baku as $data) {
 
-            $input = $data;
+            $data->validate([
+                'kode' => 'required',
+                'sku_bahan_baku' => 'required',
+                'jumlah' => 'required',
+                'kode_vendor' => 'required',
+                'kode_produksi' => 'nullable',
+                'catatan' => 'nullable',
+            ]);
+
+            $input = $data->all();
             $input['kode'] = $kode_order;
             $input['status'] = 'Diajukan';
-            // return $input;
 
             OrderBahanBaku::create($input);
         }
-        return redirect()->back()->with('success', 'Data Berhasil Dihapus');
+        return redirect()->back()->with('success', 'Bahan Baku Berhasil Di Order');
     }
 
     /**
@@ -71,7 +81,10 @@ class OrderBahanBakuController extends Controller
      */
     public function show($id)
     {
-        //
+        // return OrderBahanBaku::with('bahanbaku','vendor','produksi')->select()->where('kode',$id)->get();
+        return view('bahan-baku.order.detail', [
+            'orders' => OrderBahanBaku::with('bahanbaku', 'vendor', 'produksi')->select()->where('kode', $id)->get(),
+        ]);
     }
 
     /**
@@ -94,7 +107,13 @@ class OrderBahanBakuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data=([
+            'catatan' => 'nullable',
+            'status' => 'nullable',
+        ]);
+        $input=$request->validate($data);
+        OrderBahanBaku::where('kode',$id)->update($input);
+        return redirect()->back()->with('success', 'Order Telah Di Setujui');
     }
 
     /**

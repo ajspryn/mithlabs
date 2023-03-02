@@ -912,7 +912,7 @@
                 //   visible: false
                 // }
             ],
-            order: [[1, "desc"]],
+            order: [[1, "asc"]],
             // dom:
             //     '<"row ms-2 me-3"' +
             //     '<"col-12 col-md-6 d-flex align-items-center justify-content-center justify-content-md-start gap-2"l<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start mt-md-0 mt-3"B>>' +

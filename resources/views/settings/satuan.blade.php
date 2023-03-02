@@ -31,7 +31,7 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" href="javascript:void(0);"><i class="ti ti-pencil me-1"></i> Edit</a>
-                                            <form action="/warehouse/setting/satuan/{{ $satuan->id }}" method="POST" class="d-inline">
+                                            <form action="/@role/setting/satuan/{{ $satuan->id }}" method="POST" class="d-inline">
                                                 @method('delete')
                                                 @csrf
                                                 <a class="dropdown-item" href="#"
@@ -55,7 +55,7 @@
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body flex-grow-1">
-                <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record" action="/warehouse/setting/satuan" method="post">
+                <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record" action="/@role/setting/satuan" method="post">
                     @csrf
                     <div class="col-sm-12">
                         <label class="form-label" for="nama">Nama Satuan</label>

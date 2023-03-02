@@ -12,4 +12,13 @@ class Assembly extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function bahanbaku()
+    {
+        return $this->belongsTo(BahanBaku::class, 'sku_bahan_baku', 'sku');
+    }
+    public function stok_bahanbaku()
+    {
+        return $this->belongsTo(StokBahanBaku::class, 'sku_bahan_baku', 'sku_bahan_baku');
+    }
 }

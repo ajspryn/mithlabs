@@ -2,8 +2,9 @@
 
 namespace App\Models\Warehouse;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Purchase\OrderBahanBaku;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TransaksiBahanBaku extends Model
 {
@@ -16,5 +17,9 @@ class TransaksiBahanBaku extends Model
     public function bahanbaku()
     {
         return $this->belongsTo(BahanBaku::class, 'sku_bahan_baku', 'sku');
+    }
+    public function order()
+    {
+        return $this->belongsTo(OrderBahanBaku::class, 'sku_bahan_baku', 'sku_bahan_baku');
     }
 }

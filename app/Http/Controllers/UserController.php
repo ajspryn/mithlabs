@@ -72,6 +72,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request);
         if ($request->code == 1) {
             $rules = [
                 'name' => 'required', 'string', 'max:255',

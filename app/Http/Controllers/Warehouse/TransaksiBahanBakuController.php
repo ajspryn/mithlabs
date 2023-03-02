@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Warehouse\BahanBaku;
 use App\Models\Warehouse\TransaksiBahanBaku;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class TransaksiBahanBakuController extends Controller
 {
@@ -21,7 +22,7 @@ class TransaksiBahanBakuController extends Controller
         } else {
             $transaksi = TransaksiBahanBaku::all();
         }
-        return view('bahan-baku.transaksi', [
+        return view('bahan-baku.transaksi.index', [
             'transaksis' => $transaksi,
             'bahan_bakus' => BahanBaku::all(),
 
@@ -57,7 +58,7 @@ class TransaksiBahanBakuController extends Controller
      */
     public function show($id)
     {
-        //
+        return Crypt::decryptString($id);
     }
 
     /**

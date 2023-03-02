@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
+use App\Models\Settings\Pengrajin;
 use Illuminate\Http\Request;
 
 class PengrajinController extends Controller
@@ -14,7 +15,9 @@ class PengrajinController extends Controller
      */
     public function index()
     {
-        //
+        return view('settings.pengrajin',[
+            'pengrajins'=>Pengrajin::all(),
+        ]);
     }
 
     /**
@@ -35,7 +38,15 @@ class PengrajinController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kode' => 'required',
+            'nama' => 'required',
+        ]);
+
+        $input = $request->all();
+
+        Pengrajin::create($input);
+        return redirect()->back()->with('success', 'Data Berhasil Di Simpan');
     }
 
     /**
@@ -80,6 +91,7 @@ class PengrajinController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Pengrajin::destroy($id);
+        return redirect()->back()->with('success', 'Data Berhasil Dihapus');
     }
 }

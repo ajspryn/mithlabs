@@ -17,11 +17,14 @@ class Role
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        $cekrole = Auth::user();
-        if (isset($cekrole->role_id)) {
-            if ($cekrole->role_id == $role) {
+        // dd($role);
+        $cekrole = Auth::user()->role_id;
+        if (isset($cekrole)) {
+            if ($cekrole==$role) {
                 return $next($request);
             }
+        } else {
+            return view('kamusiapa');
         }
         return redirect()->back();
     }

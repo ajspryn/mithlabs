@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('kode')->unique();
             $table->string('sku_bahan_baku');
+            $table->string('kode_produksi')->nullable();
             $table->string('jumlah');
             $table->string('status');
             $table->string('kode_vendor');

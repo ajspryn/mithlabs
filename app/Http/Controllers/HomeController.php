@@ -25,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // dd(Auth::user()->role->role);
         $user = Auth::user();
         if ($user) {
             $role = $user->role_id;
@@ -35,17 +36,17 @@ class HomeController extends Controller
         $url = '/';
 
         if (isset($role)) {
-            if ($role == 0) {
+            if ($role == 1) {
                 $nama_role = 'Admin';
-            } else if ($role == 1) {
-                $nama_role = 'Owner';
             } else if ($role == 2) {
-                $nama_role = 'Purchase';
+                $nama_role = 'Owner';
             } else if ($role == 3) {
-                $nama_role = 'Production';
+                $nama_role = 'Purchase';
             } else if ($role == 4) {
-                $nama_role = 'QC';
+                $nama_role = 'Production';
             } else if ($role == 5) {
+                $nama_role = 'QC';
+            } else if ($role == 6) {
                 $nama_role = 'Warehouse';
             }
             return view('index', [

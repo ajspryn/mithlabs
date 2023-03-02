@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('warna');
             $table->string('satuan');
             $table->string('harga');
-            $table->string('kode_vendor')->nullable();
             $table->timestamps();
         });
     }

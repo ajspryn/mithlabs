@@ -2,8 +2,16 @@
 
 namespace App\Http\Controllers\Produksi;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\Produksi\Produksi;
+use App\Models\Warehouse\Product;
+use App\Models\Settings\Pengrajin;
+use App\Http\Controllers\Controller;
+use App\Models\Settings\Vendor;
+use App\Models\Warehouse\Assembly;
+use App\Models\Warehouse\BahanBaku;
+use Illuminate\Support\Facades\Auth;
 
 class ProduksiController extends Controller
 {
@@ -14,7 +22,17 @@ class ProduksiController extends Controller
      */
     public function index()
     {
-        //
+        // $data= Produksi::with('product','pengrajin','qc')->select()->get();
+        // return $dat;
+        $produksi=Produksi::with('product','pengrajin','qc')->orderBy('id', 'desc')->select()->limit(9)->get();
+        if(request('sku_product')){
+            $produksi=Produksi::with('product','pengrajin','qc')->orderBy('id', 'desc')->select()->where('sku_product',request('sku_product'))->whereYear('created_at',request('tahun'))->get();
+        }
+        return view('produksi.index', [
+            'produksis' => $produksi,
+            'pengrajins' => Pengrajin::all(),
+            'products' => Product::all(),
+        ]);
     }
 
     /**
@@ -35,7 +53,20 @@ class ProduksiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $produksi = Produksi::select()->where('sku_product', $request->sku_product)->get()->count();
+        $request->validate([
+            'kode_pengrajin' => 'required',
+            'sku_product' => 'required',
+            'jumlah' => 'required',
+            'catatan' => 'nullable',
+        ]);
+
+        $input = $request->all();
+        $input['batch'] = $produksi + 1;
+        $input['kode'] = $input['sku_product'] . '-' . $input['kode_pengrajin'] . '-' . Carbon::now()->format('m-y') . '-' . sprintf('%03d', $produksi + 1);
+        // return $input['kode'];
+        Produksi::create($input);
+        return redirect(Auth::user()->role->role.'/produksi'.'/'.$input['kode']);
     }
 
     /**
@@ -46,7 +77,15 @@ class ProduksiController extends Controller
      */
     public function show($id)
     {
-        //
+        $produksi=Produksi::with('product','pengrajin','qc','assembly','order')->select()->where('kode',$id)->get()->first();
+        $assembly= Assembly::with('bahanbaku','stok_bahanbaku')->select()->where('sku_product',$produksi->product->sku)->get()->first();
+        // return $produksi;
+        return view('produksi.detail',[
+            'produksi'=>$produksi,
+            'produksis'=>Produksi::with('product','pengrajin','qc')->select()->where('kode',$id)->get(),
+            'assemblies'=>Assembly::with('bahanbaku')->select()->where('sku_product',$produksi->product->sku)->get(),
+            'vendors'=>Vendor::all(),
+        ]);
     }
 
     /**

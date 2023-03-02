@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Warehouse;
 use Illuminate\Http\Request;
 use App\Models\Warehouse\BahanBaku;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 use App\Models\Warehouse\StokBahanBaku;
+use App\Models\Warehouse\TransaksiBahanBaku;
 
 class StokBahanBakuController extends Controller
 {
@@ -16,8 +18,10 @@ class StokBahanBakuController extends Controller
      */
     public function index()
     {
-        return view('bahan-baku.stok', [
+        // return TransaksiBahanBaku::with('bahanbaku')->select()->limit(5)->get();
+        return view('bahan-baku.stok.index', [
             'stoks' => StokBahanBaku::all(),
+            'transaksis'=>TransaksiBahanBaku::with('bahanbaku')->select()->take(5)->get(),
 
         ]);
     }
@@ -51,7 +55,11 @@ class StokBahanBakuController extends Controller
      */
     public function show($id)
     {
-        //
+        $id=Crypt::decryptString($id);
+        // return BahanBaku::with('order','stok','transaksi')->select()->where('sku',$id)->get()->first();
+        return view('bahan-baku.stok.detail',[
+            'bahanbaku'=>BahanBaku::with('order','stok','transaksi')->select()->where('sku',$id)->get()->first(),
+        ]);
     }
 
     /**

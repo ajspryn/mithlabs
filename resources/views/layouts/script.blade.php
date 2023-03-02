@@ -30,6 +30,7 @@
     <script src="{{ url('/') }}/assets/vendor/libs/tagify/tagify.js"></script>
     <script src="{{ url('/') }}/assets/vendor/libs/bs-stepper/bs-stepper.js"></script>
     <script src="{{ url('/') }}/assets/vendor/libs/jquery-repeater/jquery-repeater.js"></script>
+    <script src="{{ url('/') }}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
 
     <!-- Main JS -->
@@ -49,3 +50,4 @@
     <script src="{{ url('/') }}/assets/js/forms-extras.js"></script>
     <script src="{{ url('/') }}/assets/js/pages-profile.js"></script>
     <script src="{{ url('/') }}/assets/js/dashboards-ecommerce.js"></script>
+    <script src="{{ url('/') }}/assets/js/extended-ui-perfect-scrollbar.js"></script>

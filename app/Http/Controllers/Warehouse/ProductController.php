@@ -26,8 +26,27 @@ class ProductController extends Controller
     public function index()
     {
         // return Product::with('brand')->select()->get();
+        $product = Product::with('brand')->select()->get();
+        $qyt_product = $product->count();
+        $avg_cogm = 0;
+        $avg_cogs = 0;
+        $avg_harga_jual = 0;
+
+        //rata rata
+        if ($product) {
+            $cogm = $product->sum('cogm');
+            $avg_cogm = $cogm / $qyt_product;
+            $cogs = $product->sum('cogs');
+            $avg_cogs = $cogs / $qyt_product;
+            $harga_jual = $product->sum('harga_jual');
+            $avg_harga_jual = $harga_jual / $qyt_product;
+        }
+
         return view('product.index', [
-            'products' => Product::with('brand')->select()->get(),
+            'products' => $product,
+            'avg_harga_jual' => $avg_harga_jual,
+            'avg_cogm' => $avg_cogm,
+            'avg_cogs' => $avg_cogs,
             'warnas' => Warna::all(),
             'kategoris' => KategoriProduct::all(),
             'brands' => Brand::all(),
@@ -138,7 +157,7 @@ class ProductController extends Controller
         $rules = [
             'nama' => 'required',
             'nama_singkat' => 'required',
-            'brand' => 'required',
+            'kode_brand' => 'required',
             'warna' => 'required',
             'kategori' => 'required',
             'sku_config' => 'required',

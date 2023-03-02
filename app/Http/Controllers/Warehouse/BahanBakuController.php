@@ -8,9 +8,10 @@ use App\Models\Settings\Warna;
 use App\Models\Settings\Satuan;
 use App\Models\Settings\Vendor;
 use App\Imports\BahanBakuImport;
+use App\Models\Warehouse\Product;
 use App\Models\Warehouse\BahanBaku;
 use App\Http\Controllers\Controller;
-use App\Models\Warehouse\Product;
+use App\Imports\StokBahanBakuImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class BahanBakuController extends Controller
@@ -52,6 +53,7 @@ class BahanBakuController extends Controller
         // return $request;
         if ($request->file('upload_file')) {
             Excel::import(new BahanBakuImport, request()->file('upload_file'));
+            Excel::import(new StokBahanBakuImport, request()->file('upload_file'));
             return redirect()->back()->with('success', 'Data Berhasil Di Simpan');
         } else {
             $request->validate([
@@ -60,7 +62,6 @@ class BahanBakuController extends Controller
                 'warna' => 'required',
                 'satuan' => 'required',
                 'harga' => 'required',
-                'kode_vendor' => 'required',
             ]);
 
             $input = $request->all();

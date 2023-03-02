@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('stok_bahan_bakus', function (Blueprint $table) {
             $table->id();
             $table->string('sku_bahan_baku');
-            $table->string('stok')->default('0')->nullable();
+            $table->string('stok')->default(0)->nullable();
             $table->timestamps();
         });
     }
