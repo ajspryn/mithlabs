@@ -16,10 +16,10 @@ class BahanBaku extends Model
         'id'
     ];
 
-    // public function vendor()
-    // {
-    //     return $this->belongsTo(Vendor::class, 'kode_vendor', 'kode');
-    // }
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class, 'kode_vendor', 'kode');
+    }
     public function stok()
     {
         return $this->belongsTo(StokBahanBaku::class, 'sku','sku_bahan_baku');

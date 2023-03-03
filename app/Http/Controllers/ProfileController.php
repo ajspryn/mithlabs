@@ -71,7 +71,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->file('avatar'));
+        // dd($request->file('avatar'));
         if ($request->code == 1) {
             $rules = [
                 'name' => 'required', 'string', 'max:255',

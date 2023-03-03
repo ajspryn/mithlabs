@@ -16,6 +16,6 @@ class ProductStock extends Model
 
     public function gudang()
     {
-        return $this->hasMany(GudangPenyimpanan::class);
+        return $this->belongsTo(GudangPenyimpanan::class, 'kode_gudang','kode');
     }
 }

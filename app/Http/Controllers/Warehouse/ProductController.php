@@ -8,6 +8,7 @@ use App\Imports\ProductImport;
 use App\Models\Settings\Brand;
 use App\Models\Settings\Warna;
 use App\Models\Warehouse\Product;
+use App\Imports\StokProductImport;
 use App\Models\Warehouse\Assembly;
 use App\Models\Warehouse\BahanBaku;
 use App\Http\Controllers\Controller;
@@ -74,6 +75,7 @@ class ProductController extends Controller
         // return $request;
         if ($request->file('upload_file')) {
             Excel::import(new ProductImport, request()->file('upload_file'));
+            Excel::import(new StokProductImport, request()->file('upload_file'));
             return redirect()->back()->with('success', 'Data Berhasil Di Simpan');
         } else {
             $request->validate([
@@ -122,9 +124,10 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::with('brand')->select()->where('uuid', $id)->get()->first();
+        // return ProductStock::with('gudang')->select()->where('sku_product', $product->sku)->get();
         return view('product.detail', [
             'product' => $product,
-            'stoks' => ProductStock::select()->where('sku_product', $product->sku)->get(),
+            'stoks' => ProductStock::with('gudang')->select()->where('sku_product', $product->sku)->get(),
             'bahan_bakus' => BahanBaku::all(),
             'assemblies' => Assembly::select()->where('sku_product', $product->sku)->get(),
             'warnas' => Warna::all(),

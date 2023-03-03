@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Settings\Satuan;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 use App\Models\Warehouse\BahanBaku;
@@ -18,6 +19,9 @@ class BahanBakuImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
+        Satuan::updateOrInsert([
+            'nama'=>$row['satuan'],
+        ]);
         return new BahanBaku([
             'uuid' => Uuid::uuid4(),
             'sku' => str_replace(" ", "", $row['sku']),
