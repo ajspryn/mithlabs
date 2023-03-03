@@ -33,7 +33,7 @@ class ProductController extends Controller
         $avg_harga_jual = 0;
 
         //rata rata
-        if ($product) {
+        if ($product->count()>0) {
             $cogm = $product->sum('cogm');
             $avg_cogm = $cogm / $qyt_product;
             $cogs = $product->sum('cogs');
