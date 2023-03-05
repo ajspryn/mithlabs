@@ -266,20 +266,15 @@
                     </div>
                     <div class="tab-pane
                                         fade" id="formexel" role="tabpanel">
-                                        <form class="needs-validation pt-0 row g-2" novalidate id="form-upload-new-record"
-                                            method="post" action="/@role/product" enctype="multipart/form-data">
+                                        <form class="needs-validation pt-0 row g-2" novalidate id="form-upload-new-record" method="post" action="/@role/product" enctype="multipart/form-data">
                                             @csrf
                                             <div class="col-sm-12">
                                                 <label class="form-label" for="upload_file">Upload File Exel</label>
-                                                <input type="file"
-                                                    class="form-control @error('upload_file') is-invalid @enderror"
-                                                    id="upload_file" name="upload_file" accept=".xlsx,.csv" required />
+                                                <input type="file" class="form-control @error('upload_file') is-invalid @enderror" id="upload_file" name="upload_file" accept=".xlsx,.csv" required />
                                             </div>
                                             <div class="col-sm-12">
-                                                <button type="submit"
-                                                    class="btn btn-primary data-submit me-sm-3 me-1">Submit</button>
-                                                <button type="reset" class="btn btn-outline-secondary"
-                                                    data-bs-dismiss="offcanvas">Cancel</button>
+                                                <button type="submit" class="btn btn-primary data-submit me-sm-3 me-1">Submit</button>
+                                                <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                                             </div>
                                         </form>
                                         <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
@@ -289,8 +284,7 @@
                                             <div class="d-flex flex-column ps-1">
                                                 <h5 class="alert-heading mb-2">Perhatian !!!</h5>
                                                 <p class="mb-0">- Pastikan Semua Data Setting Sudah Diisi Semua</p>
-                                                <p class="mb-0">- Sesuainkan Format Excel/CSV Sesuai Dengan Ketentuan <a
-                                                        href="/import/products.xlsx">(Download Format Disini)</a></p>
+                                                <p class="mb-0">- Sesuainkan Format Excel/CSV Sesuai Dengan Ketentuan <a href="/import/products.xlsx">(Download Format Disini)</a></p>
                                             </div>
                                         </div>
             </div>

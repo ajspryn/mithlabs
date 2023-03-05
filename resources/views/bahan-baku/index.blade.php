@@ -5,7 +5,6 @@
 @section('content')
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
-
         <!-- Table -->
         <div class="card">
             <div class="card-datatable table-responsive pt-0">
