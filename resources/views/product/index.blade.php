@@ -300,4 +300,5 @@
     <!--/ DataTable with Buttons -->
     </div>
     <!--/ Content -->
+
 @endsection

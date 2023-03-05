@@ -6,70 +6,6 @@
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
 
-        {{-- <!-- Statistics -->
-        <div class="row">
-            <div class="col-lg-3 col-sm-3 mb-4">
-                <div class="card">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div class="card-title mb-0">
-                            <h5 class="mb-0 me-2">{{ $bahan_bakus->count() }}</h5>
-                            <small>Total Bahan Baku</small>
-                        </div>
-                        <div class="card-icon">
-                            <span class="badge bg-label-primary rounded-pill p-2">
-                                <i class="ti ti-shopping-cart ti-sm"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-3 mb-4">
-                <div class="card">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div class="card-title mb-0">
-                            <h5 class="mb-0 me-2">0</h5>
-                            <small>Avg COGM</small>
-                        </div>
-                        <div class="card-icon">
-                            <span class="badge bg-label-danger rounded-pill p-2">
-                                <i class="ti ti-cash ti-sm"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-3 mb-4">
-                <div class="card">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div class="card-title mb-0">
-                            <h5 class="mb-0 me-2">0</h5>
-                            <small>Avg COGS</small>
-                        </div>
-                        <div class="card-icon">
-                            <span class="badge bg-label-warning rounded-pill p-2">
-                                <i class="ti ti-cash ti-sm"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-3 mb-4">
-                <div class="card">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div class="card-title mb-0">
-                            <h5 class="mb-0 me-2">0</h5>
-                            <small>Avg Harga Jual</small>
-                        </div>
-                        <div class="card-icon">
-                            <span class="badge bg-label-success rounded-pill p-2">
-                                <i class="ti ti-cash ti-sm"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-
         <!-- Table -->
         <div class="card">
             <div class="card-datatable table-responsive pt-0">
@@ -204,73 +140,16 @@
                                 <button type="reset" class="btn btn-outline-secondary"
                                     data-bs-dismiss="offcanvas">Cancel</button>
                             </div>
+                            <div class="d-flex flex-column ps-1">
+                                <h5 class="alert-heading mb-2">Perhatian !!!</h5>
+                                <p class="mb-0">- Pastikan Semua Data Setting Sudah Diisi Semua</p>
+                                <p class="mb-0">- Sesuainkan Format Excel/CSV Sesuai Dengan Ketentuan <a
+                                        href="/import/bahan_bakus.xlsx">(Download Format Disini)</a></p>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
-            {{-- <div class="offcanvas-body flex-grow-1">
-                <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record" action="/bahan-baku" method="post">
-                    @csrf
-                    <div class="col-sm-12">
-                        <label class="form-label" for="sku">SKU</label>
-                        <input type="text" id="sku" class="form-control @error('sku') is-invalid @enderror" name="sku"
-                            placeholder="Masukan SKU Bahan Baku" required autofocus />
-                        <div class="valid-feedback">Ok!</div>
-                        <div class="invalid-feedback">Harus Diisi.</div>
-                    </div>
-                    <div class="col-sm-12">
-                        <label class="form-label" for="nama">Nama Bahan Baku</label>
-                        <input type="text" id="nama" class="form-control @error('nama') is-invalid @enderror" name="nama"
-                            placeholder="Masukan Nama Bahan Baku" required />
-                        <div class="valid-feedback">Ok!</div>
-                        <div class="invalid-feedback">Harus Diisi.</div>
-                    </div>
-                    <div class="col-sm-12">
-                        <label class="form-label" for="warna">Warna</label>
-                        <select class="form-select @error('warna') is-invalid @enderror" name="warna" id="warna" required>
-                            <option value="">Pilih Warna</option>
-                            @foreach ($warnas as $warna)
-                                <option value="{{ $warna->nama }}">{{ $warna->nama }}</option>
-                            @endforeach
-                        </select>
-                        <div class="valid-feedback">Ok!</div>
-                        <div class="invalid-feedback">Harus Diisi.</div>
-                    </div>
-                    <div class="col-sm-12">
-                        <label class="form-label" for="satuan">Satuan</label>
-                        <select class="form-select @error('satuan') is-invalid @enderror" name="satuan" id="satuan" required>
-                            <option value="">Pilih Satuan</option>
-                            @foreach ($satuans as $satuan)
-                                <option value="{{ $satuan->nama }}">{{ $satuan->nama }}</option>
-                            @endforeach
-                        </select>
-                        <div class="valid-feedback">Ok!</div>
-                        <div class="invalid-feedback">Harus Diisi.</div>
-                    </div>
-                    <div class="col-sm-12">
-                        <label class="form-label" for="harga">Harga/Satuan</label>
-                        <input type="number" id="harga" class="form-control @error('harga') is-invalid @enderror" name="harga"
-                            placeholder="Masukan Harga/Satuan" required />
-                        <div class="valid-feedback">Ok!</div>
-                        <div class="invalid-feedback">Harus Diisi.</div>
-                    </div>
-                    <div class="col-sm-12">
-                        <label class="form-label" for="kode_vendor">Vendor</label>
-                        <select class="form-select @error('kode_vendor') is-invalid @enderror" name="kode_vendor" id="kode_vendor" required>
-                            <option value="">Pilih Vendor</option>
-                            @foreach ($vendors as $vendor)
-                                <option value="{{ $vendor->kode_vendor }}">{{ $vendor->nama }}</option>
-                            @endforeach
-                        </select>
-                        <div class="valid-feedback">Ok!</div>
-                        <div class="invalid-feedback">Harus Diisi.</div>
-                    </div>
-                    <div class="col-sm-12">
-                        <button type="submit" class="btn btn-primary data-submit me-sm-3 me-1">Submit</button>
-                        <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">Cancel</button>
-                    </div>
-                </form>
-            </div> --}}
         </div>
         <!--/ DataTable with Buttons -->
 
