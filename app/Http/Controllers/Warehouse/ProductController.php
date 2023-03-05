@@ -8,7 +8,6 @@ use App\Imports\ProductImport;
 use App\Models\Settings\Brand;
 use App\Models\Settings\Warna;
 use App\Models\Warehouse\Product;
-use App\Imports\StokProductImport;
 use App\Models\Warehouse\Assembly;
 use App\Models\Warehouse\BahanBaku;
 use App\Http\Controllers\Controller;

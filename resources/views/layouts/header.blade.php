@@ -74,7 +74,6 @@
     {{-- <link rel="stylesheet" href="{{ url('/') }}/assets/preload.css"> --}}
     @laravelPWA
     {{-- @preload --}}
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spinkit/2.0.2/spinkit.min.css"> --}}
     <style>
         .loading {
             position: fixed;

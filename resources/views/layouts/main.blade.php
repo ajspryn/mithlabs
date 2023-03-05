@@ -6,7 +6,6 @@
 @include('layouts.header')
 
 <body>
-
     <div class="loading">
         <div class="spinner">
             <img src="{{ url('/') }}/favicon.png" width="60" alt="">

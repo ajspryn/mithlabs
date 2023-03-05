@@ -7,6 +7,7 @@ use App\Models\Warehouse\ProductStock;
 use App\Models\Warehouse\TransaksiProduct;
 use Illuminate\Http\Request;
 
+
 class ProductStockController extends Controller
 {
     /**

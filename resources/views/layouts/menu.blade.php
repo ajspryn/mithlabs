@@ -233,6 +233,7 @@
     </aside>
     <!-- / Menu -->
 
+
     {{-- production --}}
 @elseif (Auth::user()->role_id == 4)
     {{-- QC --}}

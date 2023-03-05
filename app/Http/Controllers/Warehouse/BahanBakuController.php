@@ -8,10 +8,8 @@ use App\Models\Settings\Warna;
 use App\Models\Settings\Satuan;
 use App\Models\Settings\Vendor;
 use App\Imports\BahanBakuImport;
-use App\Models\Warehouse\Product;
 use App\Models\Warehouse\BahanBaku;
 use App\Http\Controllers\Controller;
-use App\Imports\StokBahanBakuImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class BahanBakuController extends Controller

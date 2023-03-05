@@ -52,6 +52,7 @@
     <script src="{{ url('/') }}/assets/js/dashboards-ecommerce.js"></script>
     <script src="{{ url('/') }}/assets/js/extended-ui-perfect-scrollbar.js"></script>
 
+
     <script>
         $(document).ready(function() {
             $('.loading').show(); // Menampilkan spinner
