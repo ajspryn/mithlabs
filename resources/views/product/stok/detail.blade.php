@@ -6,7 +6,6 @@
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
 
-
         <div class="row">
             <!-- Earning Reports -->
             <div class="col-lg-12 mb-4">
@@ -39,7 +38,7 @@
                                 <div class="card overflow-hidden mb-4" style="height: 300px;">
                                     <h5 class="card-header">Transaksi Keluar/Masuk</h5>
                                     <div class="card-body" id="vertical-example">
-                                        @if ($bahanbaku->transaksi->count()>0)
+                                        @if ($bahanbaku->transaksi->count() > 0)
                                             <ul class="timeline mt-3 mb-0">
                                                 @foreach ($bahanbaku->transaksi as $transaksi)
                                                     @if ($transaksi->jenis_transaksi == 'Barang Masuk')
@@ -48,8 +47,7 @@
                                                             <span class="timeline-indicator timeline-indicator-success">
                                                                 <i class="ti ti-transfer-in"></i>
                                                             </span>
-                                                            <a
-                                                                href="/order-bahan-baku/{{ $transaksi->kode_order }}">
+                                                            <a href="/order-bahan-baku/{{ $transaksi->kode_order }}">
                                                                 <div class="timeline-event">
                                                                     <div class="d-flex flex-sm-row flex-column">
                                                                         <div>

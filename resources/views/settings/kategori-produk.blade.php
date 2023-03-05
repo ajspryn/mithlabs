@@ -91,7 +91,6 @@
                 </table>
             </div>
         </div>
-
         <!-- Modal to add new record -->
         <div class="offcanvas offcanvas-end" id="add-new-record">
             <div class="offcanvas-header border-bottom">

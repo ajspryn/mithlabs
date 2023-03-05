@@ -6,14 +6,14 @@
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
 
-
         <div class="row">
             <!-- filter transaksi bahan baku -->
             <div class="col-lg-3 mb-4 mb-lg-0">
                 <div class="card">
                     <h5 class="card-header">Filter</h5>
                     <div class="card-body">
-                        <form class="needs-validation" action="/@role/transaksi-bahan-baku" novalidate>
+                        <form class="needs-validation"
+                            action="/@role/transaksi-bahan-baku" novalidate>
                             <div class="mb-3">
                                 <label class="form-label" for="bahan_baku">Bahan Baku</label>
                                 <select class="form-select" id="bahan_baku" name="bahan_baku" required>
@@ -86,15 +86,15 @@
                                             @if ($transaksi->jenis_transaksi == 'Barang Masuk')
                                                 <span class="badge bg-label-success">Barang Masuk</span>
                                             @elseif ($transaksi->jenis_transaksi == 'Barang Keluar')
-                                                <span class="badge bg-label-danger">Barang Keluar</span>
-                                            @endif
+                                                <span class="badge bg-label-danger">Barang Keluar</span> @endif
                                         </td>
-                                        <td style="text-align: center">{{ $transaksi->created_at->format('d-m-Y') }}</td>
-                                        <td style="text-align: center">{{ $transaksi->jumlah }}</td>
-                                    </tr>
-                                @endforeach
+                                        <td style="text-align:
+                            center">{{ $transaksi->created_at->format('d-m-Y') }}</td>
+                            <td style="text-align: center">{{ $transaksi->jumlah }}</td>
+                            </tr>
+                            @endforeach
                             </tbody>
-                        </table>
+                            </table>
                     </div>
                 </div>
             </div>
@@ -108,8 +108,8 @@
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body flex-grow-1">
-                <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record"
-                    action="/bahan-baku" method="post">
+                <form class="needs-validation pt-0 row g-2" novalidate id="form-add-new-record" action="/bahan-baku"
+                    method="post">
                     @csrf
                     <div class="col-sm-12">
                         <label class="form-label" for="sku">SKU</label>
@@ -134,8 +134,7 @@
                     </div>
                     <div class="col-sm-12">
                         <button type="submit" class="btn btn-primary data-submit me-sm-3 me-1">Submit</button>
-                        <button type="reset" class="btn btn-outline-secondary"
-                            data-bs-dismiss="offcanvas">Cancel</button>
+                        <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                     </div>
                 </form>
             </div>
