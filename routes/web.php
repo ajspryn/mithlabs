@@ -71,7 +71,7 @@ Route::prefix('qc')->middleware(['auth:sanctum', 'verified', 'role:5'])->group(f
 // warehouse
 Route::prefix('warehouse')->middleware(['auth:sanctum', 'verified', 'role:6'])->group(function () {
     Route::resource('/product', ProductController::class);
-    Route::resource('/product-stock', ProductStockController::class);
+    Route::resource('/stok-product', ProductStockController::class);
     Route::resource('/bahan-baku', BahanBakuController::class);
     Route::resource('/stok-bahan-baku', StokBahanBakuController::class);
     Route::resource('/transaksi-bahan-baku', TransaksiBahanBakuController::class);

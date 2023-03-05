@@ -53,7 +53,7 @@ class BahanBakuController extends Controller
         // return $request;
         if ($request->file('upload_file')) {
             Excel::import(new BahanBakuImport, request()->file('upload_file'));
-            Excel::import(new StokBahanBakuImport, request()->file('upload_file'));
+            // Excel::import(new StokBahanBakuImport, request()->file('upload_file'));
             return redirect()->back()->with('success', 'Data Berhasil Di Simpan');
         } else {
             $request->validate([

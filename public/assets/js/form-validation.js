@@ -41,6 +41,28 @@
             false
         );
     });
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const bssValidationForms = document.querySelectorAll(".needs-validation-edit");
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(bssValidationForms).forEach(function (form) {
+        form.addEventListener(
+            "submit",
+            function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    // Submit your form
+                    // alert("Submitted!!!");
+                    // form.classList.add("was-validated");
+                }
+                form.classList.add("was-validated");
+            },
+            false
+        );
+    });
 })();
 /**
  * Form Validation (https://formvalidation.io/guide/examples)

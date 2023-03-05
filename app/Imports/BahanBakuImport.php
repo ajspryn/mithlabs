@@ -19,20 +19,40 @@ class BahanBakuImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        Satuan::updateOrInsert([
-            'nama'=>$row['satuan'],
-        ]);
-        return new BahanBaku([
-            'uuid' => Uuid::uuid4(),
-            'sku' => str_replace(" ", "", $row['sku']),
-            'nama' => $row['nama'],
-            'warna' => $row['warna'],
-            'satuan' => $row['satuan'],
-            'harga' => $row['harga'],
-            'kode_vendor' => str_replace(" ", "", $row['kode_vendor']),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
+        $cek_satuan = Satuan::select()->where('nama', $row['satuan'])->get()->first();
+        if (isset($cek_satuan)) {
+            Satuan::updateOrInsert([
+                'nama' => $row['satuan'],
+            ]);
+        }
 
+        if (StokBahanBaku::select()->where('sku_bahan_baku', $row['sku'])->get()->first() == null) {
+            StokBahanBaku::updateOrInsert([
+                'sku_bahan_baku' => str_replace(" ", "", $row['sku']),
+            ]);
+        }
+
+        if (BahanBaku::select()->where('sku', $row['sku'])->get()->first() == null) {
+            BahanBaku::updateOrInsert([
+                'uuid' => Uuid::uuid4(),
+                'sku' => str_replace(" ", "", $row['sku']),
+                'nama' => $row['nama'],
+                'warna' => $row['warna'],
+                'satuan' => $row['satuan'],
+                'harga' => $row['harga'],
+            ]);
+        }
+
+        // return new BahanBaku([
+        //     'uuid' => Uuid::uuid4(),
+        //     'sku' => str_replace(" ", "", $row['sku']),
+        //     'nama' => $row['nama'],
+        //     'warna' => $row['warna'],
+        //     'satuan' => $row['satuan'],
+        //     'harga' => $row['harga'],
+        //     'kode_vendor' => str_replace(" ", "", $row['kode_vendor']),
+        //     'created_at' => Carbon::now(),
+        //     'updated_at' => Carbon::now(),
+        // ]);
     }
 }

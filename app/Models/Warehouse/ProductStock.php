@@ -18,4 +18,12 @@ class ProductStock extends Model
     {
         return $this->belongsTo(GudangPenyimpanan::class, 'kode_gudang','kode');
     }
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'sku_product', 'sku');
+    }
+    public function produksi()
+    {
+        return $this->belongsTo(produksi::class, 'sku_product', 'sku_product');
+    }
 }

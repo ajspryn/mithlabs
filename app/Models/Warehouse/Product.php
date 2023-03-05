@@ -22,4 +22,8 @@ class Product extends Model
     {
         return $this->hasMany(BahanBaku::class, 'sku', 'sku_bahan_baku');
     }
+    public function produksi()
+    {
+        return $this->hasMany(produksi::class, 'sku', 'sku_product');
+    }
 }

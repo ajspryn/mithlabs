@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Warehouse;
 
 use App\Http\Controllers\Controller;
-use App\Models\Warehouse\ProductStock;
-use App\Models\Warehouse\TransaksiProduct;
 use Illuminate\Http\Request;
 
-class ProductStockController extends Controller
+class TransaksiProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +14,7 @@ class ProductStockController extends Controller
      */
     public function index()
     {
-        return view('product.stok.index', [
-            'stoks' => ProductStock::with('product', 'gudang')->select()->get(),
-            'transaksis' => TransaksiProduct::with('product')->select()->take(5)->get(),
-        ]);
+        //
     }
 
     /**

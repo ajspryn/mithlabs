@@ -34,7 +34,7 @@ class ProductController extends Controller
         $avg_harga_jual = 0;
 
         //rata rata
-        if ($product->count()>0) {
+        if ($product->count() > 0) {
             $cogm = $product->sum('cogm');
             $avg_cogm = $cogm / $qyt_product;
             $cogs = $product->sum('cogs');
@@ -75,7 +75,7 @@ class ProductController extends Controller
         // return $request;
         if ($request->file('upload_file')) {
             Excel::import(new ProductImport, request()->file('upload_file'));
-            Excel::import(new StokProductImport, request()->file('upload_file'));
+            // Excel::import(new StokProductImport, request()->file('upload_file'));
             return redirect()->back()->with('success', 'Data Berhasil Di Simpan');
         } else {
             $request->validate([

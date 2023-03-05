@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('kode');
             $table->string('nama');
             $table->string('alamat');
-            $table->string('status');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

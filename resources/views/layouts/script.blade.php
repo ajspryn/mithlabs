@@ -51,3 +51,15 @@
     <script src="{{ url('/') }}/assets/js/pages-profile.js"></script>
     <script src="{{ url('/') }}/assets/js/dashboards-ecommerce.js"></script>
     <script src="{{ url('/') }}/assets/js/extended-ui-perfect-scrollbar.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.loading').show(); // Menampilkan spinner
+        });
+
+        $(window).on('load', function() {
+            $('.loading').fadeOut('slow', function() {
+                $(this).remove(); // Menghapus spinner setelah konten halaman dimuat
+            });
+        });
+    </script>

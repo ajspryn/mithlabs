@@ -12,4 +12,13 @@ class TransaksiProduct extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'sku_product', 'sku');
+    }
+    public function produksi()
+    {
+        return $this->belongsTo(produksi::class, 'sku_product', 'sku_product');
+    }
 }
