@@ -127,8 +127,7 @@
                 </li>
 
                 <!-- Layouts -->
-                <li
-                    class="menu-item {{ Request::is('inventory*', 'asembly*', 'product*', 'product-stock*', 'setting*', 'transaksi-bahan-baku*', 'order-bahan-baku*') ? 'active' : '' }}">
+                <li class="menu-item {{ Request::is('inventory*', 'asembly*', 'product*', 'product-stock*', 'setting*', 'transaksi-bahan-baku*', 'order-bahan-baku*') ? 'active' : '' }}">
                     <a href="javascript:void(0)" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons ti ti-building-warehouse"></i>
                         <div data-i18n="Warehouse">Warehouse</div>
@@ -152,8 +151,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li
-                            class="menu-item {{ Request::is('bahan-baku*', 'stok-bahan-baku*', 'transaksi-bahan-baku*', 'order-bahan-baku*') ? 'active' : '' }}">
+                        <li class="menu-item {{ Request::is('bahan-baku*', 'stok-bahan-baku*', 'transaksi-bahan-baku*', 'order-bahan-baku*') ? 'active' : '' }}">
                             <a href="javascript:void(0);" class="menu-link menu-toggle">
                                 <i class="menu-icon tf-icons ti ti-building-warehouse"></i>
                                 <div data-i18n="Bahan Baku">Bahan Baku</div>
@@ -198,8 +196,7 @@
                                         <div data-i18n="Kategori Product">Kategori Product</div>
                                     </a>
                                 </li>
-                                <li
-                                    class="menu-item {{ Request::is('setting/gudang-penyimpanan*') ? 'active' : '' }}">
+                                <li class="menu-item {{ Request::is('setting/gudang-penyimpanan*') ? 'active' : '' }}">
                                     <a href="/@role/gudang-penyimpanan" class="menu-link">
                                         <div data-i18n="Gudang Penyimpanan">Gudang Penyimpanan</div>
                                     </a>
@@ -259,21 +256,15 @@
                         </li>
                     </ul>
                 </li>
-                @php
-                    
-                @endphp
-
                 <!-- Layouts -->
-                <li
-                    class="menu-item {{ Request::is('warehouse/inventory*', 'warehouse/asembly*', 'warehouse/product*', 'warehouse/stok-product*', 'warehouse/setting*', 'warehouse/transaksi-bahan-baku*', 'warehouse/order-bahan-baku', 'warehouse/bahan-baku*', 'warehouse/order-bahan-baku*', 'warehouse/stok-bahan-baku*') ? 'active' : '' }}">
+                <li class="menu-item {{ Request::is('warehouse/inventory*', 'warehouse/asembly*', 'warehouse/product*', 'warehouse/stok-product*', 'warehouse/setting*', 'warehouse/transaksi-bahan-baku*', 'warehouse/order-bahan-baku', 'warehouse/bahan-baku*', 'warehouse/order-bahan-baku*', 'warehouse/stok-bahan-baku*') ? 'active' : '' }}">
                     <a href="javascript:void(0)" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons ti ti-building-warehouse"></i>
                         <div data-i18n="Warehouse">Warehouse</div>
                         <span class="badge bg-danger badge-notifications">12</span>
                     </a>
                     <ul class="menu-sub">
-                        <li
-                            class="menu-item {{ Request::is('warehouse/product*', 'warehouse/stok-product*') ? 'active' : '' }}">
+                        <li class="menu-item {{ Request::is('warehouse/product*', 'warehouse/stok-product*') ? 'active' : '' }}">
                             <a href="javascript:void(0);" class="menu-link menu-toggle">
                                 <i class="menu-icon tf-icons ti ti-building-store"></i>
                                 <div data-i18n="Product">Product</div>
@@ -291,8 +282,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li
-                            class="menu-item {{ Request::is('warehouse/bahan-baku*', 'warehouse/stok-bahan-baku*', 'warehouse/transaksi-bahan-baku*', 'warehouse/order-bahan-baku*') ? 'active' : '' }}">
+                        <li class="menu-item {{ Request::is('warehouse/bahan-baku*', 'warehouse/stok-bahan-baku*', 'warehouse/transaksi-bahan-baku*', 'warehouse/order-bahan-baku*') ? 'active' : '' }}">
                             <a href="javascript:void(0);" class="menu-link menu-toggle">
                                 <i class="menu-icon tf-icons ti ti-building-warehouse"></i>
                                 <div data-i18n="Bahan Baku">Bahan Baku</div>
@@ -308,14 +298,12 @@
                                         <div data-i18n="Stok Bahan Baku">Stok Bahan Baku</div>
                                     </a>
                                 </li>
-                                <li
-                                    class="menu-item {{ Request::is('warehouse/transaksi-bahan-baku*') ? 'active' : '' }}">
+                                <li class="menu-item {{ Request::is('warehouse/transaksi-bahan-baku*') ? 'active' : '' }}">
                                     <a href="/warehouse/transaksi-bahan-baku" class="menu-link">
                                         <div data-i18n="Transaksi Bahan Baku">Transaksi Bahan Baku</div>
                                     </a>
                                 </li>
-                                <li
-                                    class="menu-item {{ Request::is('warehouse/order-bahan-baku*') ? 'active' : '' }}">
+                                <li class="menu-item {{ Request::is('warehouse/order-bahan-baku*') ? 'active' : '' }}">
                                     <a href="/warehouse/order-bahan-baku" class="menu-link">
                                         <div data-i18n="Order Bahan Baku">Order Bahan Baku</div>
                                     </a>
@@ -328,20 +316,17 @@
                                 <div data-i18n="Setting">Setting</div>
                             </a>
                             <ul class="menu-sub">
-                                <li
-                                    class="menu-item {{ Request::is('warehouse/setting/kategori-produk*') ? 'active' : '' }}">
+                                <li class="menu-item {{ Request::is('warehouse/setting/kategori-produk*') ? 'active' : '' }}">
                                     <a href="/warehouse/setting/kategori-produk" class="menu-link">
                                         <div data-i18n="Kategori Product">Kategori Product</div>
                                     </a>
                                 </li>
-                                <li
-                                    class="menu-item {{ Request::is('warehouse/setting/pengrajin*') ? 'active' : '' }}">
+                                <li class="menu-item {{ Request::is('warehouse/setting/pengrajin*') ? 'active' : '' }}">
                                     <a href="/warehouse/setting/pengrajin" class="menu-link">
                                         <div data-i18n="Pengrajin">Pengrajin</div>
                                     </a>
                                 </li>
-                                <li
-                                    class="menu-item {{ Request::is('warehouse/setting/gudang-penyimpanan*') ? 'active' : '' }}">
+                                <li class="menu-item {{ Request::is('warehouse/setting/gudang-penyimpanan*') ? 'active' : '' }}">
                                     <a href="/warehouse/setting/gudang-penyimpanan" class="menu-link">
                                         <div data-i18n="Gudang Penyimpanan">Gudang Penyimpanan</div>
                                     </a>
@@ -367,6 +352,20 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-item {{ Request::is('warehouse/produksi*') ? 'active' : '' }}">
+                    <a href="javascript:void(0)" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons ti ti-apps-filled"></i>
+                        <div data-i18n="Produksi">Produksi</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item {{ Request::is('warehouse/produksi*') ? 'active' : '' }}">
+                            <a href="/warehouse/produksi" class="menu-link">
+                                <i class="menu-icon tf-icons ti ti-apps-filled"></i>
+                                <div data-i18n="Produksi">Produksi</div>
+                            </a>
                         </li>
                     </ul>
                 </li>

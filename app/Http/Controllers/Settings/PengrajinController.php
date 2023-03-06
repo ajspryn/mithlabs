@@ -15,8 +15,8 @@ class PengrajinController extends Controller
      */
     public function index()
     {
-        return view('settings.pengrajin',[
-            'pengrajins'=>Pengrajin::all(),
+        return view("settings.pengrajin", [
+            "pengrajins" => Pengrajin::all(),
         ]);
     }
 
@@ -39,14 +39,16 @@ class PengrajinController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kode' => 'required',
-            'nama' => 'required',
+            "kode" => "required",
+            "nama" => "required",
         ]);
 
         $input = $request->all();
 
         Pengrajin::create($input);
-        return redirect()->back()->with('success', 'Data Berhasil Di Simpan');
+        return redirect()
+            ->back()
+            ->with("success", "Data Berhasil Di Simpan");
     }
 
     /**
@@ -80,7 +82,17 @@ class PengrajinController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = [
+            "kode" => "required",
+            "nama" => "required",
+        ];
+
+        $input = $request->validate($data);
+
+        Pengrajin::where("id", $id)->update($input);
+        return redirect()
+            ->back()
+            ->with("success", "Data Berhasil Di Ubah");
     }
 
     /**
@@ -92,6 +104,8 @@ class PengrajinController extends Controller
     public function destroy($id)
     {
         Pengrajin::destroy($id);
-        return redirect()->back()->with('success', 'Data Berhasil Dihapus');
+        return redirect()
+            ->back()
+            ->with("success", "Data Berhasil Dihapus");
     }
 }

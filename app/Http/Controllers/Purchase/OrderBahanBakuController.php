@@ -55,16 +55,17 @@ class OrderBahanBakuController extends Controller
 
         foreach ($request->order_bahan_baku as $data) {
 
-            $data->validate([
-                'kode' => 'required',
-                'sku_bahan_baku' => 'required',
-                'jumlah' => 'required',
-                'kode_vendor' => 'required',
-                'kode_produksi' => 'nullable',
-                'catatan' => 'nullable',
-            ]);
+            // return $data;
+            // $data = ([
+            //     'kode' => 'required',
+            //     'sku_bahan_baku' => 'required',
+            //     'jumlah' => 'required',
+            //     'kode_vendor' => 'required',
+            //     'kode_produksi' => 'nullable',
+            //     'catatan' => 'nullable',
+            // ]);
 
-            $input = $data->all();
+            $input = $data;
             $input['kode'] = $kode_order;
             $input['status'] = 'Diajukan';
 
@@ -107,12 +108,12 @@ class OrderBahanBakuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data=([
+        $data = ([
             'catatan' => 'nullable',
             'status' => 'nullable',
         ]);
-        $input=$request->validate($data);
-        OrderBahanBaku::where('kode',$id)->update($input);
+        $input = $request->validate($data);
+        OrderBahanBaku::where('kode', $id)->update($input);
         return redirect()->back()->with('success', 'Order Telah Di Setujui');
     }
 

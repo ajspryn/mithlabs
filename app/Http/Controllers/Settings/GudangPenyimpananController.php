@@ -16,8 +16,8 @@ class GudangPenyimpananController extends Controller
      */
     public function index()
     {
-        return view('settings.gudang-penyimpanan', [
-            'gudangs' => GudangPenyimpanan::all(),
+        return view("settings.gudang-penyimpanan", [
+            "gudangs" => GudangPenyimpanan::all(),
         ]);
     }
 
@@ -40,15 +40,17 @@ class GudangPenyimpananController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kode' => 'required',
-            'nama' => 'required',
-            'alamat' => 'required',
+            "kode" => "required",
+            "nama" => "required",
+            "alamat" => "required",
         ]);
 
         $input = $request->all();
 
         GudangPenyimpanan::create($input);
-        return redirect()->back()->with('success', 'Data Berhasil Di Simpan');
+        return redirect()
+            ->back()
+            ->with("success", "Data Berhasil Di Simpan");
     }
 
     /**
@@ -82,14 +84,35 @@ class GudangPenyimpananController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $id;
-        $cek=GudangPenyimpanan::select()->where('status','Utama')->get();
-        $gudang=GudangPenyimpanan::select()->where('id',$id)->get()->first();
-        if ($cek->count()) {
-            GudangPenyimpanan::where('id',$cek->first()->id)->update(['status'=>null]);
+        // return $request;
+        if ($request->status) {
+            $cek = GudangPenyimpanan::select()
+                ->where("status", "Utama")
+                ->get();
+            $gudang = GudangPenyimpanan::select()
+                ->where("id", $id)
+                ->get()
+                ->first();
+            if ($cek->count()) {
+                GudangPenyimpanan::where("id", $cek->first()->id)->update([
+                    "status" => null,
+                ]);
+            }
+            GudangPenyimpanan::where("id", $id)->update(["status" => "Utama"]);
+        } else {
+            $data = [
+                "kode" => "required",
+                "nama" => "required",
+            ];
+
+            $input = $request->validate($data);
+
+            GudangPenyimpanan::where("id", $id)->update($input);
+            return redirect()
+                ->back()
+                ->with("success", "Data Berhasil Di Ubah");
         }
-        GudangPenyimpanan::where('id',$id)->update(['status'=>'Utama']);
-        return redirect()->back()->with('success', 'Gudang '.$gudang->nama.' Berhasil Di Jadikan Gudang Utama');
+        return redirect()->back()->with("success", "Gudang " . $gudang->nama . " Berhasil Di Jadikan Gudang Utama");
     }
 
     /**
@@ -101,6 +124,8 @@ class GudangPenyimpananController extends Controller
     public function destroy($id)
     {
         GudangPenyimpanan::destroy($id);
-        return redirect()->back()->with('success', 'Data Berhasil Dihapus');
+        return redirect()
+            ->back()
+            ->with("success", "Data Berhasil Dihapus");
     }
 }

@@ -42,8 +42,7 @@
                                             <form action="/@role/setting/vendor/{{ $vendor->id }}" method="POST" class="d-inline">
                                                 @method('delete')
                                                 @csrf
-                                                <a class="dropdown-item" href="#"
-                                                    onclick="event.preventDefault(); this.closest('form').submit();"><i class="ti ti-trash me-1"></i>
+                                                <a class="dropdown-item" href="#" onclick="event.preventDefault(); this.closest('form').submit();"><i class="ti ti-trash me-1"></i>
                                                     Delete</a>
                                             </form>
                                         </div>
@@ -68,36 +67,31 @@
                     @csrf
                     <div class="col-sm-12">
                         <label class="form-label" for="kode_vendor">Kode Vendor</label>
-                        <input type="text" id="kode_vendor" class="form-control @error('kode_vendor') is-invalid @enderror" name="kode_vendor"
-                            placeholder="Masukan Kode Vendor" required autofocus />
+                        <input type="text" id="kode_vendor" class="form-control @error('kode') is-invalid @enderror" name="kode" placeholder="Masukan Kode Vendor" required autofocus />
                         <p class="valid-feedback">Ok!</p>
                         <p class="invalid-feedback">Harus Diisi.</p>
                     </div>
                     <div class="col-sm-12">
                         <label class="form-label" for="nama">Nama</label>
-                        <input type="text" id="nama" class="form-control @error('nama') is-invalid @enderror" name="nama"
-                            placeholder="Masukan Nama Vendor" required />
+                        <input type="text" id="nama" class="form-control @error('nama') is-invalid @enderror" name="nama" placeholder="Masukan Nama Vendor" required />
                         <p class="valid-feedback">Ok!</p>
                         <p class="invalid-feedback">Harus Diisi.</p>
                     </div>
                     <div class="col-sm-12">
                         <label class="form-label" for="alamat">Alamat</label>
-                        <textarea type="text" id="alamat" class="form-control @error('alamat') is-invalid @enderror" name="alamat" placeholder="Masukan Alamat Vendor"
-                            required></textarea>
+                        <textarea type="text" id="alamat" class="form-control @error('alamat') is-invalid @enderror" name="alamat" placeholder="Masukan Alamat Vendor" required></textarea>
                         <p class="valid-feedback">Ok!</p>
                         <p class="invalid-feedback">Harus Diisi.</p>
                     </div>
                     <div class="col-sm-12">
                         <label class="form-label" for="pic">PIC Vendor</label>
-                        <input type="text" id="pic" class="form-control @error('pic') is-invalid @enderror" name="pic"
-                            placeholder="Masukan PIC Vendor" required />
+                        <input type="text" id="pic" class="form-control @error('pic') is-invalid @enderror" name="pic" placeholder="Masukan PIC Vendor" required />
                         <p class="valid-feedback">Ok!</p>
                         <p class="invalid-feedback">Harus Diisi.</p>
                     </div>
                     <div class="col-sm-12">
                         <label class="form-label" for="no_telp">No Telp</label>
-                        <input type="number" id="no_telp" class="form-control @error('no_telp') is-invalid @enderror" name="no_telp"
-                            placeholder="Masukan No Telp Vendor" required />
+                        <input type="number" id="no_telp" class="form-control @error('no_telp') is-invalid @enderror" name="no_telp" placeholder="Masukan No Telp Vendor" required />
                         <p class="valid-feedback">Ok!</p>
                         <p class="invalid-feedback">Harus Diisi.</p>
                     </div>

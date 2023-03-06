@@ -40,7 +40,7 @@ class VendorController extends Controller
     {
         // return $request;
         $request->validate([
-            'kode_vendor' => 'required',
+            'kode' => 'required',
             'nama' => 'required',
             'alamat' => 'required',
             'pic' => 'required',

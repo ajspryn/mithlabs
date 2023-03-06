@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('kode_pengrajin');
             $table->string('sku_product');
             $table->string('jumlah');
+            $table->string('status')->nullable();
             $table->text('catatan')->nullable();
             $table->timestamps();
         });

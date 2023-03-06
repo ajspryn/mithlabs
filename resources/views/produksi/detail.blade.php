@@ -12,14 +12,11 @@
                 <!-- Profile Overview -->
                 <div class="card mb-4">
                     <div class="user-profile-header-banner">
-                        <img src="{{ asset('storage/' . $produksi->product->foto_product) }}" alt="Banner image"
-                            class="rounded-top">
+                        <img src="{{ asset('storage/' . $produksi->product->foto_product) }}" alt="Banner image" class="rounded-top">
                     </div>
                     <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center">
                         <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
-                            <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG($produksi->product->sku, 'QRCODE', 15, 15) }}"
-                                alt="user image" class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img"
-                                style="background-color: white">
+                            <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG($produksi->product->sku, 'QRCODE', 15, 15) }}" alt="user image" class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" style="background-color: white">
                         </div>
                     </div>
                     <div class="card-body">
@@ -36,13 +33,14 @@
                             </li>
                         </ul>
                         <div>
-                            @if (Auth::user()->role_id == 6)
-                                <a class="btn btn-primary d-grid w-100 mb-2" href="/@role/verifikasi-product/{{ Illuminate\Support\Facades\Crypt::encryptString($orders->first()->kode) }}">
+                            @if (Auth::user()->role_id == 6 && $produksi->status == 'Diproduksi')
+                                <a class="btn btn-primary d-grid w-100 mb-2" href="/@role/verifikasi-product/{{ Illuminate\Support\Facades\Crypt::encryptString($produksi->kode) }}">
                                     <span class="d-flex align-items-center justify-content-center text-nowrap">
                                         <i class="ti ti-discount-check-filled ti-xs me-1"></i>Verifikasi
                                     </span>
                                 </a>
                             @endif
+
                             <button class="btn btn-secondary d-grid w-100" data-bs-toggle="offcanvas" data-bs-target="#addPaymentOffcanvas">
                                 <span class="d-flex align-items-center justify-content-center text-nowrap">
                                     <i class="ti ti-printer ti-xs me-1"></i>Print Bacode
@@ -72,7 +70,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <hr class="my-0" />
                         <div class="card-body">
@@ -100,20 +97,45 @@
                                     <tr>
                                         <th>SKU Bahan Baku</th>
                                         <th>Bahan Baku</th>
-                                        <th>Kebutuhan</th>
-                                        <th>Stok</th>
+                                        <th>Kebutuhan Produksi</th>
+                                        <th>Stok Gudang</th>
                                         <th>Kekurangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $cek_kekurangan=0;
+                                    @endphp
                                     @foreach ($assemblies as $assembly)
+                                    @php
+                                        $kebutuhan_produksi_lainnya=App\Models\Purchase\OrderBahanBaku::select()->whereNotNull('kode_produksi')->wherein('status',['Diajukan','Disetujui','Dipesan'])->where('sku_bahan_baku',$assembly->bahanbaku->sku)->where('kode','!=',$produksi->kode)->get()->sum('jumlah');
+                                        $stok=$assembly->stok_bahanbaku->stok;
+                                        $diorder=App\Models\Purchase\OrderBahanBaku::select()->whereNotNull('kode_produksi')->wherein('status',['Diajukan','Disetujui','Dipesan'])->where('sku_bahan_baku',$assembly->bahanbaku->sku)->get();
+                                        if ($diorder->count()>0) {
+                                            foreach ($diorder as $value) {
+                                                $tes='a';
+                                                $kebutuhan=$assembly->jumlah * $produksi->jumlah;
+                                                $sisa=max(0,($stok-$kebutuhan));
+                                                $stok=$sisa;
+                                                $cek_kekurangan=min(0,($stok-$kebutuhan));
+                                                $kekurangan=abs($cek_kekurangan);
+                                            }
+                                        }else{
+                                            $tes='b';
+                                            $kebutuhan=$assembly->jumlah * $produksi->jumlah;
+                                            $stok=$stok;
+                                            $sisa=$stok;
+                                            $cek_kekurangan=min(0,($stok-$kebutuhan));
+                                            $kekurangan=abs($cek_kekurangan);
+                                        }
+                                    @endphp
                                         <tr>
+                                            {{-- <dd>{{ $kekurangan }}</dd> --}}
                                             <td class="text-nowrap">{{ $assembly->bahanbaku->sku }}</td>
                                             <td class="text-nowrap">{{ $assembly->bahanbaku->nama }}</td>
                                             <td>{{ $assembly->jumlah * $produksi->jumlah }}</td>
-                                            <td>{{ $assembly->stok_bahanbaku->stok }}</td>
-                                            <td>{{ $assembly->jumlah * $produksi->jumlah - $assembly->stok_bahanbaku->stok }}
-                                            </td>
+                                            <td>{{ $sisa }}</td>
+                                            <td>{{ $kekurangan }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -122,6 +144,15 @@
                         <div class="card-body mx-3">
                             <div class="row">
                                 <div class="col-12">
+                                    @if (Auth::user()->role_id == 6 && $kekurangan == 0)
+                                    @if ($produksi->order)
+                                    <a class="btn btn-primary d-grid w-100 mb-2" href="/@role/verifikasi-product/{{ Illuminate\Support\Facades\Crypt::encryptString($produksi->kode) }}">
+                                        <span class="d-flex align-items-center justify-content-center text-nowrap">
+                                            <i class="ti ti-discount-check-filled ti-xs me-1"></i>Kirim Bahan Baku
+                                        </span>
+                                    </a>
+                                    @endif
+                                    @endif
                                     @if ($produksi->order->count() > 0)
                                         <a href="/@role/order-bahan-baku/{{ $produksi->order->first()->kode }}">
                                             <div class="alert alert-success d-flex align-items-center" role="alert">
@@ -142,23 +173,32 @@
                 <div class="row">
                     <!-- Teams -->
                     <div class="col-lg-12 col-xl-12">
-                        @if ($produksi->order->count() == 0)
+                        @if ($produksi->order->count() == 0 && $kekurangan > 0)
                             <div class="card card-action mb-4">
                                 <div class="card-header align-items-center">
                                     <h5 class="card-action-title mb-0">Form Order Bahan Baku</h5>
                                 </div>
                                 <div class="card-body">
                                     <form id="form" class="form-repeater" action="/@role/order-bahan-baku" method="POST">
-                                    @csrf
-                                    <div data-repeater-list="order_bahan_baku">
-                                        @foreach ($assemblies as $assembly)
-                                            @if ($assembly->jumlah * $produksi->jumlah - $assembly->stok_bahanbaku->stok > 0)
+                                        @csrf
+                                        <div data-repeater-list="order_bahan_baku">
+                                            @foreach ($assemblies as $assembly)
+                                            @php
+                                                $kebutuhan_produksi_lainnya=App\Models\Purchase\OrderBahanBaku::select()->whereNotNull('kode_produksi')->wherein('status',['Diajukan','Disetujui','Dipesan'])->where('sku_bahan_baku',$assembly->bahanbaku->sku)->get()->sum('jumlah');
+                                            @endphp
+                                                @if ($assembly->jumlah * $produksi->jumlah - $assembly->stok_bahanbaku->stok + $kebutuhan_produksi_lainnya)
+                                                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                                    <span class="alert-icon text-danger me-2">
+                                                        <i class="ti ti-exclamation-mark ti-xs"></i>
+                                                    </span>
+                                                    Tidak Boleh Ada Data Yang Kosong
+                                                </div>
                                                 <div data-repeater-item>
                                                     <div class="row">
                                                         <div class="mb-3 col-lg-12 col-xl-4 col-12 mb-0">
                                                             <label class="form-label" for="form-repeater-1-1">Bahan
                                                                 Baku</label>
-                                                            <select id="form-repeater-1-1"
+                                                                <select id="form-repeater-1-1"
                                                                 class="form-select @error('sku_bahan_baku') is-invalid @enderror"
                                                                 name="sku_bahan_baku" required readonly>
                                                                 <option value="">Pilih Bahan Baku</option>
@@ -171,25 +211,25 @@
                                                         <div class="mb-3 col-lg-12 col-xl-4 col-12 mb-0">
                                                             <label class="form-label" for="form-repeater-1-2">Vendor</label>
                                                             <select id="form-repeater-1-2"
-                                                                class="form-select @error('kode_vendor') is-invalid @enderror"
-                                                                name="kode_vendor" required>
-                                                                <option value="">Pilih Vendor</option>
-                                                                @foreach ($vendors as $vendor)
-                                                                    <option value="{{ $vendor->kode }}">
-                                                                        {{ $vendor->nama }}</option>
+                                                            class="form-select @error('kode_vendor') is-invalid @enderror"
+                                                            name="kode_vendor" required>
+                                                            <option value="">Pilih Vendor</option>
+                                                            @foreach ($vendors as $vendor)
+                                                            <option value="{{ $vendor->kode }}">
+                                                                {{ $vendor->nama }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
                                                         <div class="mb-3 col-lg-12 col-xl-2 col-12 mb-0">
                                                             <label class="form-label" for="form-repeater-1-3">Jumlah</label>
                                                             <input type="number" id="form-repeater-1-3" name="jumlah"
-                                                                class="form-control @error('jumlah') is-invalid @enderror"
-                                                                placeholder="Masukan Jumlah" required
-                                                                value="{{ $assembly->jumlah * $produksi->jumlah - $assembly->stok_bahanbaku->stok }}" />
+                                                            class="form-control @error('jumlah') is-invalid @enderror"
+                                                            placeholder="Masukan Jumlah" required
+                                                            value="{{ $kekurangan }}" />
                                                         </div>
                                                         <input type="hidden" id="form-repeater-1-4" name="kode_produksi"
-                                                                class="form-control @error('kode_produksi') is-invalid @enderror" required
-                                                                value="{{ $produksi->kode }}" />
+                                                        class="form-control @error('kode_produksi') is-invalid @enderror" required
+                                                        value="{{ $produksi->kode }}" />
                                                         <div
                                                             class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
                                                             <button class="btn btn-label-danger mt-4" data-repeater-delete>
@@ -200,32 +240,27 @@
                                                     </div>
                                                     <hr />
                                                 </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                    <div class="mb-3 col-lg-6 col-xl-12 col-12 mb-0">
-                                        <button class="btn btn-outline-primary" data-repeater-create>
-                                            <i class="ti ti-plus me-1"></i>
-                                            <span class="align-middle">Add</span>
-                                        </button>
-                                        <button class="btn btn-primary"
-                                            onclick="event.preventDefault(); document.getElementById('form').submit();">
-                                            Order
-                                        </button>
-                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                        <div class="mb-3 col-lg-6 col-xl-12 col-12 mb-0">
+                                            <button class="btn btn-outline-primary" data-repeater-create>
+                                                <i class="ti ti-plus me-1"></i>
+                                                <span class="align-middle">Add</span>
+                                            </button>
+                                            <button class="btn btn-primary"
+                                                onclick="event.preventDefault(); document.getElementById('form').submit();">
+                                                Order
+                                            </button>
+                                        </div>
                                     </form>
                                 </div>
-                            </div>
-                        @endif
-                    </div>
-                    <!--/ Teams -->
-                </div>
-            </div>
-        </div>
-        <!--/ User Profile Content -->
-
-
-
-    </div>
-    <!--/ Content -->
+                            </div> @endif
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--/ Teams -->                                                                                                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--/ User Profile Content -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <!--/ Content -->
 @endsection

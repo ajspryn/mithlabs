@@ -24,9 +24,9 @@ class ProduksiController extends Controller
     {
         // $data= Produksi::with('product','pengrajin','qc')->select()->get();
         // return $dat;
-        $produksi=Produksi::with('product','pengrajin','qc')->orderBy('id', 'desc')->select()->limit(9)->get();
-        if(request('sku_product')){
-            $produksi=Produksi::with('product','pengrajin','qc')->orderBy('id', 'desc')->select()->where('sku_product',request('sku_product'))->whereYear('created_at',request('tahun'))->get();
+        $produksi = Produksi::with('product', 'pengrajin', 'qc')->orderBy('id', 'desc')->select()->limit(9)->get();
+        if (request('sku_product')) {
+            $produksi = Produksi::with('product', 'pengrajin', 'qc')->orderBy('id', 'desc')->select()->where('sku_product', request('sku_product'))->whereYear('created_at', request('tahun'))->get();
         }
         return view('produksi.index', [
             'produksis' => $produksi,
@@ -53,6 +53,7 @@ class ProduksiController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         $produksi = Produksi::select()->where('sku_product', $request->sku_product)->get()->count();
         $request->validate([
             'kode_pengrajin' => 'required',
@@ -62,11 +63,12 @@ class ProduksiController extends Controller
         ]);
 
         $input = $request->all();
+        $input['status'] = 'Planing Produksi';
         $input['batch'] = $produksi + 1;
         $input['kode'] = $input['sku_product'] . '-' . $input['kode_pengrajin'] . '-' . Carbon::now()->format('m-y') . '-' . sprintf('%03d', $produksi + 1);
         // return $input['kode'];
         Produksi::create($input);
-        return redirect(Auth::user()->role->role.'/produksi'.'/'.$input['kode']);
+        return redirect(Auth::user()->role->role . '/produksi' . '/' . $input['kode']);
     }
 
     /**
@@ -77,14 +79,14 @@ class ProduksiController extends Controller
      */
     public function show($id)
     {
-        $produksi=Produksi::with('product','pengrajin','qc','assembly','order')->select()->where('kode',$id)->get()->first();
-        $assembly= Assembly::with('bahanbaku','stok_bahanbaku')->select()->where('sku_product',$produksi->product->sku)->get()->first();
-        // return $produksi;
-        return view('produksi.detail',[
-            'produksi'=>$produksi,
-            'produksis'=>Produksi::with('product','pengrajin','qc')->select()->where('kode',$id)->get(),
-            'assemblies'=>Assembly::with('bahanbaku')->select()->where('sku_product',$produksi->product->sku)->get(),
-            'vendors'=>Vendor::all(),
+        $produksi = Produksi::with('product', 'pengrajin', 'qc', 'assembly', 'order')->select()->where('kode', $id)->get();
+        // $assembly = Assembly::with('bahanbaku', 'stok_bahanbaku')->select()->where('sku_product', $produksi->product->sku)->get()->first();
+        // return $produksi->first();
+        return view('produksi.detail', [
+            'produksi' => $produksi->first(),
+            'produksis' => $produksi,
+            'assemblies' => Assembly::with('bahanbaku')->select()->where('sku_product', $produksi->first()->product->sku)->get(),
+            'vendors' => Vendor::all(),
         ]);
     }
 

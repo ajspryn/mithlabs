@@ -16,8 +16,8 @@ class KategoriProductController extends Controller
      */
     public function index()
     {
-        return view('settings.kategori-produk', [
-            'kategoris' => KategoriProduct::all(),
+        return view("settings.kategori-produk", [
+            "kategoris" => KategoriProduct::all(),
         ]);
     }
 
@@ -40,14 +40,16 @@ class KategoriProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kode' => 'required',
-            'nama' => 'required',
+            "kode" => "required",
+            "nama" => "required",
         ]);
 
         $input = $request->all();
 
         KategoriProduct::create($input);
-        return redirect()->back()->with('success', 'Data Berhasil Di Simpan');
+        return redirect()
+            ->back()
+            ->with("success", "Data Berhasil Di Simpan");
     }
 
     /**
@@ -81,7 +83,18 @@ class KategoriProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // return $request;
+        $data = [
+            "kode" => "required",
+            "nama" => "required",
+        ];
+
+        $input = $request->validate($data);
+
+        KategoriProduct::where("id", $id)->update($input);
+        return redirect()
+            ->back()
+            ->with("success", "Data Berhasil Di Ubah");
     }
 
     /**
@@ -93,6 +106,8 @@ class KategoriProductController extends Controller
     public function destroy($id)
     {
         KategoriProduct::destroy($id);
-        return redirect()->back()->with('success', 'Data Berhasil Dihapus');
+        return redirect()
+            ->back()
+            ->with("success", "Data Berhasil Dihapus");
     }
 }
