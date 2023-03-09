@@ -26,4 +26,8 @@ class Product extends Model
     {
         return $this->hasMany(produksi::class, 'sku', 'sku_product');
     }
+    public function assembly()
+    {
+        return $this->hasMany(Assembly::class, 'sku_product', 'sku');
+    }
 }

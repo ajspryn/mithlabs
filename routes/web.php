@@ -59,6 +59,7 @@ Route::prefix('owner')->middleware(['auth:sanctum', 'verified', 'role:2'])->grou
 //accounting
 Route::prefix('accounting')->middleware(['auth:sanctum', 'verified', 'role:3'])->group(function () {
     Route::resource('/order-bahan-baku', OrderBahanBakuController::class);
+    Route::resource('/produksi', ProduksiController::class);
 });
 
 //production
@@ -84,6 +85,7 @@ Route::prefix('warehouse')->middleware(['auth:sanctum', 'verified', 'role:6'])->
     Route::prefix('setting')->group(function () {
         Route::resource('/gudang-penyimpanan', GudangPenyimpananController::class);
         Route::resource('/kategori-produk', KategoriProductController::class);
+        Route::resource('/kategori', KategoriProductController::class);
         Route::resource('/brand', BrandController::class);
         Route::resource('/satuan', SatuanController::class);
         Route::resource('/satuan', SatuanController::class);

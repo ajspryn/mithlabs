@@ -15,8 +15,7 @@
             </div>
         @endif
 
-        <form
-            action="/@role/verifikasi-bahan-baku/{{ Illuminate\Support\Facades\Crypt::encryptString($orders->first()->kode) }}"
+        <form action="/@role/verifikasi-bahan-baku/{{ Illuminate\Support\Facades\Crypt::encryptString($orders->first()->kode) }}"
             method="POST">
             @method('put')
             @csrf
@@ -28,7 +27,7 @@
                         autocomplete />
                 </div>
                 <p class="text-center mb-0 px-3">Atau Ketikan SKU Bahan Baku</p>
-                <p class="text-center mb-0 px-3"><a href="/order-bahan-baku/{{ $orders->first()->kode }}"><i
+                <p class="text-center mb-0 px-3"><a href="/@role/order-bahan-baku/{{ $orders->first()->kode }}"><i
                             class="ti ti-arrow-narrow-left"></i>Kembali</a></p>
             </div>
         </form>
@@ -166,16 +165,15 @@
                             <div class="col-12">
                                 @if ($order->first()->order)
                                     <span class="fw-semibold">Catatan Produksi:</span>
-                                    <span>{{ $order->first()->produksi->catatan }}</span>
-                                @endif
+                                    <span>{{ $order->first()->produksi->catatan }}</span> @endif
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- /Invoice -->
             </div>
-            <!-- /Invoice -->
-        </div>
 
-    </div>
-    <!--/ Content -->
+        </div>
+        <!--/ Content -->
 @endsection

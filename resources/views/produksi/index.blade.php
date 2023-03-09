@@ -7,23 +7,32 @@
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
 
-        <div class="row my-4">
-            <div class="col">
-                <div class="accordion" id="collapsibleSection">
-                    <div class="card accordion-item">
-                        <h2 class="accordion-header" id="headingDeliveryAddress">
-                            <button type="button" class="accordion-button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseDeliveryAddress" aria-expanded="true"
-                                aria-controls="collapseDeliveryAddress"> Tambah Produksi </button>
-                        </h2>
-                        <div id="collapseDeliveryAddress" class="accordion-collapse collapse"
-                            data-bs-parent="#collapsibleSection">
-                            <div class="accordion-body">
-                                <div class="row g-3">
-                                    <form class="needs-validation pt-0 row g-2" novalidate id="form-edit-product"
-                                        method="post"
-                                        action="/@role/produksi" enctype="multipart/form-data">
+        @if (Auth::user()->role_id == 2 || Auth::user()->role_id == 6)
+            <div class="row my-4">
+                <div class="col">
+                    <div class="accordion" id="collapsibleSection">
+                        <div class="card accordion-item">
+                            <h2 class="accordion-header" id="headingDeliveryAddress">
+                                <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseDeliveryAddress" aria-expanded="true" aria-controls="collapseDeliveryAddress"><i class="ti ti-circle-plus"> </i> Tambah Produksi </button>
+                            </h2>
+                            <div id="collapseDeliveryAddress" class="accordion-collapse collapse" data-bs-parent="#collapsibleSection">
+                                <div class="accordion-body">
+                                    <div class="alert alert-danger alert-dismissible d-flex align-items-baseline" role="alert">
+                                        <span class="alert-icon alert-icon-lg text-danger me-2">
+                                            <i class="ti ti-alert-circle ti-sm"></i>
+                                        </span>
+                                        <div class="d-flex flex-column ps-1">
+                                            <h5 class="alert-heading mb-2">Perhatian !</h5>
+                                            <p class="mb-0">- Pastikan produk yang ingin di produksi sudah memiliki assembly</p>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3">
+                                        <form class="needs-validation pt-0 row g-2" novalidate id="form-edit-product" method="post"
+                                            action="/@role/produksi" enctype="multipart/form-data">
                                         @csrf
+                                        @if (Auth::user()->role_id == 2)
                                         <div class="col-sm-5">
                                             <label class="form-label" for="pengrajin">Pengrajin</label>
                                             <select class="form-select @error('kode_pengrajin') is-invalid @enderror"
@@ -39,16 +48,19 @@
                                             <div class="valid-feedback">Ok!</div>
                                             <div class="invalid-feedback">Harus Diisi.</div>
                                         </div>
+                                        @endif
                                         <div class="col-sm-5">
                                             <label class="form-label" for="product">Product</label>
                                             <select class="form-select @error('sku_product') is-invalid @enderror"
                                                 name="sku_product" id="product" required>
                                                 <option value="">Pilih Product</option>
                                                 @foreach ($products as $product)
-                                                    <option value="{{ $product->sku }}"
-                                                        {{ old('sku_product') == $product->sku ? 'selected' : '' }}>
-                                                        {{ $product->nama }} ({{ $product->warna }})
-                                                    </option>
+                                                    @if ($product->assembly->count() > 0)
+                                                        <option value="{{ $product->sku }}"
+                                                            {{ old('sku_product') == $product->sku ? 'selected' : '' }}>
+                                                            {{ $product->nama }} ({{ $product->warna }})
+                                                        </option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                             <div class="valid-feedback">Ok!</div>
@@ -82,6 +94,7 @@
                 </div>
             </div>
         </div>
+        @endif
 
         <!-- Examples -->
         <div class="row mb-5">
@@ -138,8 +151,11 @@
                                             <div class="me-2 ms-1">
                                                 <h5 class="mb-0"><a href="javascript:;"
                                                         class="stretched-link text-body">{{ $produksi->product->nama }}</a></h5>
-                                                <div class="client-info"><strong>Pengrajin: </strong><span
-                                                        class="text-muted">{{ $produksi->pengrajin->nama }}</span></div>
+                                                <div class="client-info"><strong>Pengrajin: </strong>
+                                                    @if ($produksi->pengrajin)
+                                                    <span class="text-muted">{{ $produksi->pengrajin->nama }}</span>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="ms-auto">
@@ -167,6 +183,19 @@
                                             </h6>
                                             <h6 class="mb-1">Batch: <span class="text-body fw-normal">{{ $produksi->batch }}</span>
                                             </h6>
+                                            @if ($produksi->status == 'Planning Produksi')
+                                                <span class="badge rounded-pill bg-label-warning">{{ $produksi->status }}</span>
+                                            @elseif ($produksi->status == 'Produksi Disetujui')
+                                                <span class="badge rounded-pill bg-label-success">{{ $produksi->status }}</span>
+                                            @elseif ($produksi->status == 'Produksi Ditolak')
+                                                <span class="badge rounded-pill bg-label-danger">{{ $produksi->status }}</span>
+                                            @elseif ($produksi->status == 'Bahan Baku Dipesan')
+                                                <span class="badge rounded-pill bg-label-warning">{{ $produksi->status }}</span>
+                                            @elseif ($produksi->status == 'Bahan Baku Dikirim')
+                                                <span class="badge rounded-pill bg-label-secondary">{{ $produksi->status }}</span>
+                                            @elseif ($produksi->status == 'Sedang Di Produksi')
+                                                <span class="badge rounded-pill bg-label-info">{{ $produksi->status }}</span>
+                                            @endif
                                         </div>
                                     </div>
                                     <p class="mb-0">Warna : {{ $produksi->product->warna }}</p>
@@ -193,20 +222,19 @@
                                             <small>{{ ($produksi->qc->count() / $produksi->jumlah) * 100 }}%</small>
                                         </div> @endif
                                 <div class="progress
-                                        mb-2" style="height: 8px;">
-                                        <div class="progress-bar" role="progressbar" style="width: 95%;" aria-valuenow="95"
-                                            aria-valuemin="0" aria-valuemax="100">
-                                        </div>
+                                            mb-2" style="height: 8px;">
+                                            <div class="progress-bar" role="progressbar" style="width: 95%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">
+                                            </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    @endforeach
-                </div>
-                <!--/ Project Cards -->
-            </div>
-        </div>
-        <!-- Examples -->
+        @endforeach
+    </div>
+    <!--/ Project Cards -->
+    </div>
+    </div>
+    <!-- Examples -->
 
     </div>
     <!--/ Content -->

@@ -1,62 +1,47 @@
 [
     {
         "id": 1,
-        "kode": "MAW070Z-NAB-NavyBlack-P001-03-23-001",
+        "kode": "SOK120Z-Black-P.A P.G-03-23-001",
         "batch": "1",
-        "kode_pengrajin": "P001",
-        "sku_product": "MAW070Z-NAB-NavyBlack",
-        "jumlah": "10",
+        "kode_pengrajin": "P.A P.G",
+        "sku_product": "SOK120Z-Black",
+        "jumlah": "12",
+        "status": "Planing Produksi",
         "catatan": null,
-        "created_at": "2023-03-06T04:06:28.000000Z",
-        "updated_at": "2023-03-06T04:06:28.000000Z",
-        "order": []
-    },
-    {
-        "id": 2,
-        "kode": "MAW070Z-NAB-NavyBlack-P001-03-23-002",
-        "batch": "2",
-        "kode_pengrajin": "P001",
-        "sku_product": "MAW070Z-NAB-NavyBlack",
-        "jumlah": "5",
-        "catatan": null,
-        "created_at": "2023-03-06T04:16:33.000000Z",
-        "updated_at": "2023-03-06T04:16:33.000000Z",
-        "order": []
+        "created_at": "2023-03-07T08:15:27.000000Z",
+        "updated_at": "2023-03-07T08:15:27.000000Z",
+        "assembly": [
+            {
+                "id": 15,
+                "sku_product": "SOK120Z-Black",
+                "sku_bahan_baku": "BB2",
+                "jumlah": "4",
+                "satuan": "Meter",
+                "created_at": "2023-03-07T09:58:30.000000Z",
+                "updated_at": "2023-03-07T09:58:30.000000Z"
+            }
+        ]
     },
     {
         "id": 3,
-        "kode": "MAW070Z-NAB-NavyBlack-P001-03-23-003",
-        "batch": "3",
-        "kode_pengrajin": "P001",
-        "sku_product": "MAW070Z-NAB-NavyBlack",
-        "jumlah": "5",
-        "catatan": null,
-        "created_at": "2023-03-06T04:26:53.000000Z",
-        "updated_at": "2023-03-06T04:26:53.000000Z",
-        "order": []
-    },
-    {
-        "id": 4,
-        "kode": "MAW070Z-NAB-NavyBlack-P001-03-23-004",
-        "batch": "4",
-        "kode_pengrajin": "P001",
-        "sku_product": "MAW070Z-NAB-NavyBlack",
+        "kode": "SOK120Z-Black-P.A-03-23-002",
+        "batch": "2",
+        "kode_pengrajin": "P.A",
+        "sku_product": "SOK120Z-Black",
         "jumlah": "20",
+        "status": "Planing Produksi",
         "catatan": null,
-        "created_at": "2023-03-06T04:46:30.000000Z",
-        "updated_at": "2023-03-06T04:46:30.000000Z",
-        "order": [
+        "created_at": "2023-03-07T13:02:59.000000Z",
+        "updated_at": "2023-03-07T13:02:59.000000Z",
+        "assembly": [
             {
-                "id": 1,
-                "kode": "23.001",
-                "sku_bahan_baku": "GK20-23NK",
-                "kode_produksi": "MAW070Z-NAB-NavyBlack-P001-03-23-004",
-                "jumlah": "50",
-                "status": "Diajukan",
-                "kode_vendor": "V-001",
-                "catatan": null,
-                "created_at": "2023-03-06T04:47:29.000000Z",
-                "updated_at": "2023-03-06T04:47:29.000000Z"
+                "id": 15,
+                "sku_product": "SOK120Z-Black",
+                "sku_bahan_baku": "BB2",
+                "jumlah": "4",
+                "satuan": "Meter",
+                "created_at": "2023-03-07T09:58:30.000000Z",
+                "updated_at": "2023-03-07T09:58:30.000000Z"
             }
         ]
     }

@@ -47,7 +47,11 @@ class TransaksiBahanBakuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->status == 'Masuk') {
+            return $request;
+        } elseif ($request->status == 'Keluar') {
+            return $request;
+        }
     }
 
     /**

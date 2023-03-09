@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('kode')->unique();
             $table->string('batch');
-            $table->string('kode_pengrajin');
+            $table->string('kode_pengrajin')->nullable();
             $table->string('sku_product');
             $table->string('jumlah');
             $table->string('status')->nullable();

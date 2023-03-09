@@ -79,7 +79,16 @@ class SatuanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = [
+            "nama" => "required",
+        ];
+
+        $input = $request->validate($data);
+
+        Satuan::where("id", $id)->update($input);
+        return redirect()
+            ->back()
+            ->with("success", "Data Berhasil Di Ubah");
     }
 
     /**

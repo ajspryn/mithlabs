@@ -38,5 +38,4 @@ class Produksi extends Model
     {
         return $this->hasMany(Assembly::class, 'sku_product', 'sku_product');
     }
-
 }

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('kode_produksi')->nullable();
             $table->string('jumlah');
             $table->string('status');
-            $table->string('kode_vendor');
+            $table->string('kode_vendor')->nullable();
             $table->text('catatan')->nullable();
             $table->timestamps();
         });

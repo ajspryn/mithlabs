@@ -11,6 +11,8 @@
     <script src="{{ url('/') }}/assets/vendor/libs/typeahead-js/typeahead.js"></script>
 
     <script src="{{ url('/') }}/assets/vendor/js/menu.js"></script>
+    {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
@@ -63,4 +65,22 @@
                 $(this).remove(); // Menghapus spinner setelah konten halaman dimuat
             });
         });
+    </script>
+
+    <script>
+        function deleteConfirmation() {
+            swal({
+                    title: "Apakah Anda yakin ingin menghapus data ini?",
+                    icon: "warning",
+                    buttons: ["Tidak", "Ya"],
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        document.forms[0].submit();
+                    } else {
+                        return false;
+                    }
+                });
+        }
     </script>

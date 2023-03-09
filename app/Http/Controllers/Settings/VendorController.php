@@ -84,7 +84,20 @@ class VendorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = [
+            'kode' => 'required',
+            'nama' => 'required',
+            'alamat' => 'required',
+            'pic' => 'required',
+            'no_telp' => 'required',
+        ];
+
+        $input = $request->validate($data);
+
+        Vendor::where("id", $id)->update($input);
+        return redirect()
+            ->back()
+            ->with("success", "Data Berhasil Di Ubah");
     }
 
     /**

@@ -45,9 +45,7 @@
                                         <div class="card mb-3">
                                             <div class="row g-0">
                                                 <div class="col-md-4">
-                                                    <img class="card-img card-img-left"
-                                                        src="{{ asset('storage/' . $product->foto_product) }}"
-                                                        alt="Card image" />
+                                                    <img class="card-img card-img-left" src="{{ asset('storage/' . $product->foto_product) }}" alt="Card image" />
                                                     {{-- {!! DNS2D::getBarcodeHTML($product->sku, 'QRCODE') !!} --}}
                                                 </div>
                                                 <div class="col-md-5">
@@ -91,25 +89,17 @@
                                                         </p>
                                                         <p class="card-text"><small class="text-muted">Active At
                                                                 {{ $product->active_at }}</small></p>
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-toggle="offcanvas" data-bs-target="#edit-product"
-                                                            aria-controls="offcanvasEnd">
-                                                            <i class="ti ti-edit me-1"></i> <span
-                                                                class="d-none d-sm-inline-block">Edit</span>
+                                                        <button type="button" class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#edit-product" aria-controls="offcanvasEnd">
+                                                            <i class="ti ti-edit me-1"></i> <span class="d-none d-sm-inline-block">Edit</span>
                                                         </button>
-                                                        @if (Auth::user()->role->role)
-                                                            <a href="/owner/produksi" class="btn btn-primary"
-                                                                aria-controls="offcanvasEnd">
-                                                                <span class="ti ti ti-plus me-1"></span>Buat Plan
-                                                            </a>
-                                                        @endif
+                                                        <a href="/@role/produksi" class="btn btn-primary" aria-controls="offcanvasEnd">
+                                                            <span class="ti ti ti-plus me-1"></span>Buat Plan
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="card-body">
-                                                        <img class="card-img"
-                                                            src="data:image/png;base64,{{ DNS2D::getBarcodePNG($product->sku, 'QRCODE', 15, 15) }}"
-                                                            alt="Card image" />
+                                                        <img class="card-img" src="data:image/png;base64,{{ DNS2D::getBarcodePNG($product->sku, 'QRCODE', 15, 15) }}" alt="Card image" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -119,12 +109,10 @@
                                     <div class="offcanvas offcanvas-end" id="edit-product">
                                         <div class="offcanvas-header border-bottom">
                                             <h5 class="offcanvas-title" id="exampleModalLabel">Form Edit Produk</h5>
-                                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                                                aria-label="Close"></button>
+                                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                         </div>
                                         <div class="offcanvas-body flex-grow-1">
-                                            <form class="needs-validation pt-0 row g-2" novalidate id="form-edit-product"
-                                                method="post" action="/@role/product/{{ $product->uuid }}"
+                                            <form class="needs-validation pt-0 row g-2" novalidate id="form-edit-product" method="post" action="/@role/product/{{ $product->uuid }}"
                                                     enctype="multipart/form-data">
                                                     @method('put')
                                                     @csrf
@@ -613,11 +601,11 @@
                                             </button>
                                         </div>
                                     </form> @endif
+                                                    </div>
+                                                </div>
                                             </div>
+                                            <!-- /Vertical Icons Wizard -->
                                         </div>
                                     </div>
-                                    <!-- /Vertical Icons Wizard -->
-                                </div>
-                            </div>
-                            <!--/ Content -->
+                                    <!--/ Content -->
         @endsection

@@ -41,7 +41,7 @@ class HomeController extends Controller
             } else if ($role == 2) {
                 $nama_role = 'Owner';
             } else if ($role == 3) {
-                $nama_role = 'Purchase';
+                $nama_role = 'Accounting';
             } else if ($role == 4) {
                 $nama_role = 'Production';
             } else if ($role == 5) {

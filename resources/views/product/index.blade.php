@@ -279,11 +279,13 @@
                                         </form>
                                         <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
                                             <span class="alert-icon text-danger me-2">
-                                                <i class="ti ti-ban ti-xs"></i>
+                                                <i class="ti ti-alert-circle ti-xs"></i>
                                             </span>
                                             <div class="d-flex flex-column ps-1">
                                                 <h5 class="alert-heading mb-2">Perhatian !!!</h5>
-                                                <p class="mb-0">- Pastikan Semua Data Setting Sudah Diisi Semua</p>
+                                                <p class="mb-0">- Jika Mengunakan Format xlsx Data Minimal 5 Jika Menggunakan Format CSV Minimal 1</p>
+                                                <p class="mb-0">- Pastikan Semua Data Setting Sudah Di isi Semua</p>
+                                                <p class="mb-0">- Jika Data Setting Belum Di isi / Tidak Ada, Maka Data Pada Exel/CSV Maka Akan Di input Otomatis</p>
                                                 <p class="mb-0">- Sesuainkan Format Excel/CSV Sesuai Dengan Ketentuan <a href="/import/products.xlsx">(Download Format Disini)</a></p>
                                             </div>
                                         </div>

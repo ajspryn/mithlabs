@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Settings\Vendor;
 use App\Models\Warehouse\BahanBaku;
 use App\Http\Controllers\Controller;
+use App\Models\Produksi\Produksi;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Purchase\OrderBahanBaku;
 
@@ -56,7 +58,7 @@ class OrderBahanBakuController extends Controller
         foreach ($request->order_bahan_baku as $data) {
 
             // return $data;
-            // $data = ([
+            // $cek = ([
             //     'kode' => 'required',
             //     'sku_bahan_baku' => 'required',
             //     'jumlah' => 'required',
@@ -66,8 +68,13 @@ class OrderBahanBakuController extends Controller
             // ]);
 
             $input = $data;
+            // return $input;
             $input['kode'] = $kode_order;
             $input['status'] = 'Diajukan';
+            if (Auth::user()->role_id == 3) {
+                $input['status'] = 'Dipesan';
+                Produksi::where('kode', $input['kode_produksi'])->update(['status' => 'Bahan Baku Dipesan']);
+            }
 
             OrderBahanBaku::create($input);
         }
@@ -85,6 +92,9 @@ class OrderBahanBakuController extends Controller
         // return OrderBahanBaku::with('bahanbaku','vendor','produksi')->select()->where('kode',$id)->get();
         return view('bahan-baku.order.detail', [
             'orders' => OrderBahanBaku::with('bahanbaku', 'vendor', 'produksi')->select()->where('kode', $id)->get(),
+            // 'orders' => OrderBahanBaku::select('kode')->groupBy('kode')->get(),
+            'bahan_bakus' => BahanBaku::select()->get(),
+            'vendors' => Vendor::all(),
         ]);
     }
 

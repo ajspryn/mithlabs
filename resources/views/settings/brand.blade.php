@@ -36,7 +36,8 @@
                                             <form action="/@role/setting/brand/{{ $brand->id }}" method="POST" class="d-inline">
                                                 @method('delete')
                                                 @csrf
-                                                <a class="dropdown-item" href="#" onclick="event.preventDefault(); this.closest('form').submit();"><i class="ti ti-trash me-1"></i>Delete</a>
+                                                {{-- <a class="dropdown-item" href="#" onclick="return swal({title:'Apakah Anda yakin ingin menghapus data ini?',icon:'warning',buttons:['Tidak','Ya'],dangerMode:true,}).then((willDelete) => {if (willDelete) {this.closest('form').submit();} else {return false;}});"><i class="ti ti-trash me-1"></i>Delete</a> --}}
+                                                <a class="dropdown-item" href="#" onclick="return Swal.fire({title:'Apakah Anda yakin ingin menghapus data ini?',icon:'warning',showCancelButton:true,confirmButtonText:'Ya',cancelButtonText:'Tidak',reverseButtons:true}).then((result) => {if (result.isConfirmed) {this.closest('form').submit();} else {return false;}});"><i class="ti ti-trash me-1"></i>Delete</a>
                                             </form>
                                         </div>
                                     </div>
@@ -106,4 +107,6 @@
 
     </div>
     <!--/ Content -->
+
+
 @endsection

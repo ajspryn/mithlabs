@@ -80,7 +80,17 @@ class WarnaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = [
+            "nama" => "required",
+            "kode" => "required",
+        ];
+
+        $input = $request->validate($data);
+
+        Warna::where("id", $id)->update($input);
+        return redirect()
+            ->back()
+            ->with("success", "Data Berhasil Di Ubah");
     }
 
     /**
